@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for package in {{ range .packages.brews -}} {{ . | quote }} {{ end -}}; do
+    brew install "$package"
+done
+
+for flatpak in {{ range .packages.flatpaks -}} {{ . | quote }} {{ end -}}; do
+    flatpak install --system -y "$flatpak"
+done

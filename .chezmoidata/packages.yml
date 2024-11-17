@@ -1,0 +1,26 @@
+packages:
+  brews:
+  - ffmpeg
+  - mpv
+  - pandoc
+  flatpaks:
+  - io.gitlab.librewolf-community
+  - org.signal.Signal
+  - org.asamk.SignalCli # use Signal in terminal
+  - io.github.ungoogled_software.ungoogled_chromium
+  - com.calibre_ebook.calibre
+  - org.torproject.torbrowser-launcher
+  - com.protonvpn.www
+  - ch.protonmail.protonmail-bridge
+  - org.videolan.VLC
+  - com.github.jeromerobert.pdfarranger
+  - org.gnome.Calculator
+  - org.gnome.Calendar
+  - org.gnome.clocks
+  - org.gnome.TextEditor
+  - org.gnome.Loupe
+  - org.gnome.Evince
+  - org.mozilla.Thunderbird
+  - org.fedoraproject.MediaWriter
+  - it.mijorus.gearlever # launch appimages
+  - com.vscodium.codium
