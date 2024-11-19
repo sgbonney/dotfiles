@@ -1,0 +1,3 @@
+[".fluidbuild"]
+    type = "git-repo"
+    url = "git@github.com:sgbonney/fluidbuild.git"
