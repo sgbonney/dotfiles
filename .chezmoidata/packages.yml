@@ -3,6 +3,7 @@ packages:
   - ffmpeg
   - mpv
   - pandoc
+  - ripgrep
   flatpaks:
   - io.gitlab.librewolf-community
   - org.signal.Signal
