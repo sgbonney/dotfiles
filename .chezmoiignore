@@ -1,5 +1,7 @@
 {{- if ne .chezmoi.os "android" }}
 .var
+{{- end }}
+
 {{- if ne .chezmoi.os "android" }}
 .obtainium
 {{- end }}
