@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 
 for package in {{ range .packages.brews -}} {{ . | quote }} {{ end -}}; do
@@ -7,3 +8,8 @@ done
 for flatpak in {{ range .packages.flatpaks -}} {{ . | quote }} {{ end -}}; do
     flatpak install --system -y "$flatpak"
 done
+
+{{ else if eq .chezmoi.os "android" -}}
+#!/bin/sh
+pkg install ripgrep
+{{ end -}}
