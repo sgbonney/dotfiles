@@ -1,0 +1,23 @@
+{{ if eq .chezmoi.os "android" -}}
+#!/bin/bash
+
+# Define the directory and file names
+SSH_DIR="$HOME/.ssh"
+AUTH_SOCK_FILE="$SSH_DIR/ssh_auth_sock"
+
+# Create the .ssh directory if it doesn't exist
+if [ ! -d "$SSH_DIR" ]; then
+    mkdir -p "$SSH_DIR"
+    echo "Created directory: $SSH_DIR"
+else
+    echo "Directory already exists: $SSH_DIR"
+fi
+
+# Create the ssh_auth_sock file if it doesn't exist
+if [ ! -f "$AUTH_SOCK_FILE" ]; then
+    touch "$AUTH_SOCK_FILE"
+    echo "Created file: $AUTH_SOCK_FILE"
+else
+    echo "File already exists: $AUTH_SOCK_FILE"
+fi
+{{ end -}}
