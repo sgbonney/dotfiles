@@ -1,0 +1,16 @@
+{{- if eq .chezmoi.os "android" }}
+# Start the SSH agent if it's not already running
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    eval $(ssh-agent)
+fi
+
+# Wait a moment to ensure SSH_AUTH_SOCK is set
+sleep 1
+
+# Create a symbolic link to the current SSH_AUTH_SOCK
+if [ -n "$SSH_AUTH_SOCK" ]; then
+    ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock"
+else
+    echo "SSH_AUTH_SOCK is not set. SSH agent may not be running."
+fi
+{{- end }}
