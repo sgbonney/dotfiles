@@ -3,6 +3,7 @@
 {{- end }}
 
 {{- if ne .chezmoi.os "android" }}
+.ssh/ssh_auth_sock
 launch_keepassxc.sh
 .obtainium
 {{- end }}
