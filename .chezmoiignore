@@ -1,4 +1,4 @@
-{{- if ne .chezmoi.os "android" }}
+{{- if ne .chezmoi.os "linux" }}
 .var
 {{- end }}
 
