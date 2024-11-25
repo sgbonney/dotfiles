@@ -1,0 +1,7 @@
+[user]
+    name = Samuel Bonney
+    email = github.grinning329@silomails.com
+[core]
+    editor = emacs
+[init]
+    defaultBranch = main
