@@ -26,3 +26,4 @@ packages:
   - it.mijorus.gearlever # launch appimages
   - com.vscodium.codium
   - com.discordapp.Discord
+  - org.gnome.Boxes
