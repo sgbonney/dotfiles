@@ -27,3 +27,11 @@ packages:
   - com.vscodium.codium
   - com.discordapp.Discord
   - org.gnome.Boxes
+  termux:
+  - x11-repo
+  - termux-x11-nightly
+  - ffmpeg
+  - enchant
+  - mpv
+  - mupdf-tools
+  - keepassxc

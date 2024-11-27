@@ -11,6 +11,9 @@ done
 
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
-pkg install ripgrep
+
+for package in {{ range .packages.temux -}} {{ . | quote }} {{ end -}}; do
+    pkg install "$package"
+done
 
 {{- end }}
