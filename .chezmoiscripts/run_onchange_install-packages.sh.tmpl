@@ -9,7 +9,8 @@ for flatpak in {{ range .packages.flatpaks -}} {{ . | quote }} {{ end -}}; do
     flatpak install --system -y "$flatpak"
 done
 
-{{ else if eq .chezmoi.os "android" -}}
+{{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
 pkg install ripgrep
-{{ end -}}
+
+{{- end }}

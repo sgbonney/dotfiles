@@ -1,4 +1,4 @@
-{{- if eq .chezmoi.os "linux" }}
+{{ if eq .chezmoi.os "linux" -}}
 # .bashrc
 
 # Source global definitions
@@ -25,7 +25,7 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-{{- else if eq .chezmoi.os "android" }}
+{{- else if eq .chezmoi.os "android" -}}
 # Start the SSH agent if it's not already running
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     eval $(ssh-agent)
@@ -40,4 +40,5 @@ if [ -n "$SSH_AUTH_SOCK" ]; then
 else
     echo "SSH_AUTH_SOCK is not set. SSH agent may not be running."
 fi
+
 {{- end }}
