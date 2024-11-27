@@ -12,7 +12,7 @@ done
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
 
-for package in {{ range .packages.temux -}} {{ . | quote }} {{ end -}}; do
+for package in {{ range .packages.termux -}} {{ . | quote }} {{ end -}}; do
     pkg install "$package"
 done
 
