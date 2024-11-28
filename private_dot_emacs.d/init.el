@@ -12,23 +12,17 @@
 (tool-bar-mode -1)
 (global-visual-line-mode 1)
 
-;(setq org-hide-leading-stars t)
+(use-package package
+  :config
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/"))
+  (package-initialize))
 
-;;; Startup
-;;; PACKAGE LIST
-;(setq package-archives
- ;     '(("melpa" . "https://melpa.org/packages/")
- ;       ("elpa" . "https://elpa.gnu.org/packages/")))
-
-;;; BOOTSTRAP USE-PACKAGE
-(package-initialize)
-(setq use-package-always-ensure t)
-(unless (package-installed-p 'vc-use-package)
-  (package-vc-install "https://github.com/slotThe/vc-use-package"))
-(require 'vc-use-package)
-;  (package-refresh-contents)
-;;  (package-install 'vc-use-package)
-(eval-when-compile (require 'vc-use-package))
+(use-package use-package
+  :custom
+  (use-package-always-ensure t)
+  (package-native-compile t)
+  (warning-minimum-level :emergency))
 
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
@@ -52,13 +46,14 @@
 	       ((org-agenda-span 'day)))
        (todo "H" nil))
       nil)))
- '(org-babel-load-languages '((emacs-lisp . t) (plantuml . t) (python . t) (shell . t) (yaml . t)))
+ '(org-babel-load-languages '((emacs-lisp . t) (plantuml . t) (python . t) (shell . t)
+;TODO
+					;(yaml . t)
+			      ))
  '(org-log-into-drawer t)
  '(org-refile-allow-creating-parent-nodes 'confirm)
  '(org-refile-targets '((org-agenda-files :tag . ":maxlevel . 2")))
  '(org-refile-use-outline-path 'file)
- '(package-selected-packages
-   '(ob-yaml citar-denote yasnippet-snippets vertico vc-use-package titlecase repeat-help org-web-tools org-roam org-multi-clock orderless nov nix-mode modus-themes marginalia magit key-chord jinx hide-mode-line god-mode eradio elfeed-tube el-patch devil consult-notes consult-denote citar biblio avy))
  '(safe-local-variable-values '((org-duration-format . h:mm) (org-log-done . time))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -186,7 +181,8 @@
   (add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
   (add-hook 'nov-mode-hook #'hide-mode-line-mode))
 
-(use-package org-web-tools)
+;TODO
+;(use-package org-web-tools)
 
 (use-package magit)
 
@@ -387,9 +383,10 @@
       (concat "${title:*} "
               (propertize "${tags:10}" 'face 'org-tag)))
 
-(use-package ob-yaml
-  :vc (ob-yaml :url "https://github.com/llhotka/ob-yaml"
-		       :branch "main"))
+;TODO
+;(use-package ob-yaml
+ ; :vc (ob-yaml :url "https://github.com/llhotka/ob-yaml"
+;		       :branch "main"))
 
 (use-package nov
   :init
@@ -415,9 +412,10 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
-(use-package org-multi-clock
-  :vc (org-multi-clock :url "https://gitlab.com/OlMon/org-multi-clock"
-		       :branch "master"))
+;TODO
+;(use-package org-multi-clock
+ ; :vc (org-multi-clock :url "https://gitlab.com/OlMon/org-multi-clock"
+;		       :branch "master"))
 
 (defun my/extract-pins-from-org ()
   "Extract pins from the specified Org file and display them in a temporary buffer."
