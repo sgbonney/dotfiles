@@ -27,6 +27,7 @@ packages:
   - com.vscodium.codium
   - com.discordapp.Discord
   - org.gnome.Boxes
+  - org.raspberrypi.rpi-imager
   termux:
   - x11-repo
   - termux-x11-nightly
