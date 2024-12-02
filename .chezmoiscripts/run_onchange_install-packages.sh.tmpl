@@ -5,6 +5,8 @@ for package in {{ range .packages.brews -}} {{ . | quote }} {{ end -}}; do
     brew install "$package"
 done
 
+flatpak update -y
+
 for flatpak in {{ range .packages.flatpaks -}} {{ . | quote }} {{ end -}}; do
     flatpak install --system -y "$flatpak"
 done
@@ -12,8 +14,10 @@ done
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
 
+pkg update && pkg upgrade -y
+
 for package in {{ range .packages.termux -}} {{ . | quote }} {{ end -}}; do
-    pkg install "$package"
+    pkg install -y "$package"
 done
 
 {{- end }}
