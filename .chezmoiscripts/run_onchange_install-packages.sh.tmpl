@@ -14,7 +14,7 @@ done
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
 
-pkg update && pkg upgrade -y
+pkg update -y && pkg upgrade -y
 
 for package in {{ range .packages.termux -}} {{ . | quote }} {{ end -}}; do
     pkg install -y "$package"
