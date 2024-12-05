@@ -1,3 +1,5 @@
+(setq package-enable-at-startup nil)
+
 {{ if eq .chezmoi.os "linux" -}}
 (setenv "PATH" (concat "/home/linuxbrew/.linuxbrew/bin:" (getenv "PATH")))
 (add-to-list 'exec-path "/home/linuxbrew/.linuxbrew/bin")
