@@ -436,10 +436,6 @@
 (use-package f
   :straight t)
 
-(use-package nix-mode
-  :straight t
-  :mode "\\.nix\\'")
-
 (straight-use-package
   '(org-multi-clock :type git :host gitlab :repo "OlMon/org-multi-clock"))
 
