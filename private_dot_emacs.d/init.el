@@ -52,7 +52,7 @@
 	       ((org-agenda-span 'day)))
        (todo "H" nil))
       nil)))
- '(org-babel-load-languages '((emacs-lisp . t) (plantuml . t) (python . t) (shell . t) (yaml . t)))
+ '(org-babel-load-languages '((emacs-lisp . t) (plantuml . t) (python . t) (shell . t)))
  '(org-log-into-drawer t)
  '(org-refile-allow-creating-parent-nodes 'confirm)
  '(org-refile-targets '((org-agenda-files :tag . ":maxlevel . 2")))
@@ -412,9 +412,6 @@
 (setq org-roam-node-display-template
       (concat "${title:*} "
               (propertize "${tags:10}" 'face 'org-tag)))
-
-(straight-use-package
-  '(ob-yaml :type git :host github :repo "llhotka/ob-yaml"))
 
 (use-package nov
   :straight t
