@@ -52,10 +52,7 @@
 	       ((org-agenda-span 'day)))
        (todo "H" nil))
       nil)))
- '(org-babel-load-languages '((emacs-lisp . t) (plantuml . t) (python . t) (shell . t)
-;TODO
-					;(yaml . t)
-			      ))
+ '(org-babel-load-languages '((emacs-lisp . t) (plantuml . t) (python . t) (shell . t) (yaml . t)))
  '(org-log-into-drawer t)
  '(org-refile-allow-creating-parent-nodes 'confirm)
  '(org-refile-targets '((org-agenda-files :tag . ":maxlevel . 2")))
@@ -416,10 +413,8 @@
       (concat "${title:*} "
               (propertize "${tags:10}" 'face 'org-tag)))
 
-;TODO
-;(use-package ob-yaml
- ; :vc (ob-yaml :url "https://github.com/llhotka/ob-yaml"
-;		       :branch "main"))
+(straight-use-package
+  '(ob-yaml :type git :host github :repo "llhotka/ob-yaml"))
 
 (use-package nov
   :straight t
