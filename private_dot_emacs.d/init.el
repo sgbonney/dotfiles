@@ -195,8 +195,8 @@
   (add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
   (add-hook 'nov-mode-hook #'hide-mode-line-mode))
 
-;TODO
-;(use-package org-web-tools)
+(use-package org-web-tools
+  :straight t)
 
 (use-package magit
   :straight t)
