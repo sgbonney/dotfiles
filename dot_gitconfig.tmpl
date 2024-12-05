@@ -1,0 +1,11 @@
+[user]
+    name = Samuel Bonney
+    email = github.grinning329@silomails.com
+[core]
+    editor = emacs
+[init]
+    defaultBranch = main
+{{ if eq (output "sh" "-c" "ssh -q -A -T git@github.com >/dev/null 2>&1; if [ $? -eq 255 ]; then echo \"denied\"; else echo \"successful\"; fi" | trim) "successful" -}}
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+{{- end }}
