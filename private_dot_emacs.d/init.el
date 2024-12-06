@@ -24,6 +24,10 @@
   (package-native-compile t)
   (warning-minimum-level :emergency))
 
+(unless (package-installed-p 'vc-use-package)
+  (package-vc-install "https://github.com/slotThe/vc-use-package"))
+(require 'vc-use-package)
+
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
 
