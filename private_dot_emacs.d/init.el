@@ -405,10 +405,9 @@
 
 (use-package f)
 
-;TODO
-;(use-package org-multi-clock
- ; :vc (org-multi-clock :url "https://gitlab.com/OlMon/org-multi-clock"
-;		       :branch "master"))
+(use-package org-multi-clock
+  :vc (org-multi-clock :url "https://gitlab.com/OlMon/org-multi-clock"
+		       :branch "master"))
 
 (defun my/extract-pins-from-org ()
   "Extract pins from the specified Org file and display them in a temporary buffer."
