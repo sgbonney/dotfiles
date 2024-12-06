@@ -12,23 +12,17 @@
 (tool-bar-mode -1)
 (global-visual-line-mode 1)
 
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+(use-package package
+  :config
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/"))
+  (package-initialize))
 
-(straight-use-package 'use-package)
+(use-package use-package
+  :custom
+  (use-package-always-ensure t)
+  (package-native-compile t)
+  (warning-minimum-level :emergency))
 
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
@@ -105,7 +99,6 @@
 	 :empty-lines-after 2)))
 
 (use-package modus-themes
-  :straight t
   :custom
   (modus-themes-italic-constructs t)
   (modus-themes-bold-constructs t)
@@ -116,7 +109,6 @@
   (load-theme 'modus-vivendi-tinted :no-confirm))
 
 (use-package god-mode
-  :straight t
   :init
   (setq god-mode-enable-function-key-translation nil)
   :bind
@@ -158,28 +150,23 @@
   (add-hook 'post-command-hook #'my-god-mode-update-mode-line))
 
 (use-package key-chord
-  :straight t
   :init
   (key-chord-mode 1)
   :config
   (key-chord-define-global ".." 'god-local-mode))
 
 (use-package devil
-  :straight t
   :init
   (global-devil-mode)
   :config
   (setq devil-all-keys-repeatable t))
 
 (use-package org
-  :straight t
   :bind (:map org-mode-map
               ("C-'" . nil)
 	      ("C-," . nil)))
 
-(use-package avy
-  :straight t)
-
+(use-package avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "C-'") 'avy-goto-char-2)
 (global-set-key (kbd "M-g s") 'avy-goto-char-timer)
@@ -187,7 +174,6 @@
 (global-set-key (kbd "M-g w") 'avy-goto-word-1)
 
 (use-package hide-mode-line
-  :straight t
   :config
   (add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
   (add-hook 'nov-mode-hook #'hide-mode-line-mode))
@@ -195,11 +181,9 @@
 (use-package org-web-tools
   :straight t)
 
-(use-package magit
-  :straight t)
+(use-package magit)
 
 (use-package yasnippet
-  :straight t
   :config
   (use-package yasnippet-snippets)
   (yas-global-mode t)
@@ -207,11 +191,9 @@
         '("~/Documents/system/templates/snippets/"))
   (yas-reload-all))
 
-(use-package el-patch
-  :straight t)
+(use-package el-patch)
 
 (use-package vertico
-  :straight t
   :init
   (vertico-mode)
 
@@ -229,12 +211,10 @@
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
-  :straight t
   :init
   (savehist-mode))
 
 (use-package marginalia
-  :straight t
   :after vertico
   :bind
   (:map minibuffer-local-map
@@ -243,16 +223,13 @@
   (marginalia-mode))
 
 (use-package orderless
-  :straight t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(use-package consult
-  :straight t)
+(use-package consult)
 
 (use-package denote
-  :straight t
   :config
   (setq denote-directory "~/Documents")
   (add-hook 'dired-mode-hook 'denote-dired-mode)
@@ -265,7 +242,6 @@
 	     '("m" . "src emacs-lisp"))
 
 (use-package consult-notes
-  :straight t
   :commands (consult-notes
              consult-notes-search-in-all-notes
              ;; if using org-roam 
@@ -286,7 +262,6 @@
   :bind (("C-c n f" . consult-notes)))
 
 (use-package dictionary
-  :straight t
   :bind
   ("M-#" . dictionary-lookup-definition))
 
@@ -296,11 +271,9 @@
   ;;([remap downcase-word] . downcase-dwim)
   ;;([remap upcase-word] . upcase-dwim))
 
-(use-package biblio
-  :straight t)
+(use-package biblio)
 
 (use-package citar
-  :straight t
   :defer t
   :custom
   (citar-bibliography '("~/Documents/system/books.bib"))
@@ -316,7 +289,6 @@
   (("C-c w b o" . citar-open)))
 
 (use-package citar-denote
-  :straight t
   :custom
   (citar-open-always-create-notes t)
   :init
@@ -332,7 +304,6 @@
    ("C-c w b e" . citar-denote-open-reference-entry)))
 
 (use-package eradio
-  :straight t
   :init
   (setq eradio-player '("mpv" "--no-video" "--no-terminal"))
   :config
@@ -351,7 +322,6 @@
   ))
 
 (use-package elfeed-tube
-  :straight t
   :ensure t
   :after elfeed
   :demand t
@@ -368,17 +338,14 @@
          ([remap save-buffer] . elfeed-tube-save)))
 
 (use-package titlecase
-  :straight t
   :defer t)
 
 (use-package jinx
-  :straight t
   :hook (emacs-startup . global-jinx-mode)
   :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages)))
 
 (use-package org-roam
-  :straight t
   :init
   (setq org-roam-v2-ack t)
   :custom
@@ -414,7 +381,6 @@
               (propertize "${tags:10}" 'face 'org-tag)))
 
 (use-package nov
-  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   :hook ((nov-mode . (lambda ()
@@ -433,11 +399,15 @@
 (setq org-plantuml-jar-path
       (expand-file-name "~/plantuml.jar"))
 
-(use-package f
-  :straight t)
+(use-package f)
 
-(straight-use-package
-  '(org-multi-clock :type git :host gitlab :repo "OlMon/org-multi-clock"))
+(use-package nix-mode
+  :mode "\\.nix\\'")
+
+;TODO
+;(use-package org-multi-clock
+ ; :vc (org-multi-clock :url "https://gitlab.com/OlMon/org-multi-clock"
+;		       :branch "master"))
 
 (defun my/extract-pins-from-org ()
   "Extract pins from the specified Org file and display them in a temporary buffer."
