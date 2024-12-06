@@ -401,9 +401,6 @@
 
 (use-package f)
 
-(use-package nix-mode
-  :mode "\\.nix\\'")
-
 ;TODO
 ;(use-package org-multi-clock
  ; :vc (org-multi-clock :url "https://gitlab.com/OlMon/org-multi-clock"
