@@ -182,8 +182,7 @@
   (add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
   (add-hook 'nov-mode-hook #'hide-mode-line-mode))
 
-(use-package org-web-tools
-  :straight t)
+(use-package org-web-tools)
 
 (use-package magit)
 
