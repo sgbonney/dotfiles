@@ -7,7 +7,6 @@ packages:
   flatpaks:
   - io.gitlab.librewolf-community
   - org.signal.Signal
-  - org.asamk.SignalCli # use Signal in terminal
   - io.github.ungoogled_software.ungoogled_chromium
   - com.calibre_ebook.calibre
   - org.torproject.torbrowser-launcher
