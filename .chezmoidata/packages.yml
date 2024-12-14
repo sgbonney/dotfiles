@@ -14,18 +14,11 @@ packages:
   - ch.protonmail.protonmail-bridge
   - org.videolan.VLC
   - com.github.jeromerobert.pdfarranger
-  - org.gnome.Calculator
-  - org.gnome.Calendar
-  - org.gnome.clocks
-  - org.gnome.TextEditor
-  - org.gnome.Loupe
-  - org.gnome.Evince
   - org.mozilla.Thunderbird
   - org.fedoraproject.MediaWriter
   - it.mijorus.gearlever # launch appimages
   - com.vscodium.codium
   - com.discordapp.Discord
-  - org.gnome.Boxes
   - org.raspberrypi.rpi-imager
   termux:
   - x11-repo
