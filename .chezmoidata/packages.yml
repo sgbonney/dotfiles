@@ -17,7 +17,6 @@ packages:
   - org.mozilla.Thunderbird
   - org.fedoraproject.MediaWriter
   - it.mijorus.gearlever # launch appimages
-  - com.vscodium.codium
   - com.discordapp.Discord
   - org.raspberrypi.rpi-imager
   termux:
