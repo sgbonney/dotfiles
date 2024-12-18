@@ -1,5 +1,6 @@
 {{- if ne .chezmoi.os "linux" }}
 */sway
+*/systemd
 .var
 {{- end }}
 
