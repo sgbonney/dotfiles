@@ -1,3 +1,7 @@
+[".emacs.d"]
+    type = "git-repo"
+    url = "https://github.com/sgbonney/.emacs.d"
+
 ["Git/fluidbuild"]
     type = "git-repo"
     url = "https://github.com/sgbonney/fluidbuild"
