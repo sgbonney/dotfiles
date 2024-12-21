@@ -2,7 +2,7 @@
     name = Samuel Bonney
     email = github.grinning329@silomails.com
 [core]
-    editor = emacs
+    editor = emacsclient -c
 [init]
     defaultBranch = main
 {{ if eq (output "sh" "-c" "ssh -q -A -T git@github.com >/dev/null 2>&1; if [ $? -eq 255 ]; then echo \"denied\"; else echo \"successful\"; fi" | trim) "successful" -}}
