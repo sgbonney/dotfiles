@@ -53,6 +53,11 @@ output * bg /home/sbonney/Desktop/computer.jpg fill
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
+input "type:keyboard" {
+    xkb_layout gb
+    xkb_options caps:ctrl_modifier
+}
+
 input "type:touchpad" {
     tap enabled
 }
