@@ -1,7 +1,4 @@
 {{- if ne .chezmoi.os "linux" }}
-.local/share/applications
-*/sway*
-*/systemd
 .var
 {{- end }}
 
