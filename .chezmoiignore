@@ -1,8 +1,12 @@
-{{- if ne .chezmoi.os "linux" }}
+{{ if ne .chezmoi.os "linux" }}
 */systemd
+{{   if ne .chezmoi.osRelease.id "fedora" }}
 .var
-{{- end }}
+{{   else if ne .chezmoi.osRelease.id "raspbian" }}
+# Raspberry Pi OS-specific code
+{{   end }}
+{{ end }}
 
-{{- if ne .chezmoi.os "android" }}
+{{ if ne .chezmoi.os "android" }}
 launch_keepassxc.sh
-{{- end }}
+{{ end }}
