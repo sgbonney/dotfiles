@@ -15,16 +15,9 @@ packages:
   - org.videolan.VLC
   - com.github.jeromerobert.pdfarranger
   - org.mozilla.Thunderbird
-  - org.fedoraproject.MediaWriter
   - it.mijorus.gearlever # launch appimages
   - com.discordapp.Discord
   - org.raspberrypi.rpi-imager
-  - org.gnome.Calculator
-  - org.gnome.Calendar
-  - org.gnome.clocks
-  - org.gnome.TextEditor
-  - org.gnome.Loupe
-  - org.gnome.Evince
   - org.gnome.Boxes
   termux:
   - x11-repo
