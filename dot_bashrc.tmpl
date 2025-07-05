@@ -25,6 +25,10 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 {{- else if eq .chezmoi.os "android" -}}
 # Start SSH agent if not already running
 if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
