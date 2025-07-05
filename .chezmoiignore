@@ -2,7 +2,7 @@
 */systemd
 {{   if ne .chezmoi.osRelease.id "fedora" }}
 .var
-{{   else if ne .chezmoi.osRelease.id "raspbian" }}
+{{   else if ne .chezmoi.osRelease.id "debian" }}
 .bashrc
 {{   end }}
 {{ end }}
