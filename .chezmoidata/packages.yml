@@ -16,7 +16,6 @@ packages:
   - com.github.jeromerobert.pdfarranger
   - org.mozilla.Thunderbird
   - it.mijorus.gearlever # launch appimages
-  - com.discordapp.Discord
   - org.raspberrypi.rpi-imager
   - org.gnome.Boxes
   termux:
