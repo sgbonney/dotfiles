@@ -3,7 +3,7 @@
 {{   if ne .chezmoi.osRelease.id "fedora" }}
 .var
 {{   else if ne .chezmoi.osRelease.id "raspbian" }}
-# Raspberry Pi OS-specific code
+.bashrc
 {{   end }}
 {{ end }}
 
