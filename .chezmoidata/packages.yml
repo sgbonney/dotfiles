@@ -15,7 +15,6 @@ packages:
   - org.videolan.VLC
   - com.github.jeromerobert.pdfarranger
   - org.mozilla.Thunderbird
-  - it.mijorus.gearlever # launch appimages
   - org.raspberrypi.rpi-imager
   - org.gnome.Boxes
   termux:
