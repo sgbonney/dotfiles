@@ -17,6 +17,7 @@ packages:
   - org.mozilla.Thunderbird
   - org.raspberrypi.rpi-imager
   - org.gnome.Boxes
+  - io.ente.photos
   termux:
   - x11-repo
   - termux-x11-nightly
