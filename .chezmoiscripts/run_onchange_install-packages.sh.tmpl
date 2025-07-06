@@ -3,6 +3,7 @@
 #!/bin/bash
 
 for package in {{ range .packages.brews -}} {{ . | quote }} {{ end -}}; do
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     brew install "$package"
 done
 
