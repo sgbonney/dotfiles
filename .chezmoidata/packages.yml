@@ -18,7 +18,7 @@ packages:
   - org.raspberrypi.rpi-imager
   - org.gnome.Boxes
   - io.ente.photos
-  rpm-ostree:
+  rpmostree:
   - emacs
   - keepassxc
   - syncthing

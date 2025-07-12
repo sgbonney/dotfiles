@@ -2,8 +2,8 @@
 {{   if eq .chezmoi.osRelease.id "fedora" -}}
 #!/bin/bash
 
-for rpm-ostree in {{ range .packages.rpm-ostree -}} {{ . | quote }} {{ end -}}; do
-    rpm-ostree install --assumeyes "$rpm-ostree"
+for rpmostree in {{ range .packages.rpmostree -}} {{ . | quote }} {{ end -}}; do
+    rpm-ostree install --assumeyes "$rpmostree"
 done
 
 for brew in {{ range .packages.homebrew -}} {{ . | quote }} {{ end -}}; do
