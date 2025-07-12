@@ -18,6 +18,11 @@ packages:
   - org.raspberrypi.rpi-imager
   - org.gnome.Boxes
   - io.ente.photos
+  rpm-ostree:
+  - emacs
+  - keepassxc
+  - syncthing
+  - enchant2-devel
   termux:
   - x11-repo
   - termux-x11-nightly
