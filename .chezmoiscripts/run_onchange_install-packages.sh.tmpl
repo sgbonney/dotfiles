@@ -21,8 +21,8 @@ done
 
 pkg update -y && pkg upgrade -y
 
-for package in {{ range .packages.termux -}} {{ . | quote }} {{ end -}}; do
-    pkg install -y "$package"
+for pkg in {{ range .packages.termux -}} {{ . | quote }} {{ end -}}; do
+    pkg install -y "$pkg"
 done
 
 {{- end }}
