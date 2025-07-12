@@ -1,10 +1,10 @@
 packages:
-  brews:
+  homebrew:
   - ffmpeg
   - mpv
   - pandoc
   - ripgrep
-  flatpaks:
+  flatpak:
   - io.gitlab.librewolf-community
   - org.signal.Signal
   - io.github.ungoogled_software.ungoogled_chromium

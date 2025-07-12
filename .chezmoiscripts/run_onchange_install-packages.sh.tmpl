@@ -6,14 +6,14 @@ for rpm-ostree in {{ range .packages.rpm-ostree -}} {{ . | quote }} {{ end -}}; 
     rpm-ostree install --assumeyes "$rpm-ostree"
 done
 
-for brew in {{ range .packages.brews -}} {{ . | quote }} {{ end -}}; do
+for brew in {{ range .packages.homebrew -}} {{ . | quote }} {{ end -}}; do
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     brew install "$brew"
 done
 
 flatpak update -y
 
-for flatpak in {{ range .packages.flatpaks -}} {{ . | quote }} {{ end -}}; do
+for flatpak in {{ range .packages.flatpak -}} {{ . | quote }} {{ end -}}; do
     flatpak install --system -y "$flatpak"
 done
 {{   else if eq .chezmoi.osRelease.id "debian" -}}
