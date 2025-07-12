@@ -2,9 +2,9 @@
 {{   if eq .chezmoi.osRelease.id "fedora" -}}
 #!/bin/bash
 
-for package in {{ range .packages.brews -}} {{ . | quote }} {{ end -}}; do
+for brew in {{ range .packages.brews -}} {{ . | quote }} {{ end -}}; do
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    brew install "$package"
+    brew install "$brew"
 done
 
 flatpak update -y
