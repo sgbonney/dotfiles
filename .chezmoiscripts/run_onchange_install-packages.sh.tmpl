@@ -7,11 +7,8 @@ for rpm-ostree in {{ range .packages.rpm-ostree -}} {{ . | quote }} {{ end -}}; 
 done
 
 for brew in {{ range .packages.homebrew -}} {{ . | quote }} {{ end -}}; do
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     brew install "$brew"
 done
-
-flatpak update -y
 
 for flatpak in {{ range .packages.flatpak -}} {{ . | quote }} {{ end -}}; do
     flatpak install --system -y "$flatpak"
@@ -22,8 +19,6 @@ done
 
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
-
-pkg update -y && pkg upgrade -y
 
 for pkg in {{ range .packages.termux -}} {{ . | quote }} {{ end -}}; do
     pkg install -y "$pkg"
