@@ -2,6 +2,10 @@
 {{   if eq .chezmoi.osRelease.id "fedora" -}}
 #!/bin/bash
 
+for rpm-ostree in {{ range .packages.rpm-ostree -}} {{ . | quote }} {{ end -}}; do
+    rpm-ostree install --assumeyes "$rpm-ostree"
+done
+
 for brew in {{ range .packages.brews -}} {{ . | quote }} {{ end -}}; do
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     brew install "$brew"
