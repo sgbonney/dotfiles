@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "linux" -}}
-{{   if eq .chezmoi.osRelease.id "fedora" -}}
 #!/bin/bash
 
+{{   if eq .chezmoi.osRelease.id "fedora" -}}
 rpm-ostree upgrade
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
