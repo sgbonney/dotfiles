@@ -6,6 +6,7 @@ for rpmostree in {{ range .packages.rpmostree -}} {{ . | quote }} {{ end -}}; do
     rpm-ostree install --assumeyes "$rpmostree"
 done
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 for brew in {{ range .packages.homebrew -}} {{ . | quote }} {{ end -}}; do
     brew install "$brew"
 done
