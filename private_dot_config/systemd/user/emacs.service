@@ -6,6 +6,7 @@ Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 Type=forking
 ExecStart=/usr/bin/emacs --daemon
 ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+Environment="PATH=/var/home/sbonney/.local/bin:/var/home/sbonney/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
 Environment=HOME=/var/home/sbonney
 Environment=SSH_AUTH_SOCK=%t/keyring/ssh
 Restart=on-failure
