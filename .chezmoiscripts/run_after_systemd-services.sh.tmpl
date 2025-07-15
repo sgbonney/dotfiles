@@ -1,6 +1,8 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 
+systemctl --user enable emacs.service
+systemctl --user start emacs.service
 systemctl --user enable syncthing.service
 systemctl --user start syncthing.service
 
