@@ -1,12 +1,10 @@
-{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .osid "linux-fedora" -}}
 #!/bin/bash
 
-{{   if eq .chezmoi.osRelease.id "fedora" -}}
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 flatpak remote-modify --no-filter --enable flathub
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install --reinstall --assumeyes flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
 flatpak remote-delete fedora
-{{   end -}}
 {{ end -}}
