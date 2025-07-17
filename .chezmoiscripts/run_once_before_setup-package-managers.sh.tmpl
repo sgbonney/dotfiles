@@ -6,6 +6,10 @@
 flatpak remote-modify --no-filter --enable flathub
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install --reinstall --assumeyes flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
-flatpak remote-delete fedora
+if flatpak remote-list | grep -q fedora; then
+    flatpak remote-delete fedora
+else
+    echo "Remote "fedora" not found"
+fi
 
 {{- end }}
