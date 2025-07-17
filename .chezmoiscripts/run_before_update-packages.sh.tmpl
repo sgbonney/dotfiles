@@ -7,9 +7,11 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew update --quiet && brew upgrade --quiet
 
 flatpak update -y
-{{ else if eq .osid "linux-debian" -}}
+
+{{- else if eq .osid "linux-debian" -}}
 # Debian-specific code
-{{ else if eq .chezmoi.os "android" -}}
+
+{{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
 
 pkg update -y && pkg upgrade -y

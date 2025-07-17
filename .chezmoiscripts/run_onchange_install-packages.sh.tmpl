@@ -13,7 +13,8 @@ done
 for flatpak in {{ range .packages.flatpak -}} {{ . | quote }} {{ end -}}; do
     flatpak install --system -y "$flatpak"
 done
-{{ else if eq .osid "linux-debian" -}}
+
+{{- else if eq .osid "linux-debian" -}}
 # Debian-specific code
 
 {{- else if eq .chezmoi.os "android" -}}
