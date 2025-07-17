@@ -1,6 +1,0 @@
-{{ if eq .chezmoi.os "android" -}}
-#!/bin/sh
-
-pkg upgrade -y -o Dpkg::Options::="--force-confnew"
-
-{{- end }}
