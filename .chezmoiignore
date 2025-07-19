@@ -2,12 +2,15 @@
 */systemd
 
 {{- else if ne .osid "linux-fedora" -}}
+.bashrc
 .var
 
 {{- else if ne .osid "linux-debian" -}}
-.bashrc
+# Debian-specific ignored
 
-{{- else if ne .chezmoi.os "android" -}}
+{{- end }}
+
+{{- if ne .chezmoi.os "android" -}}
 launch_keepassxc.sh
 
-{{ end }}
+{{- end }}
