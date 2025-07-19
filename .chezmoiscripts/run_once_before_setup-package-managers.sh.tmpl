@@ -13,4 +13,9 @@ if flatpak remote-list | grep -q fedora; then
 else
     echo "Remote "fedora" not found"
 fi
+
+{{- else if eq .chezmoi.os "android" -}}
+#!/bin/sh
+
+pkg install -y x11-repo termux-x11-nightly
 {{- end }}
