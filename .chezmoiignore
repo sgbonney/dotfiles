@@ -1,16 +1,15 @@
-{{ if ne .chezmoi.os "linux" -}}
+{{ if ne .chezmoi.os "linux" }}
 */systemd
 
-{{- else if ne .osid "linux-fedora" -}}
-.bashrc
+{{ else if ne .osid "linux-fedora" }}
 .var
 
-{{- else if ne .osid "linux-debian" -}}
+{{ else if ne .osid "linux-debian" }}
 # Debian-specific ignored
 
-{{- end }}
+{{ end }}
 
-{{ if ne .chezmoi.os "android" -}}
+{{ if ne .chezmoi.os "android" }}
 launch_keepassxc.sh
 
-{{- end }}
+{{ end }}
