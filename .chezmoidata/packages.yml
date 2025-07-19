@@ -30,5 +30,3 @@ packages:
   - keepassxc
   - mpv
   - mupdf-tools
-  - termux-x11-nightly
-  - x11-repo
