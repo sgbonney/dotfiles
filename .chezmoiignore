@@ -10,7 +10,7 @@
 
 {{- end }}
 
-{{- if ne .chezmoi.os "android" -}}
+{{ if ne .chezmoi.os "android" -}}
 launch_keepassxc.sh
 
 {{- end }}
