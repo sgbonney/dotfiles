@@ -14,5 +14,5 @@ flatpak update -y
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
 
-pkg update -y && pkg upgrade -y -o Dpkg::Options::="--force-confnew"
+pkg update -y && pkg upgrade -y
 {{- end }}
