@@ -18,6 +18,7 @@ packages:
   - org.raspberrypi.rpi-imager
   - org.gnome.Boxes
   - io.ente.photos
+  - org.libreoffice.LibreOffice
   rpmostree:
   - emacs
   - keepassxc
