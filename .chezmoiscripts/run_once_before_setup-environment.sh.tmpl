@@ -17,5 +17,6 @@ fi
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
 
+pkg update -y && pkg upgrade -y -o Dpkg::Options::="--force-confnew"
 pkg install -y x11-repo termux-x11-nightly
 {{- end }}
