@@ -5,30 +5,30 @@ packages:
   - pandoc
   - ripgrep
   flatpak:
-  - io.gitlab.librewolf-community
-  - org.signal.Signal
-  - io.github.ungoogled_software.ungoogled_chromium
-  - com.calibre_ebook.calibre
-  - org.torproject.torbrowser-launcher
-  - com.protonvpn.www
   - ch.protonmail.protonmail-bridge
-  - org.videolan.VLC
+  - com.calibre_ebook.calibre
   - com.github.jeromerobert.pdfarranger
+  - com.protonvpn.www
+  - io.ente.photos
+  - io.github.ungoogled_software.ungoogled_chromium
+  - io.gitlab.librewolf-community
+  - org.gnome.Boxes
+  - org.libreoffice.LibreOffice
   - org.mozilla.Thunderbird
   - org.raspberrypi.rpi-imager
-  - org.gnome.Boxes
-  - io.ente.photos
-  - org.libreoffice.LibreOffice
+  - org.signal.Signal
+  - org.torproject.torbrowser-launcher
+  - org.videolan.VLC
   rpmostree:
   - emacs
+  - enchant2-devel
   - keepassxc
   - syncthing
-  - enchant2-devel
   termux:
-  - x11-repo
-  - termux-x11-nightly
-  - ffmpeg
   - enchant
+  - ffmpeg
+  - keepassxc
   - mpv
   - mupdf-tools
-  - keepassxc
+  - termux-x11-nightly
+  - x11-repo
