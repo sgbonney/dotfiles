@@ -1,3 +1,11 @@
 [".emacs.d"]
     type = "git-repo"
     url = "https://github.com/sgbonney/.emacs.d"
+["/usr/share/hunspell/en_GB.aff"]
+    type = "file"
+    url = "https://github.com/LibreOffice/dictionaries/blob/master/en/en_GB.aff"
+    refreshPeriod = "168h"
+["/usr/share/hunspell/en_GB.dic"]
+    type = "file"
+    url = "https://github.com/LibreOffice/dictionaries/blob/master/en/en_GB.dic"
+    refreshPeriod = "168h"
