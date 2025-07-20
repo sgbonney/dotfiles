@@ -3,6 +3,7 @@
 {{- end }}
 
 {{- if ne .osid "linux-fedora" }}
+.local/share/applications
 .var
 {{- end }}
 
