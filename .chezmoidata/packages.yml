@@ -25,6 +25,7 @@ packages:
   - keepassxc
   - syncthing
   termux:
+  - aspell-en
   - enchant
   - ffmpeg
   - keepassxc
