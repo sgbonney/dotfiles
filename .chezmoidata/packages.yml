@@ -26,6 +26,7 @@ packages:
   - 'org.torproject.torbrowser-launcher'
   - 'org.videolan.VLC'
   rpmostree:
+  - 'backintime-qt'
   - 'emacs'
   - 'enchant2-devel'
   - 'keepassxc'
