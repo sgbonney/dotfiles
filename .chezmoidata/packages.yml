@@ -8,7 +8,7 @@ packages:
   - 'ffmpeg'
   - 'mpv'
   - 'pandoc'
-  - 'clone'
+  - 'rclone'
   - 'ripgrep'
   flatpak:
   - 'ch.protonmail.protonmail-bridge'
