@@ -23,6 +23,7 @@ packages:
   - emacs
   - enchant2-devel
   - keepassxc
+  - rclone
   - syncthing
   termux:
   - aspell-en
