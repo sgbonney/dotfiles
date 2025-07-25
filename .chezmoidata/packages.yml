@@ -1,4 +1,9 @@
 packages:
+  apt:
+  - 'backintime'
+  - 'keepassxc'
+  - 'rclone'
+  - 'rsync'
   homebrew:
   - 'ffmpeg'
   - 'mpv'
