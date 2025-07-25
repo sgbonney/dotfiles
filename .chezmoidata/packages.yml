@@ -8,6 +8,7 @@ packages:
   - 'ffmpeg'
   - 'mpv'
   - 'pandoc'
+  - 'clone'
   - 'ripgrep'
   flatpak:
   - 'ch.protonmail.protonmail-bridge'
@@ -28,7 +29,6 @@ packages:
   - 'emacs'
   - 'enchant2-devel'
   - 'keepassxc'
-  - 'rclone'
   - 'syncthing'
   termux:
   - 'aspell-en'
