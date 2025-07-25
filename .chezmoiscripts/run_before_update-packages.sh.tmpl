@@ -9,7 +9,9 @@ brew update --quiet && brew upgrade --quiet
 flatpak update -y
 
 {{- else if eq .osid "linux-debian" -}}
-# Debian-specific code
+#!/bin/bash
+
+sudo apt update -y && sudo apt upgrade -y -o Dpkg::Options::="--force-confnew"
 
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
