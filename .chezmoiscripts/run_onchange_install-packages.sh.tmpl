@@ -15,7 +15,11 @@ for flatpak in {{ range .packages.flatpak -}} {{ . | quote }} {{ end -}}; do
 done
 
 {{- else if eq .osid "linux-debian" -}}
-# Debian-specific code
+#!/bin/bash
+
+for apt in {{ range .packages.apt -}} {{ . | quote }} {{ end -}}; do
+    sudo apt install -y "$apt"
+done
 
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
