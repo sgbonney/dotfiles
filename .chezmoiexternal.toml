@@ -6,10 +6,12 @@
 ["Git/chezmoi"]
     type = "git-repo"
     url = "https://github.com/sgbonney/dotfiles"
+    refreshPeriod = "24h"
 
 ["Git/emacs"]
     type = "git-repo"
     url = "https://github.com/sgbonney/.emacs.d"
+    refreshPeriod = "24h"
 
 ["Git/fluidbuild"]
     type = "git-repo"
