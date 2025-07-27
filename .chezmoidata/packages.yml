@@ -1,6 +1,6 @@
 packages:
   apt:
-  - 'backintime'
+  - 'backintime-qt'
   - 'keepassxc'
   - 'rclone'
   - 'rsync'
