@@ -1,3 +1,18 @@
 [".emacs.d"]
     type = "git-repo"
     url = "https://github.com/sgbonney/.emacs.d"
+
+{{ if eq .osid "linux-debian" -}}
+["Git/chezmoi"]
+    type = "git-repo"
+    url = "https://github.com/sgbonney/dotfiles"
+
+["Git/emacs"]
+    type = "git-repo"
+    url = "https://github.com/sgbonney/.emacs.d"
+
+["Git/fluidbuild"]
+    type = "git-repo"
+    url = "https://github.com/sgbonney/fluidbuild"
+
+{{- end }}
