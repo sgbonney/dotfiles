@@ -11,7 +11,7 @@ flatpak update -y
 {{- else if eq .osid "linux-debian" -}}
 #!/bin/bash
 
-sudo apt update -y && sudo apt upgrade -y -o Dpkg::Options::="--force-confnew"
+sudo apt update -y && sudo apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
 
 {{- else if eq .chezmoi.os "android" -}}
 #!/bin/sh
