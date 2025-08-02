@@ -3,6 +3,7 @@ packages:
   - 'backintime-qt'
   - 'keepassxc'
   - 'rclone'
+  - 'rpi-sb-provisioner'
   - 'rsync'
   homebrew:
   - 'ffmpeg'
