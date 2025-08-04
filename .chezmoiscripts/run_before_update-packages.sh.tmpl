@@ -17,4 +17,5 @@ sudo apt update -y && sudo apt full-upgrade -y -o Dpkg::Options::="--force-confn
 #!/bin/sh
 
 pkg update -y && pkg upgrade -y
+apt autoremove
 {{- end }}
