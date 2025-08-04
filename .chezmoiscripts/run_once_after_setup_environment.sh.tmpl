@@ -1,0 +1,5 @@
+{{ if eq .chezmoi.os "android" -}}
+#!/bin/sh
+
+termux-reload-settings
+{{- end }}
