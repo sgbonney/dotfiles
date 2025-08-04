@@ -28,4 +28,15 @@ unset rc
 if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+{{- else if eq .chezmoi.os "android" -}}
+# Start SSH agent if not already running
+if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
+    # Remove the old socket file if it exists
+    rm -f ~/.ssh/ssh-agent.sock
+    eval "$(ssh-agent -s -a ~/.ssh/ssh-agent.sock)"
+fi
+
+# Set SSH_AUTH_SOCK to the fixed socket location
+export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock
 {{- end }}
