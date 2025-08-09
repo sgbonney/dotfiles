@@ -33,6 +33,7 @@ packages:
   - 'enchant2-devel'
   - 'keepassxc'
   - 'syncthing'
+  - 'waydroid'
   termux:
   - 'aspell-en'
   - 'enchant'
