@@ -1,6 +1,8 @@
 {{ if eq .osid "linux-fedora" -}}
 #!/bin/bash
 
+chezmoi upgrade
+
 rpm-ostree upgrade
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
