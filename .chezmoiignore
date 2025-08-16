@@ -3,6 +3,7 @@
 {{- end }}
 
 {{- if ne .osid "linux-fedora" }}
+*/restart-emacs.sh
 .local/share/applications
 .var
 {{- end }}
