@@ -21,7 +21,14 @@ fi
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
+{{ end -}}
 # User specific aliases and functions
+for script in "$HOME/bin"/*.sh; do
+    script_name=$(basename "$script" .sh)
+    alias "$script_name"="$script"
+done
+
+{{ if eq .osid "linux-fedora" -}}
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
         if [ -f "$rc" ]; then
