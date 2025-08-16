@@ -12,6 +12,6 @@
 {{- end }}
 
 {{- if ne .chezmoi.os "android" }}
-launch_keepassxc.sh
+launch-keepassxc.sh
 .termux
 {{- end }}
