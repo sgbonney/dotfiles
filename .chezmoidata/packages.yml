@@ -15,6 +15,7 @@ packages:
   - 'ch.protonmail.protonmail-bridge'
   - 'com.calibre_ebook.calibre'
   - 'com.github.jeromerobert.pdfarranger'
+  - 'com.google.AndroidStudio'
   - 'com.protonvpn.www'
   - 'io.ente.photos'
   - 'io.github.ungoogled_software.ungoogled_chromium'
