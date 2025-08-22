@@ -14,5 +14,6 @@
 
 {{- if ne .chezmoi.os "android" }}
 */launch-keepassxc.sh
+.config/keepassxc
 .termux
 {{- end }}
