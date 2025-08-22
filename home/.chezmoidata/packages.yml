@@ -25,6 +25,7 @@ packages:
   - 'org.flatpak.Builder'
   - 'org.gimp.GIMP'
   - 'org.gnome.Boxes'
+  - 'org.keepassxc.KeePassXC'
   - 'org.libreoffice.LibreOffice'
   - 'org.mozilla.Thunderbird'
   - 'org.raspberrypi.rpi-imager'
@@ -35,7 +36,6 @@ packages:
   - 'backintime-qt'
   - 'emacs'
   - 'enchant2-devel'
-  - 'keepassxc'
   termux:
   - 'aspell-en'
   - 'enchant'
