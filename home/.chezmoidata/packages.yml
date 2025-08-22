@@ -11,6 +11,7 @@ packages:
   - 'pandoc'
   - 'rclone'
   - 'ripgrep'
+  - 'syncthing'
   flatpak:
   - 'ch.protonmail.protonmail-bridge'
   - 'com.calibre_ebook.calibre'
@@ -35,7 +36,6 @@ packages:
   - 'emacs'
   - 'enchant2-devel'
   - 'keepassxc'
-  - 'syncthing'
   termux:
   - 'aspell-en'
   - 'enchant'
