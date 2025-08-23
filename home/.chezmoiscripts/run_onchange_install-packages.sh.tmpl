@@ -1,6 +1,6 @@
-{{ if eq .osid "linux-fedora" -}}
 #!/bin/bash
 
+{{ if eq .osid "linux-fedora" -}}
 for rpmostree in {{ range .packages.rpmostree -}} {{ . | quote }} {{ end -}}; do
     rpm-ostree install --assumeyes "$rpmostree"
 done
@@ -15,15 +15,11 @@ for flatpak in {{ range .packages.flatpak -}} {{ . | quote }} {{ end -}}; do
 done
 
 {{- else if eq .osid "linux-debian" -}}
-#!/bin/bash
-
 for apt in {{ range .packages.apt -}} {{ . | quote }} {{ end -}}; do
     sudo apt install -y "$apt"
 done
 
 {{- else if eq .chezmoi.os "android" -}}
-#!/bin/sh
-
 for pkg in {{ range .packages.termux -}} {{ . | quote }} {{ end -}}; do
     pkg install -y "$pkg"
 done

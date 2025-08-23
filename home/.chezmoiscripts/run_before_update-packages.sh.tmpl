@@ -1,6 +1,6 @@
-{{ if eq .osid "linux-fedora" -}}
 #!/bin/bash
 
+{{ if eq .osid "linux-fedora" -}}
 chezmoi upgrade
 
 rpm-ostree upgrade
@@ -11,13 +11,9 @@ brew update && brew upgrade
 flatpak update -y
 
 {{- else if eq .osid "linux-debian" -}}
-#!/bin/bash
-
 sudo apt update -y && sudo apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
 
 {{- else if eq .chezmoi.os "android" -}}
-#!/bin/sh
-
 pkg update -y && pkg upgrade -y
 
 {{- end }}
