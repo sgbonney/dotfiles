@@ -16,7 +16,7 @@ fi
 ln -s "$TERMUX_HOME" "$EMACS_HOME"
 echo "Created symbolic link from $EMACS_HOME to $TERMUX_HOME"
 
-for dir in Applications Desktop Documents Games; do
+for dir in Applications Desktop Documents ; do
     if [ -d "$ANDROID_DISK_HOME/$dir" ]; then
         ln -s "$ANDROID_DISK_HOME/$dir" "$TERMUX_HOME/$dir"
         echo "Created symbolic link from $ANDROID_DISK_HOME/$dir to $TERMUX_HOME/$dir"
