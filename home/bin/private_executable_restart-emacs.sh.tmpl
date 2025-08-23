@@ -1,4 +1,4 @@
-#!/bin/bash
+{{- template "bash-shebang" . -}}
 
 emacsclient -e '(restart-emacs)'
 systemctl --user restart emacs.service
