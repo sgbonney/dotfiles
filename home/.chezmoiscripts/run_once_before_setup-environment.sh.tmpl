@@ -1,4 +1,4 @@
-{{- template "bash-shebang" . -}}
+{{- template "bash-shebang.tmpl" . -}}
 
 {{ if eq .osid "linux-fedora" -}}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
