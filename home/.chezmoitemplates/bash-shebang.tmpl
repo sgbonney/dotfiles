@@ -1,0 +1,7 @@
+{{ if eq .osid "linux" -}}
+#!/bin/bash
+
+{{- else if eq .chezmoi.os "android" -}}
+#!/data/data/com.termux/files/usr/bin/bash
+
+{{- end }}
