@@ -1,6 +1,6 @@
-#!/bin/bash
+{{- template "bash-shebang" . -}}
 
-{{ if eq .osid "linux-fedora" -}}
+{{- if eq .osid "linux-fedora" -}}
 chezmoi upgrade
 
 rpm-ostree upgrade
@@ -16,4 +16,4 @@ sudo apt update -y && sudo apt full-upgrade -y -o Dpkg::Options::="--force-confn
 {{- else if eq .chezmoi.os "android" -}}
 pkg update -y && pkg upgrade -y
 
-{{- end }}
+{{- end -}}

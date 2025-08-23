@@ -1,6 +1,6 @@
-{{ if eq .chezmoi.os "android" -}}
-#!/bin/bash
+{{- template "bash-shebang" . -}}
 
+{{- if eq .chezmoi.os "android" -}}
 termux-reload-settings
 
-{{- end }}
+{{- end -}}

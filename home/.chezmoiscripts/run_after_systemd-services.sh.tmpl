@@ -1,9 +1,9 @@
-{{ if eq .osid "linux-fedora" -}}
-#!/bin/bash
+{{- template "bash-shebang" . -}}
 
+{{- if eq .osid "linux-fedora" -}}
 systemctl --user enable emacs.service
 systemctl --user start emacs.service
 systemctl --user enable syncthing.service
 systemctl --user start syncthing.service
 
-{{- end }}
+{{- end -}}

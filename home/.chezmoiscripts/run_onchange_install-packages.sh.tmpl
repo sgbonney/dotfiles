@@ -1,6 +1,6 @@
-#!/bin/bash
+{{- template "bash-shebang" . -}}
 
-{{ if eq .osid "linux-fedora" -}}
+{{- if eq .osid "linux-fedora" -}}
 for rpmostree in {{ range .packages.rpmostree -}} {{ . | quote }} {{ end -}}; do
     rpm-ostree install --assumeyes "$rpmostree"
 done
@@ -24,4 +24,4 @@ for pkg in {{ range .packages.termux -}} {{ . | quote }} {{ end -}}; do
     pkg install -y "$pkg"
 done
 
-{{- end }}
+{{- end -}}
