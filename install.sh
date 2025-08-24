@@ -8,9 +8,8 @@ handle_failure() {
 }
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || handle_failure "homebrew"
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    brew install chezmoi
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || handle_failure "brew"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew install chezmoi
     handle_failure "chezmoi"
 elif [[ "$OSTYPE" == *"android"* ]]; then
     pkg install -y git
