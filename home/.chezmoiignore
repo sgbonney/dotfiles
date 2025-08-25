@@ -12,6 +12,10 @@
 # Debian-specific ignored
 {{- end }}
 
+{{- if ne .osid "linux-steamos" }}
+**/Steam
+{{- end }}
+
 {{- if ne .chezmoi.os "android" }}
 */launch-keepassxc.sh
 .config/keepassxc
