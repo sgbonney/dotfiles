@@ -17,4 +17,4 @@
     type = "git-repo"
     url = "https://github.com/sgbonney/fluidbuild"
 
-{{- end }}
+{{- end -}}
