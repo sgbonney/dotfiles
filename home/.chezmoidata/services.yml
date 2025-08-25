@@ -1,0 +1,4 @@
+services:
+  systemd:
+  - 'emacs'
+  - 'syncthing'
