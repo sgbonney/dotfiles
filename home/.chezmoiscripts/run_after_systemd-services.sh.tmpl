@@ -1,9 +1,9 @@
 {{- template "bash-shebang" . -}}
 
 {{- if eq .osid "linux-fedora" -}}
-systemctl --user enable emacs.service
-systemctl --user start emacs.service
-systemctl --user enable syncthing.service
-systemctl --user start syncthing.service
+for systemd in {{ range .services.systemd -}} {{ . | quote }} {{ end -}}; do
+    systemctl --user enable "$systemd".service
+    systemctl --user start "$systemd".service
+done
 
 {{- end -}}
