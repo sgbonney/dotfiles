@@ -15,7 +15,7 @@ packages:
     - 'rpi-sb-provisioner'
     - 'rsync'
   fedora:
-    homebrew:
+    brew:
     - 'ffmpeg'
     - 'mpv'
     - 'pandoc'
