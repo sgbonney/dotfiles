@@ -1,6 +1,11 @@
 {{- template "bash-shebang" . -}}
 
-{{- if eq .chezmoi.os "linux" -}}
+{{- if eq .chezmoi.os "android" -}}
+for package in {{ range .packages.android.pkg -}} {{ . | quote }} {{ end -}}; do
+    pkg install -y "$package"
+done
+
+{{- else if eq .chezmoi.os "linux" -}}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 for package in {{ range .packages.linux.brew -}} {{ . | quote }} {{ end -}}; do
     brew install "$package"
@@ -8,6 +13,16 @@ done
 
 for package in {{ range .packages.linux.flatpak -}} {{ . | quote }} {{ end -}}; do
     flatpak install --system -y "$package"
+done
+
+{{- else if eq .osid "linux-debian" -}}
+for package in {{ range .packages.linux.debian.apt -}} {{ . | quote }} {{ end -}}; do
+    sudo apt install -y "$package"
+done
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+for package in {{ range .packages.linux.debian.brew -}} {{ . | quote }} {{ end -}}; do
+    brew install "$package"
 done
 
 {{- else if eq .osid "linux-fedora" -}}
@@ -24,24 +39,9 @@ for package in {{ range .packages.linux.fedora.flatpak -}} {{ . | quote }} {{ en
     flatpak install --system -y "$package"
 done
 
-{{- else if eq .osid "linux-debian" -}}
-for package in {{ range .packages.linux.debian.apt -}} {{ . | quote }} {{ end -}}; do
-    sudo apt install -y "$package"
-done
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-for package in {{ range .packages.linux.debian.brew -}} {{ . | quote }} {{ end -}}; do
-    brew install "$package"
-done
-
 {{- else if eq .osid "linux-steamos" -}}
 for package in {{ range .packages.linux.steamos.flatpak -}} {{ . | quote }} {{ end -}}; do
     flatpak install --system -y "$package"
-done
-
-{{- else if eq .chezmoi.os "android" -}}
-for package in {{ range .packages.android.pkg -}} {{ . | quote }} {{ end -}}; do
-    pkg install -y "$package"
 done
 
 {{- end -}}

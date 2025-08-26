@@ -1,17 +1,17 @@
 {{- template "bash-shebang" . -}}
 
-{{- if eq .osid "linux-fedora" -}}
+{{- if eq .chezmoi.os "android" -}}
+apt autoremove -y
+
+{{- else if eq .osid "linux-debian" -}}
+sudo apt autoremove -y
+
+{{- else if eq .osid "linux-fedora" -}}
 rpm-ostree cleanup -bm
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew cleanup
 
 flatpak uninstall --unused
-
-{{- else if eq .osid "linux-debian" -}}
-sudo apt autoremove -y
-
-{{- else if eq .chezmoi.os "android" -}}
-apt autoremove -y
 
 {{- end -}}

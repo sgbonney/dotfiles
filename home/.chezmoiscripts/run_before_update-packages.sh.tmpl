@@ -1,6 +1,12 @@
 {{- template "bash-shebang" . -}}
 
-{{- if eq .osid "linux-fedora" -}}
+{{- if eq .chezmoi.os "android" -}}
+pkg update -y && pkg upgrade -y
+
+{{- else if eq .osid "linux-debian" -}}
+sudo apt update -y && sudo apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
+
+{{- else if eq .osid "linux-fedora" -}}
 chezmoi upgrade
 
 rpm-ostree upgrade
@@ -9,11 +15,5 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew update && brew upgrade
 
 flatpak update -y
-
-{{- else if eq .osid "linux-debian" -}}
-sudo apt update -y && sudo apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
-
-{{- else if eq .chezmoi.os "android" -}}
-pkg update -y && pkg upgrade -y
 
 {{- end -}}
