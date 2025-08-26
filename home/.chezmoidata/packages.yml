@@ -28,6 +28,7 @@ packages:
       - 'pandoc'
       - 'rclone'
       - 'ripgrep'
+      - 'rsync'
       flatpak:
       - 'ch.protonmail.protonmail-bridge'
       - 'com.calibre_ebook.calibre'
