@@ -7,6 +7,8 @@
 {{- if ne .chezmoi.os "linux" }}
 */systemd
 .local/share/icons
+.local/share/applications
+.var
 {{- end }}
 
 {{- if ne .osid "linux-debian" }}
@@ -15,8 +17,6 @@
 
 {{- if ne .osid "linux-fedora" }}
 */restart-emacs.sh
-.local/share/applications
-.var
 {{- end }}
 
 {{- if ne .osid "linux-steamos" }}
