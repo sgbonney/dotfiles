@@ -8,10 +8,15 @@ packages:
     - 'mpv'
     - 'mupdf-tools'
   linux:
+    brew:
+    - 'syncthing'
+    flatpak:
+    - 'io.github.ungoogled_software.ungoogled_chromium'
+    - 'io.gitlab.librewolf-community'
+    - 'org.keepassxc.KeePassXC'
     debian:
       apt:
       - 'backintime-qt'
-      - 'keepassxc'
       - 'rclone'
       - 'rpi-sb-provisioner'
       - 'rsync'
@@ -22,7 +27,6 @@ packages:
       - 'pandoc'
       - 'rclone'
       - 'ripgrep'
-      - 'syncthing'
       flatpak:
       - 'ch.protonmail.protonmail-bridge'
       - 'com.calibre_ebook.calibre'
@@ -30,13 +34,10 @@ packages:
       - 'com.google.AndroidStudio'
       - 'com.protonvpn.www'
       - 'io.ente.photos'
-      - 'io.github.ungoogled_software.ungoogled_chromium'
-      - 'io.gitlab.librewolf-community'
       - 'network.loki.Session'
       - 'org.flatpak.Builder'
       - 'org.gimp.GIMP'
       - 'org.gnome.Boxes'
-      - 'org.keepassxc.KeePassXC'
       - 'org.libreoffice.LibreOffice'
       - 'org.mozilla.Thunderbird'
       - 'org.raspberrypi.rpi-imager'

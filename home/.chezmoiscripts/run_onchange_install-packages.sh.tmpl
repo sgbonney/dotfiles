@@ -1,5 +1,15 @@
 {{- template "bash-shebang" . -}}
 
+{{- if eq .chezmoi.os "linux" -}}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+for package in {{ range .packages.linux.brew -}} {{ . | quote }} {{ end -}}; do
+    brew install "$package"
+done
+
+for package in {{ range .packages.linux.flatpak -}} {{ . | quote }} {{ end -}}; do
+    flatpak install --system -y "$package"
+done
+
 {{- if eq .osid "linux-fedora" -}}
 for package in {{ range .packages.linux.fedora.rpm_ostree -}} {{ . | quote }} {{ end -}}; do
     rpm-ostree install --assumeyes "$package"
