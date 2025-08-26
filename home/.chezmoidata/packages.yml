@@ -50,3 +50,6 @@ packages:
       - 'backintime-qt'
       - 'emacs'
       - 'enchant2-devel'
+    steamos:
+      flatpak:
+      - 'org.gimp.GIMP'
