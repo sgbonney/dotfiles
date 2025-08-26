@@ -11,10 +11,6 @@
 .var
 {{- end }}
 
-{{- if ne .osid "linux-debian" }}
-# Debian-specific ignored
-{{- end }}
-
 {{- if ne .osid "linux-fedora" }}
 */restart-emacs.sh
 {{- end }}
