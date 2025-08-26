@@ -42,6 +42,6 @@ packages:
     - 'org.signal.Signal'
     - 'org.torproject.torbrowser-launcher'
     - 'org.videolan.VLC'
-    rpmostree:
+    rpm_ostree:
     - 'emacs'
     - 'enchant2-devel'

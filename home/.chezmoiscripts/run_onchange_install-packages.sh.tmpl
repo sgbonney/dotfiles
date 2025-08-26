@@ -1,27 +1,27 @@
 {{- template "bash-shebang" . -}}
 
 {{- if eq .osid "linux-fedora" -}}
-for rpmostree in {{ range .packages.rpmostree -}} {{ . | quote }} {{ end -}}; do
-    rpm-ostree install --assumeyes "$rpmostree"
+for package in {{ range .packages.fedora.rpm_ostree -}} {{ . | quote }} {{ end -}}; do
+    rpm-ostree install --assumeyes "$package"
 done
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-for brew in {{ range .packages.homebrew -}} {{ . | quote }} {{ end -}}; do
-    brew install "$brew"
+for package in {{ range .packages.fedora.brew -}} {{ . | quote }} {{ end -}}; do
+    brew install "$package"
 done
 
-for flatpak in {{ range .packages.flatpak -}} {{ . | quote }} {{ end -}}; do
-    flatpak install --system -y "$flatpak"
+for package in {{ range .packages.fedora.flatpak -}} {{ . | quote }} {{ end -}}; do
+    flatpak install --system -y "$package"
 done
 
 {{- else if eq .osid "linux-debian" -}}
-for apt in {{ range .packages.apt -}} {{ . | quote }} {{ end -}}; do
-    sudo apt install -y "$apt"
+for package in {{ range .packages.debian.apt -}} {{ . | quote }} {{ end -}}; do
+    sudo apt install -y "$package"
 done
 
 {{- else if eq .chezmoi.os "android" -}}
-for pkg in {{ range .packages.termux -}} {{ . | quote }} {{ end -}}; do
-    pkg install -y "$pkg"
+for package in {{ range .packages.android.pkg -}} {{ . | quote }} {{ end -}}; do
+    pkg install -y "$package"
 done
 
 {{- end -}}
