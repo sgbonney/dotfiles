@@ -47,5 +47,6 @@ packages:
       - 'org.torproject.torbrowser-launcher'
       - 'org.videolan.VLC'
       rpm_ostree:
+      - 'backintime-qt'
       - 'emacs'
       - 'enchant2-devel'
