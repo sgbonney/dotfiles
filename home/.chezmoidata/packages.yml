@@ -21,6 +21,8 @@ packages:
       brew:
       - 'rclone'
       - 'rsync'
+      flatpak:
+      - 'io.ente.photos'
     fedora:
       brew:
       - 'ffmpeg'
