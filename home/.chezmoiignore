@@ -1,5 +1,15 @@
+{{- if ne .chezmoi.os "android" }}
+*/launch-keepassxc.sh
+.config/keepassxc
+.termux
+{{- end }}
+
 {{- if ne .chezmoi.os "linux" }}
 */systemd
+{{- end }}
+
+{{- if ne .osid "linux-debian" }}
+# Debian-specific ignored
 {{- end }}
 
 {{- if ne .osid "linux-fedora" }}
@@ -8,16 +18,6 @@
 .var
 {{- end }}
 
-{{- if ne .osid "linux-debian" }}
-# Debian-specific ignored
-{{- end }}
-
 {{- if ne .osid "linux-steamos" }}
 **/Steam
-{{- end }}
-
-{{- if ne .chezmoi.os "android" }}
-*/launch-keepassxc.sh
-.config/keepassxc
-.termux
 {{- end }}

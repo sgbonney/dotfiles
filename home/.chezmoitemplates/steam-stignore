@@ -1,13 +1,13 @@
-{{- if eq .osid "linux-steamos" -}}
+{{- if eq .chezmoi.os "android" -}}
+!*/exports
+!*/screenshots/*.jpg
+*
+
+{{- else if eq .osid "linux-steamos" -}}
 */cache
 !*/compatdata/**/GP Bikes/**
 !*/compatdata/**/MX Bikes/**
 !*/{{ keepassxcAttribute "Steam" "User ID" }}/**/screenshots/*.jpg
-*
-
-{{- else if eq .chezmoi.os "android" -}}
-!*/exports
-!*/screenshots/*.jpg
 *
 
 {{- end -}}
