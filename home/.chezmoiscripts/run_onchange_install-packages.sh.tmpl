@@ -29,6 +29,11 @@ for package in {{ range .packages.linux.debian.apt -}} {{ . | quote }} {{ end -}
     sudo apt install -y "$package"
 done
 
+{{- else if eq .osid "linux-steamos" -}}
+for package in {{ range .packages.linux.steamos.flatpak -}} {{ . | quote }} {{ end -}}; do
+    flatpak install --system -y "$package"
+done
+
 {{- else if eq .chezmoi.os "android" -}}
 for package in {{ range .packages.android.pkg -}} {{ . | quote }} {{ end -}}; do
     pkg install -y "$package"
