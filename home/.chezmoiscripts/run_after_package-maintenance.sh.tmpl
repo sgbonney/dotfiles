@@ -9,10 +9,11 @@ brew cleanup
 
 flatpak uninstall --unused
 
-{{- else if eq .osid "linux-debian" -}}
+{{   if eq .osid "linux-debian" -}}
 sudo apt autoremove -y
 
-{{- else if eq .osid "linux-fedora" -}}
+{{   else if eq .osid "linux-fedora" -}}
 rpm-ostree cleanup -bm
 
+{{-   end -}}
 {{- end -}}
