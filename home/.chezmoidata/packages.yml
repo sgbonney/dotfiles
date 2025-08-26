@@ -17,8 +17,9 @@ packages:
     debian:
       apt:
       - 'backintime-qt'
-      - 'rclone'
       - 'rpi-sb-provisioner'
+      brew:
+      - 'rclone'
       - 'rsync'
     fedora:
       brew:
