@@ -5,6 +5,7 @@
 {{- end }}
 
 {{- if ne .chezmoi.os "linux" }}
+*/keepassxc-cli
 */systemd
 .local/share/icons
 .local/share/applications
