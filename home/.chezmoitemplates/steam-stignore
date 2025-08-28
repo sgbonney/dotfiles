@@ -1,7 +1,6 @@
 {{- if eq .chezmoi.os "android" -}}
 !*/exports
 !*/screenshots/*.jpg
-*
 
 {{- else if eq .osid "linux-steamos" -}}
 */cache
