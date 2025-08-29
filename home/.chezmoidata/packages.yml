@@ -52,6 +52,7 @@ packages:
       - 'backintime-qt'
       - 'emacs'
       - 'enchant2-devel'
+      - 'gnome-tweaks'
     steamos:
       flatpak:
       - 'org.gimp.GIMP'
