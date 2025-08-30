@@ -1,7 +1,7 @@
 #!/bin/bash
 
 handle_failure() {
-    if ! command -v "$1" &> /dev/null; then
+    if ! type "$1" &> /dev/null; then
         echo "Failed to install $1."
         exit 1
     fi
