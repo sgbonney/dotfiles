@@ -1,10 +1,10 @@
-{{- if ne .chezmoi.os "android" }}
+{{- if not (contains "android" .osid) }}
 */launch-keepassxc.sh
 .config/keepassxc
 .termux
 {{- end }}
 
-{{- if ne .chezmoi.os "linux" }}
+{{- if not (contains "linux" .osid) }}
 */keepassxc-cli
 */systemd
 .local/share/icons
@@ -12,10 +12,10 @@
 .var
 {{- end }}
 
-{{- if ne .osid "linux-fedora" }}
+{{- if not (contains "fedora" .osid) }}
 */restart-emacs.sh
 {{- end }}
 
-{{- if ne .osid "linux-steamos" }}
+{{- if not (contains "steamos" .osid) }}
 **/Steam
 {{- end }}

@@ -1,7 +1,7 @@
-{{ if eq .chezmoi.os "android" -}}
+{{ if contains "android" .osid -}}
 #!/data/data/com.termux/files/usr/bin/bash
 
-{{ else if eq .chezmoi.os "linux" -}}
+{{ else if contains "linux" .osid -}}
 #!/bin/bash
 
 {{ end -}}

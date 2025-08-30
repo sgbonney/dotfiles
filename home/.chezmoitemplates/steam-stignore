@@ -1,8 +1,8 @@
-{{- if eq .chezmoi.os "android" -}}
+{{- if contains "android" .osid -}}
 !*/exports
 !*/screenshots/*.jpg
 
-{{- else if eq .osid "linux-steamos" -}}
+{{- else if contains "steamos" .osid -}}
 */cache
 !*/compatdata/**/GP Bikes/**
 !*/compatdata/**/MX Bikes/**

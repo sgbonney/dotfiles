@@ -2,7 +2,7 @@
     type = "git-repo"
     url = "https://github.com/sgbonney/.emacs.d"
 
-{{ if eq .osid "linux-debian" -}}
+{{ if contains "debian" .osid -}}
 ["Git/chezmoi"]
     type = "git-repo"
     url = "https://github.com/sgbonney/dotfiles"
