@@ -17,8 +17,6 @@ if command -v brew >/dev/null 2>&1; then
     for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
         if ! brew list --formula | grep -q "^$package\$"; then
             brew install "$package"
-        else
-            echo "$package is already installed."
         fi
     done
 fi
@@ -28,8 +26,6 @@ if command -v flatpak >/dev/null 2>&1; then
     for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
         if ! flatpak list --app | grep -q "$package"; then
             flatpak install --system -y "$package"
-        else
-            echo "$package is already installed."
         fi
     done
 fi
@@ -39,8 +35,6 @@ if command -v pkg >/dev/null 2>&1; then
     for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
         if ! dpkg -l | grep -q "^ii\s\+$package"; then
             pkg install -y "$package"
-        else
-            echo "$package is already installed."
         fi
     done
 fi
@@ -50,8 +44,6 @@ if command -v rpm-ostree >/dev/null 2>&1; then
     for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
         if ! rpm-ostree status | grep -q "$package"; then
             rpm-ostree install --assumeyes "$package"
-        else
-            echo "$package is already installed."
         fi
     done
 fi
