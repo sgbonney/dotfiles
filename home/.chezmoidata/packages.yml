@@ -1,58 +1,58 @@
 packages:
-  android:
-    pkg:
+  apt:
+    debian:
+    - 'backintime-qt'
+    - 'rpi-sb-provisioner'
+  brew:
+    debian:
+    - 'rclone'
+    - 'rsync'
+    fedora:
+    - 'ffmpeg'
+    - 'mpv'
+    - 'pandoc'
+    - 'ripgrep'
+    - 'rclone'
+    - 'rsync'
+    linux:
+    - 'syncthing'
+  flatpak:
+    debian:
+    - 'io.ente.photos'
+    fedora:
+    - 'ch.protonmail.protonmail-bridge'
+    - 'com.calibre_ebook.calibre'
+    - 'com.github.jeromerobert.pdfarranger'
+    - 'com.google.AndroidStudio'
+    - 'com.protonvpn.www'
+    - 'io.ente.photos'
+    - 'network.loki.Session'
+    - 'org.flatpak.Builder'
+    - 'org.gimp.GIMP'
+    - 'org.gnome.Boxes'
+    - 'org.libreoffice.LibreOffice'
+    - 'org.mozilla.Thunderbird'
+    - 'org.raspberrypi.rpi-imager'
+    - 'org.signal.Signal'
+    - 'org.torproject.torbrowser-launcher'
+    - 'org.videolan.VLC'
+    linux:
+    - 'io.github.ungoogled_software.ungoogled_chromium'
+    - 'io.gitlab.librewolf-community'
+    - 'org.keepassxc.KeePassXC'
+    steamos:
+    - 'org.gimp.GIMP'
+  pkg:
+    android:
     - 'aspell-en'
     - 'enchant'
     - 'ffmpeg'
     - 'keepassxc'
     - 'mpv'
     - 'mupdf-tools'
-  linux:
-    brew:
-    - 'syncthing'
-    flatpak:
-    - 'io.github.ungoogled_software.ungoogled_chromium'
-    - 'io.gitlab.librewolf-community'
-    - 'org.keepassxc.KeePassXC'
-    debian:
-      apt:
-      - 'backintime-qt'
-      - 'rpi-sb-provisioner'
-      brew:
-      - 'rclone'
-      - 'rsync'
-      flatpak:
-      - 'io.ente.photos'
+  rpm_ostree:
     fedora:
-      brew:
-      - 'ffmpeg'
-      - 'mpv'
-      - 'pandoc'
-      - 'rclone'
-      - 'ripgrep'
-      - 'rsync'
-      flatpak:
-      - 'ch.protonmail.protonmail-bridge'
-      - 'com.calibre_ebook.calibre'
-      - 'com.github.jeromerobert.pdfarranger'
-      - 'com.google.AndroidStudio'
-      - 'com.protonvpn.www'
-      - 'io.ente.photos'
-      - 'network.loki.Session'
-      - 'org.flatpak.Builder'
-      - 'org.gimp.GIMP'
-      - 'org.gnome.Boxes'
-      - 'org.libreoffice.LibreOffice'
-      - 'org.mozilla.Thunderbird'
-      - 'org.raspberrypi.rpi-imager'
-      - 'org.signal.Signal'
-      - 'org.torproject.torbrowser-launcher'
-      - 'org.videolan.VLC'
-      rpm_ostree:
-      - 'backintime-qt'
-      - 'emacs'
-      - 'enchant2-devel'
-      - 'gnome-tweaks'
-    steamos:
-      flatpak:
-      - 'org.gimp.GIMP'
+    - 'backintime-qt'
+    - 'emacs'
+    - 'enchant2-devel'
+    - 'gnome-tweaks'
