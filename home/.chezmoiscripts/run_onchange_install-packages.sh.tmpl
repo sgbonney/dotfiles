@@ -12,7 +12,7 @@ if command -v apt >/dev/null 2>&1; then
 fi
 
 {{ $packageManager := "brew" -}}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null)"
 if command -v brew >/dev/null 2>&1; then
     for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
         if ! brew list --formula | grep -q "^$package\$"; then
