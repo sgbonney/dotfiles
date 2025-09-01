@@ -1,11 +1,11 @@
 {{- template "bash-shebang" . -}}
 
-{{- if eq .chezmoi.os "android" -}}
+{{- if contains "android" .osid -}}
 apt update -y && apt upgrade -y -o Dpkg::Options::="--force-confnew"
 pkg install -y x11-repo
 pkg install -y termux-x11-nightly
 
-{{- else if eq .osid "linux-fedora" -}}
+{{- else if contains "fedora" .osid -}}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew analytics off
 

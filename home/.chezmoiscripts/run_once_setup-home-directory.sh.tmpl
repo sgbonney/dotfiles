@@ -1,6 +1,6 @@
 {{- template "bash-shebang" . -}}
 
-{{- if eq .chezmoi.os "android" -}}
+{{- if contains "android" .osid -}}
 EMACS_HOME="/data/data/org.gnu.emacs/files"
 TERMUX_HOME="/data/data/com.termux/files/home"
 ANDROID_DISK_HOME="/storage/emulated/0"

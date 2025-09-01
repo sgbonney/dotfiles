@@ -1,6 +1,6 @@
 {{- template "bash-shebang" . -}}
 
-{{- if eq .osid "linux-fedora" -}}
+{{- if contains "fedora" .osid -}}
 for systemd in {{ range .services.systemd -}} {{ . | quote }} {{ end -}}; do
     if ! command -v "$systemd" &> /dev/null; then
         continue
