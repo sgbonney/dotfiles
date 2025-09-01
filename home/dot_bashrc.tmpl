@@ -20,7 +20,7 @@ fi
 
 {{ end -}}
 # User specific aliases and functions
-for script in "$HOME/bin"/*.sh; do
+for script in ~/bin/*.sh; do
     script_name=$(basename "$script" .sh)
     alias "$script_name"="$script"
 done
