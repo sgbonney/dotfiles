@@ -1,0 +1,5 @@
+{{- template "bash-shebang" . -}}
+
+eval "$(cat ~/.bashrc)" > /dev/null 2>&1
+termux-x11 :1 -xstartup "keepassxc" &> /dev/null &
+am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity > /dev/null 2>&1
