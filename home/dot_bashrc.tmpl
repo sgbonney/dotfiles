@@ -38,7 +38,7 @@ unset rc
 {{- else if contains "android" .osid -}}
 if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
     rm -f ~/.ssh/ssh-agent.sock
-    eval "$(ssh-agent -s -a ~/.ssh/ssh-agent.sock)"
+    eval "$(ssh-agent -s -a ~/.ssh/ssh-agent.sock > /dev/null 2>&1)"
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock
 
