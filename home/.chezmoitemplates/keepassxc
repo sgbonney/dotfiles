@@ -10,3 +10,7 @@ ExcludedChars=
 
 [SSHAgent]
 Enabled=true
+
+[Security]
+ClearSearch=true
+LockDatabaseIdle=true
