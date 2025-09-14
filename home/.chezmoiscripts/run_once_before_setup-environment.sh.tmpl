@@ -1,21 +1,26 @@
 {{- template "bash-shebang" . -}}
 
-{{- if contains "android" .osid -}}
-apt update -y && apt upgrade -y -o Dpkg::Options::="--force-confnew"
-pkg install -y x11-repo
-pkg install -y termux-x11-nightly
-
-{{- else if contains "fedora" .osid -}}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-brew analytics off
-
-flatpak remote-modify --no-filter --enable flathub
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install --reinstall --assumeyes flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
-if flatpak remote-list | grep -q fedora; then
-    flatpak remote-delete fedora
-else
-    echo "Remote "fedora" not found"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null)"
+if command -v brew >/dev/null 2>&1; then
+    brew analytics off
 fi
 
-{{- end -}}
+if command -v flatpak >/dev/null 2>&1; then
+    flatpak remote-modify --no-filter --enable flathub
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    {{- if contains "fedora" .osid }}
+    flatpak install --reinstall --assumeyes flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+    if flatpak remote-list | grep -q fedora; then
+        flatpak remote-delete fedora
+    else
+        echo "Remote "fedora" not found"
+    fi
+    {{- end }}
+fi
+
+if command -v pkg >/dev/null 2>&1; then
+    {{- if contains "android" .osid }}
+    pkg install -y x11-repo
+    pkg install -y termux-x11-nightly
+    {{- end }}
+fi

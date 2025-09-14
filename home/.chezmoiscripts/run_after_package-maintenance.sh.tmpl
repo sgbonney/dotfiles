@@ -1,19 +1,19 @@
 {{- template "bash-shebang" . -}}
 
-{{- if contains "android" .osid -}}
-apt autoremove -y
+if command -v apt >/dev/null 2>&1; then
+    {{ if contains "debian" .osid -}} sudo {{ end -}}
+    apt autoremove -y
+fi
 
-{{- else if contains "linux" .osid -}}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-brew cleanup
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null)"
+if command -v brew >/dev/null 2>&1; then
+    brew cleanup
+fi
 
-flatpak uninstall --unused
+if command -v flatpak >/dev/null 2>&1; then
+    flatpak uninstall --unused
+fi
 
-{{   if contains "debian" .osid -}}
-sudo apt autoremove -y
-
-{{   else if contains "fedora" .osid -}}
-rpm-ostree cleanup -bm
-
-{{-   end -}}
-{{- end -}}
+if command -v rpm-ostree >/dev/null 2>&1; then
+    rpm-ostree cleanup -bm
+fi
