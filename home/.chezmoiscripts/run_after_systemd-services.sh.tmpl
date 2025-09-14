@@ -1,12 +1,11 @@
 {{- template "bash-shebang" . -}}
 
-{{- if contains "fedora" .osid -}}
-for systemd in {{ range .services.systemd -}} {{ . | quote }} {{ end -}}; do
-    if ! command -v "$systemd" &> /dev/null; then
-        continue
-    fi
-    systemctl --user enable "$systemd.service"
-    systemctl --user start "$systemd.service"
-done
-
-{{- end -}}
+if command -v systemctl >/dev/null 2>&1; then
+    for systemd in {{ range .services.systemd -}} {{ . | quote }} {{ end -}}; do
+        if ! command -v "$systemd" &> /dev/null; then
+            continue
+        fi
+        systemctl --user enable "$systemd.service"
+        systemctl --user start "$systemd.service"
+    done
+fi
