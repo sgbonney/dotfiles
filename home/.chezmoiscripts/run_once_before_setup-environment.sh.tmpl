@@ -18,9 +18,9 @@ if command -v flatpak >/dev/null 2>&1; then
     {{- end }}
 fi
 
+{{- if contains "android" .osid }} {{ "\n" }}
 if command -v pkg >/dev/null 2>&1; then
-    {{- if contains "android" .osid }}
     pkg install -y x11-repo
     pkg install -y termux-x11-nightly
-    {{- end }}
 fi
+{{- end }}
