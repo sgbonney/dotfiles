@@ -17,5 +17,5 @@
 {{- end }}
 
 {{- if not (contains "steamos" .osid) }}
-**/Steam
+.local/share/Steam
 {{- end }}
