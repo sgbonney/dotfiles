@@ -1,14 +1,14 @@
 {{- if not (contains "android" .osid) }}
-**/launch-keepassxc.sh
 .config/keepassxc
+**/launch-keepassxc.sh
 .termux
 {{- end }}
 
 {{- if not (contains "linux" .osid) }}
-**/keepassxc-cli
 .config/systemd
-.local/share/icons
+**/keepassxc-cli
 .local/share/applications
+.local/share/icons
 .var
 {{- end }}
 
