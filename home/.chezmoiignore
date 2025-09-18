@@ -1,19 +1,19 @@
 {{- if not (contains "android" .osid) }}
-*/launch-keepassxc.sh
+**/launch-keepassxc.sh
 .config/keepassxc
 .termux
 {{- end }}
 
 {{- if not (contains "linux" .osid) }}
-*/keepassxc-cli
-*/systemd
+**/keepassxc-cli
+.config/systemd
 .local/share/icons
 .local/share/applications
 .var
 {{- end }}
 
 {{- if not (contains "fedora" .osid) }}
-*/restart-emacs.sh
+**/restart-emacs.sh
 {{- end }}
 
 {{- if not (contains "steamos" .osid) }}
