@@ -1,6 +1,7 @@
 {{- if not (contains "android" .osid) }}
 .config/keepassxc
 **/launch-keepassxc.sh
+.local/share/android
 .termux
 {{- end }}
 
