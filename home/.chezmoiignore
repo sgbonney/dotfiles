@@ -18,7 +18,3 @@
 {{- if not (contains "fedora" .osid) }}
 **/restart-emacs.sh
 {{- end }}
-
-{{- if not (contains "steamos" .osid) }}
-.local/share/Steam
-{{- end }}
