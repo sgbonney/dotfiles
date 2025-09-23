@@ -28,7 +28,6 @@ packages:
     - 'io.ente.photos'
     - 'network.loki.Session'
     - 'org.flatpak.Builder'
-    - 'org.gimp.GIMP'
     - 'org.gnome.Boxes'
     - 'org.libreoffice.LibreOffice'
     - 'org.mozilla.Thunderbird'
