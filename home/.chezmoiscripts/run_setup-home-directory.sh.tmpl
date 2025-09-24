@@ -7,7 +7,8 @@ if [ -d "$EMACS" ]; then
     ln -s "$HOME" "$EMACS"
 fi
 
-for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"*; do
+# Include hidden directories by using a pattern that matches all
+for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"{*,.*}; do
     if [ -d "$DIR" ]; then
         DIR_NAME=$(basename "$DIR")
         TARGET="/{{- template "storage/internal" . -}}/$DIR_NAME"
@@ -30,7 +31,7 @@ if [ -d "$HOME/.local/share/{{- .osid -}}/storage/internal/Downloads" ]; then
     fi
 fi
 
-for DIR in "$HOME/.local/share/{{- .osid -}}/storage/external/"*; do
+for DIR in "$HOME/.local/share/{{- .osid -}}/storage/external/"{*,.*}; do
     if [ -d "$DIR" ]; then
         DIR_NAME=$(basename "$DIR")
         TARGET="/{{- template "storage/external" . -}}/$DIR_NAME"
