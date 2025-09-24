@@ -1,0 +1,45 @@
+{{- template "bash-shebang" . -}}
+
+{{- if contains "android" .osid -}}
+EMACS="/data/data/org.gnu.emacs/files"
+if [ -d "$EMACS" ]; then
+    rm -rf "$EMACS"
+    ln -s "$HOME" "$EMACS"
+fi
+
+for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"*; do
+    if [ -d "$DIR" ]; then
+        DIR_NAME=$(basename "$DIR")
+        TARGET="/{{- template "storage/internal" . -}}/$DIR_NAME"
+        if [ -d "$TARGET" ]; then
+            if [ -L "$HOME/$DIR_NAME" ]; then
+                rm "$HOME/$DIR_NAME"
+            fi
+            ln -s "$TARGET" "$HOME/$DIR_NAME"
+        fi
+    fi
+done
+
+if [ -d "$HOME/.local/share/{{- .osid -}}/storage/internal/Downloads" ]; then
+    TARGET="/{{- template "storage/internal" . -}}/Download"
+    if [ -d "$TARGET" ]; then
+        if [ -L "$HOME/Downloads" ]; then
+            rm "$HOME/Downloads"
+        fi
+        ln -s "$TARGET" "$HOME/Downloads"
+    fi
+fi
+
+for DIR in "$HOME/.local/share/{{- .osid -}}/storage/external/"*; do
+    if [ -d "$DIR" ]; then
+        DIR_NAME=$(basename "$DIR")
+        TARGET="/{{- template "storage/external" . -}}/$DIR_NAME"
+        if [ -d "$TARGET" ]; then
+            if [ -L "$HOME/$DIR_NAME" ]; then
+                rm "$HOME/$DIR_NAME"
+            fi
+            ln -s "$TARGET" "$HOME/$DIR_NAME"
+        fi
+    fi
+done
+{{- end -}}
