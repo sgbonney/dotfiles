@@ -6,7 +6,7 @@
 */cache
 !*/compatdata/**/GP Bikes/**
 !*/compatdata/**/MX Bikes/**
-!*/{{ keepassxcAttribute "Steam" "User ID" }}/**/screenshots/*.jpg
+!*/{{- keepassxcAttribute "Steam" "User ID" -}}/**/remote
 
 {{- end }}
 *
