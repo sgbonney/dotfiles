@@ -4,8 +4,8 @@
 
 {{- else if contains "steamos" .osid -}}
 */cache
-!*/compatdata/**/GP Bikes/**
-!*/compatdata/**/MX Bikes/**
+!{{- .games.gp_bikes.path }}**
+!{{- .games.mx_bikes.path }}**
 !*/{{- keepassxcAttribute "Steam" "User ID" -}}/**/remote
 
 {{- end }}

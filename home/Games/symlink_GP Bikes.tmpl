@@ -1,1 +1,2 @@
-{{- output "bash" "-c" "find ~/.steam/ -type d -path '*/compatdata/**/GP Bikes' -print" | trim -}}
+{{- $game := .games.gp_bikes.path -}}
+{{- output "bash" "-c" (printf "find ~/.steam/ -type d -path '%s' -print" $game) | trim -}}
