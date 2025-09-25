@@ -7,7 +7,6 @@ if [ -d "$EMACS" ]; then
     ln -s "$HOME" "$EMACS"
 fi
 
-# Include hidden directories by using a pattern that matches all
 for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"{*,.*}; do
     if [ -d "$DIR" ]; then
         DIR_NAME=$(basename "$DIR")
