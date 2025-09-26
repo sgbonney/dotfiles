@@ -6,8 +6,8 @@ if command -v brew >/dev/null 2>&1; then
 fi
 
 if command -v flatpak >/dev/null 2>&1; then
-    flatpak remote-modify --no-filter --enable flathub
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-modify --no-filter --enable flathub
     {{- if contains "fedora" .osid }}
     flatpak install --reinstall --assumeyes flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
     if flatpak remote-list | grep -q fedora; then
