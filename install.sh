@@ -12,7 +12,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew install chezmoi
     handle_failure "chezmoi"
 elif [[ "$OSTYPE" == *"android"* ]]; then
-    pkg update -y || { echo "Failed to update package list. Exiting."; exit 1; }
+    apt update -y && apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
+    pkg update -y && pkg upgrade -y
     pkg install -y git
     handle_failure "git"
     pkg install -y chezmoi
