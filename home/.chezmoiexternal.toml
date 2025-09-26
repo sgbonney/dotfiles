@@ -1,8 +1,9 @@
+{{- if or (contains .osid "android") (contains .osid "fedora") -}}
 [".emacs.d"]
     type = "git-repo"
     url = "https://github.com/sgbonney/.emacs.d"
 
-{{- if contains "debian" .osid }} {{ "\n" }}
+{{- else if contains "debian" .osid -}}
 ["Git/chezmoi"]
     type = "git-repo"
     url = "https://github.com/sgbonney/dotfiles"
