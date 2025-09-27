@@ -1,0 +1,16 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+cmp -s $HOME/.hushlogin /{{- if contains "android" .osid -}}data/data/com.termux/files/usr/{{- end -}}etc/motd
+if [ $? != 0 ]; then
+    tee < "/{{- if contains "android" .osid -}}data/data/com.termux/files/usr/{{- end -}}etc/motd"
+    read -p "Do you want to dismiss this message for future logins? (y/n): " choice
+    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+        tee $HOME/.hushlogin < /{{- if contains "android" .osid -}}data/data/com.termux/files/usr/{{- end -}}etc/motd > /dev/null
+    fi
+fi
