@@ -16,6 +16,8 @@
 {{- end }}
 
 {{- if not (contains "fedora" .osid) }}
+**/emacs.desktop
+**/emacs.service
 **/restart-emacs.sh
 {{- end }}
 
