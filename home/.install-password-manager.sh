@@ -4,12 +4,12 @@
 
 if [ "$(uname -o)" = "GNU/Linux" ]; then
     if ! command -v flatpak >/dev/null 2>&1; then
-	if command -v apt >/dev/null 2>&1; then
-	    sudo apt update -y && sudo apt install -y flatpak || { echo "Failed to install Flatpak."; exit 1; }
-	else
-	    echo "Unsupported package manager. Please install Flatpak manually."
-	    exit 1
-	fi
+        if command -v apt >/dev/null 2>&1; then
+            sudo apt update -y && sudo apt install -y flatpak || { echo "Failed to install Flatpak."; exit 1; }
+        else
+            echo "Unsupported package manager. Please install Flatpak manually."
+            exit 1
+        fi
     fi
 
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
