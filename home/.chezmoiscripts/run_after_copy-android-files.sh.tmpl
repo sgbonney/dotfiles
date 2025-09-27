@@ -1,0 +1,27 @@
+{{- template "bash-shebang" . -}}
+
+{{- if contains "android" .osid -}}
+for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"{*,.*}; do
+    if [ -d "$DIR" ]; then
+        DIR_NAME=$(basename "$DIR")
+        TARGET="/{{- template "storage/internal" . -}}/$DIR_NAME"
+        if [ -d "$TARGET" ]; then
+            cp -r "$DIR/"* "$TARGET" 2>/dev/null
+            cp -r "$DIR/."* "$TARGET" 2>/dev/null
+            find "$TARGET" -type f -name ".gitkeep" -exec rm -f {} +
+        fi
+    fi
+done
+
+for DIR in "$HOME/.local/share/{{- .osid -}}/storage/external/"{*,.*}; do
+    if [ -d "$DIR" ]; then
+        DIR_NAME=$(basename "$DIR")
+        TARGET="/{{- template "storage/external" . -}}/$DIR_NAME"
+        if [ -d "$TARGET" ]; then
+            cp -r "$DIR/"* "$TARGET" 2>/dev/null
+            cp -r "$DIR/."* "$TARGET" 2>/dev/null
+            find "$TARGET" -type f -name ".gitkeep" -exec rm -f {} +
+        fi
+    fi
+done
+{{- end -}}
