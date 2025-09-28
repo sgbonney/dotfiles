@@ -6,20 +6,63 @@ for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"{*,.*}; do
         DIR_NAME=$(basename "$DIR")
         TARGET="/{{- template "storage/internal" . -}}/$DIR_NAME"
         if [ -d "$TARGET" ]; then
-            cp -r "$DIR/"* "$TARGET" 2>/dev/null
-            cp -r "$DIR/."* "$TARGET" 2>/dev/null
+            shopt -s nullglob
+            for FILE in "$DIR/"* "$DIR/."*; do
+                if [[ "$FILE" == "$DIR/." || "$FILE" == "$DIR/.." ]]; then
+                    continue
+                fi
+
+                TARGET_FILE="$TARGET/$(basename "$FILE")"
+                if [ -f "$TARGET_FILE" ]; then
+                    cmp -s "$FILE" "$TARGET_FILE" || cp -r "$FILE" "$TARGET"
+                else
+                    cp -r "$FILE" "$TARGET"
+                fi
+            done
             find "$TARGET" -type f -name ".gitkeep" -exec rm -f {} +
         fi
     fi
 done
+
+DIR="$HOME/.local/share/{{- .osid -}}/storage/internal/Downloads"
+if [ -d "$DIR" ]; then
+    TARGET="/{{- template "storage/internal" . -}}/Download"
+    if [ -d "$TARGET" ]; then
+        shopt -s nullglob
+        for FILE in "$DIR/"* "$DIR/."*; do
+            if [[ "$FILE" == "$DIR/." || "$FILE" == "$DIR/.." ]]; then
+                continue
+            fi
+
+            TARGET_FILE="$TARGET/$(basename "$FILE")"
+            if [ -f "$TARGET_FILE" ]; then
+                cmp -s "$FILE" "$TARGET_FILE" || cp -r "$FILE" "$TARGET"
+            else
+                cp -r "$FILE" "$TARGET"
+            fi
+        done
+        find "$TARGET" -type f -name ".gitkeep" -exec rm -f {} +
+    fi
+fi
 
 for DIR in "$HOME/.local/share/{{- .osid -}}/storage/external/"{*,.*}; do
     if [ -d "$DIR" ]; then
         DIR_NAME=$(basename "$DIR")
         TARGET="/{{- template "storage/external" . -}}/$DIR_NAME"
         if [ -d "$TARGET" ]; then
-            cp -r "$DIR/"* "$TARGET" 2>/dev/null
-            cp -r "$DIR/."* "$TARGET" 2>/dev/null
+            shopt -s nullglob
+            for FILE in "$DIR/"* "$DIR/."*; do
+                if [[ "$FILE" == "$DIR/." || "$FILE" == "$DIR/.." ]]; then
+                    continue
+                fi
+
+                TARGET_FILE="$TARGET/$(basename "$FILE")"
+                if [ -f "$TARGET_FILE" ]; then
+                    cmp -s "$FILE" "$TARGET_FILE" || cp -r "$FILE" "$TARGET"
+                else
+                    cp -r "$FILE" "$TARGET"
+                fi
+            done
             find "$TARGET" -type f -name ".gitkeep" -exec rm -f {} +
         fi
     fi
