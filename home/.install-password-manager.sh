@@ -15,7 +15,7 @@ if [ "$(uname -o)" = "GNU/Linux" ]; then
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak remote-modify --no-filter --enable flathub
     flatpak install --system -y flathub org.keepassxc.KeePassXC || { echo "Failed to install KeePassXC."; exit 1; }
-    mkdir -p ~/.local/share/bin/ && cp ~/.local/share/chezmoi/home/private_dot_local/bin/keepassxc-cli ~/.local/share/bin/
+    mkdir -p ~/.local/bin/ && cp ~/.local/share/chezmoi/home/private_dot_local/bin/keepassxc-cli ~/.local/bin/
 elif [ "$(uname -o)" = "Android" ]; then
     pkg update -y
     pkg install -y x11-repo
