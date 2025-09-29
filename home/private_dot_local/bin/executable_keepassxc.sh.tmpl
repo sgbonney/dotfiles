@@ -1,5 +1,10 @@
 {{- template "bash-shebang" . -}}
 
+{{- if contains "android" .osid -}}
 eval "$(cat ~/.bashrc)" > /dev/null 2>&1
 termux-x11 :1 -xstartup "keepassxc" &> /dev/null &
 am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity > /dev/null 2>&1
+
+{{- else if contains "linux" .osid -}}
+flatpak run org.keepassxc.KeePassXC > /dev/null 2>&1 & disown
+{{- end -}}
