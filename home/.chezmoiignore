@@ -3,9 +3,8 @@
 .config/fr.neamar.kiss
 .config/juloo.keyboard2
 .config/keepassxc
-**/launch-keepassxc.sh
 .local/share/android
-**/add-obtainium-export.sh
+**/obtainium.sh
 .termux
 {{- end }}
 
@@ -18,8 +17,7 @@
 {{- end }}
 
 {{- if not (contains "fedora" .osid) }}
-**/emacs.desktop
-**/emacs.service
+**/emacs.*
 **/org.gnome.TextEditor
 **/restart-emacs.sh
 {{- end }}
