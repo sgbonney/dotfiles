@@ -21,7 +21,3 @@
 **/org.gnome.TextEditor
 **/restart-emacs.sh
 {{- end }}
-
-{{- if not (contains "steamos" .osid) }}
-.local/share/Steam
-{{- end }}
