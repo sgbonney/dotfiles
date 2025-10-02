@@ -1,0 +1,99 @@
+{{- template "bash-shebang" . -}}
+
+if [ -z "$1" ]; then
+    echo "No command provided. Usage: $0 {cd|compare|copy|remove|all|<command>}"
+    exit 1
+fi
+
+files="/{{- template "storage/internal" . -}}/.obtainium/obtainium-export-*.json"
+source_file=$(chezmoi source-path "$HOME/.config/dev.imranr.obtainium/obtainium-export.json")
+
+if command -v chezmoi > /dev/null; then
+    if [ ! -f "$source_file" ]; then
+        echo "chezmoi file not found"
+        exit 1
+    fi
+else
+    echo "chezmoi is not installed"
+    exit 1
+fi
+
+target_file=""
+
+cd() {
+    builtin cd "$(dirname "$source_file")" || { echo "Failed to change directory"; exit 1; }
+}
+
+compare() {
+    target_file=$(ls -t $files 2>/dev/null | head -n 1)
+    if [ -z "$target_file" ]; then
+        echo "No files found in $(dirname "$files")"
+        exit 1
+    else
+        if ! cmp -s "$target_file" "$source_file"; then
+            return 1
+        fi
+    fi
+}
+
+copy() {
+    cp "$target_file" "$source_file"
+}
+
+remove() {
+    rm -f $files
+}
+
+case "$1" in
+    cd)
+        cd && exec "$SHELL"
+        ;;
+    compare)
+        if compare; then
+            echo "Files are the same"
+        elif [ $? -eq 1 ]; then
+            echo "Files are different"
+        else
+            echo "Error comparing files"
+	    exit 1
+        fi
+        ;;
+    copy)
+        if compare; then
+            echo "No new file to copy in $(dirname "$files")"
+            exit 1
+        else
+            copy
+            echo "New file copied"
+        fi
+        ;;
+    remove)
+        if ! compare; then
+            echo "New file found. Would you like to copy it before removal? (y/n/c to cancel)"
+            read -r response
+            if [[ "$response" == "y" || "$response" == "Y" ]]; then
+                copy
+                echo "New file copied"
+	    elif [[ "$response" == "c" || "$response" == "C" ]]; then
+                echo "Operation cancelled"
+                exit 0
+            else
+                echo "File not copied"
+            fi
+        fi
+        remove && echo "All files in $(dirname "$files") removed"
+        ;;
+    all)
+        if compare; then
+            echo "No new file found in $(dirname "$files")"
+            exit 1
+        fi
+        copy
+        remove
+        cd && exec "$SHELL"
+        ;;
+    *)
+        cd
+        "$@" || { echo "Command failed: $@"; exit 1; }
+        ;;
+esac
