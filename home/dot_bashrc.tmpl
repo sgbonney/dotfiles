@@ -35,6 +35,24 @@ for script in "$HOME/.local/bin"/*.sh "$HOME/bin"/*.sh; do
     alias "$script_name"="$script"
 done
 
+function git() {
+    if [[ "$1" == "push" ]]; then
+        while true; do
+            if pgrep -fl keepassxc > /dev/null; then
+                command git "$@"
+                return
+            else
+                echo "KeePassXC is not running. Launching KeePassXC..."
+                keepassxc
+                echo "Please unlock your database and then press Enter to continue."
+                read -r
+            fi
+        done
+    else
+        command git "$@"
+    fi
+}
+
 {{ if contains "fedora" .osid -}}
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
