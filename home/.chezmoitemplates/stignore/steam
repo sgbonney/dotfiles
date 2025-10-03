@@ -1,12 +1,2 @@
-{{- if contains "android" .osid -}}
-!*/exports
-!*/screenshots/*.jpg
-
-{{- else if contains "steamos" .osid -}}
-*/cache
-!{{- .games.gp_bikes.path }}/**
-!{{- .games.mx_bikes.path }}/**
 !*/{{- keepassxcAttribute "Steam" "User ID" -}}/**/remote
-
-{{- end }}
 *
