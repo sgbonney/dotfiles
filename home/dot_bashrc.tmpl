@@ -6,6 +6,9 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
+{{- else if contains "steamos" .osid -}}
+[[ $- != *i* ]] && return
+
 {{ end -}}
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
