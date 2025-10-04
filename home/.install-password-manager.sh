@@ -4,13 +4,6 @@ KDBX="$HOME/.keepass/s.kdbx"
 
 [ -f "$KDBX" ] && (command -v keepassxc >/dev/null 2>&1 || flatpak list --app | grep -q org.keepassxc.KeePassXC) && exit
 
-while [ ! -f "$KDBX" ]; do
-    echo "KeePassXC database not found."
-    echo "Please copy your database to $KDBX"
-    echo "Press Enter when done to continue."
-    read -r
-done
-
 if [ "$(uname -o)" = "GNU/Linux" ]; then
     if ! command -v flatpak >/dev/null 2>&1; then
         if command -v apt >/dev/null 2>&1; then
@@ -37,3 +30,10 @@ else
     echo "Unsupported operating system: $(uname -o)"
     exit 1
 fi
+
+while [ ! -f "$KDBX" ]; do
+    echo "KeePassXC database not found."
+    echo "Please copy your database to $KDBX"
+    echo "Press Enter when done to continue."
+    read -r
+done
