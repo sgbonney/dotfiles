@@ -2,7 +2,15 @@
 
 [ -f "$HOME/.bashrc" ] || { echo "Failed to find ~/.bashrc"; exit 1; }
 
-echo -e '\nif ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then\n    PATH="$HOME/.local/bin:$HOME/bin:$PATH"\nfi' >> ~/.bashrc && source ~/.bashrc
+PATH_UPDATE=$(cat <<'EOF'
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+EOF
+)
+
+eval "$PATH_UPDATE"
+echo -e "\n$PATH_UPDATE" >> ~/.bashrc && source ~/.bashrc
 
 handle_failure() {
     if ! command -v "$1" >/dev/null 2>&1; then
@@ -11,10 +19,18 @@ handle_failure() {
     fi
 }
 
+BREW_SHELLENV=$(cat <<'EOF'
+if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+EOF
+)
+
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     [ "$(passwd -S | awk '{print $2}')" == "NP" ] && passwd
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || handle_failure "brew"
-    echo -e '\nif [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then\n  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"\nfi' >> ~/.bashrc && source ~/.bashrc
+    eval "$BREW_SHELLENV"
+    echo -e "\n$BREW_SHELLENV" >> ~/.bashrc && source ~/.bashrc
     handle_failure "chezmoi"
 elif [[ "$OSTYPE" == *"android"* ]]; then
     pkg update -y || { echo "Failed to update package list. Exiting."; exit 1; }
