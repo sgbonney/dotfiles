@@ -1,4 +1,4 @@
-{{- if or (contains .osid "android") (contains .osid "fedora") -}}
+{{- if or (contains "android" .osid) (contains "fedora" .osid) -}}
 [".emacs.d"]
     type = "git-repo"
     url = "https://github.com/sgbonney/.emacs.d"
