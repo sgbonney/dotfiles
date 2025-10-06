@@ -6,7 +6,7 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-{{- else if contains "steamos" .osid -}}
+{{ else if contains "steamos" .osid -}}
 [[ $- != *i* ]] && return
 
 {{ end -}}
