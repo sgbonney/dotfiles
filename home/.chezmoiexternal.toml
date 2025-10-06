@@ -18,3 +18,9 @@
     type = "git-repo"
     url = "https://github.com/sgbonney/fluidbuild"
 {{- end -}}
+
+{{- if contains "linux" .osid -}} {{- "\n" }}
+[".local/share/icons/syncthing.svg"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/syncthing/syncthing/main/assets/logo-only.svg"
+{{- end -}}
