@@ -19,7 +19,7 @@ for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"{*,.*}; do
                     cp -r "$FILE" "$TARGET"
                 fi
             done
-            find "$TARGET" -type f -name ".gitkeep" -exec rm -f {} +
+            find "$TARGET" -type f -name ".keep" -exec rm -f {} +
         fi
     fi
 done
@@ -41,7 +41,7 @@ if [ -d "$DIR" ]; then
                 cp -r "$FILE" "$TARGET"
             fi
         done
-        find "$TARGET" -type f -name ".gitkeep" -exec rm -f {} +
+        find "$TARGET" -type f -name ".keep" -exec rm -f {} +
     fi
 fi
 
@@ -63,7 +63,7 @@ for DIR in "$HOME/.local/share/{{- .osid -}}/storage/external/"{*,.*}; do
                     cp -r "$FILE" "$TARGET"
                 fi
             done
-            find "$TARGET" -type f -name ".gitkeep" -exec rm -f {} +
+            find "$TARGET" -type f -name ".keep" -exec rm -f {} +
         fi
     fi
 done
