@@ -5,6 +5,10 @@ for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"{*,.*}; do
     if [ -d "$DIR" ]; then
         DIR_NAME=$(basename "$DIR")
         TARGET="/{{- template "storage/internal" . -}}/$DIR_NAME"
+        if [ ! -d "$TARGET" ]; then
+            mkdir -p "$TARGET"
+        fi
+
         if [ -d "$TARGET" ]; then
             shopt -s nullglob
             for FILE in "$DIR/"* "$DIR/."*; do
@@ -27,6 +31,10 @@ done
 DIR="$HOME/.local/share/{{- .osid -}}/storage/internal/Downloads"
 if [ -d "$DIR" ]; then
     TARGET="/{{- template "storage/internal" . -}}/Download"
+    if [ ! -d "$TARGET" ]; then
+        mkdir -p "$TARGET"
+    fi
+
     if [ -d "$TARGET" ]; then
         shopt -s nullglob
         for FILE in "$DIR/"* "$DIR/."*; do
@@ -49,6 +57,10 @@ for DIR in "$HOME/.local/share/{{- .osid -}}/storage/external/"{*,.*}; do
     if [ -d "$DIR" ]; then
         DIR_NAME=$(basename "$DIR")
         TARGET="/{{- template "storage/external" . -}}/$DIR_NAME"
+        if [ ! -d "$TARGET" ]; then
+            mkdir -p "$TARGET"
+        fi
+
         if [ -d "$TARGET" ]; then
             shopt -s nullglob
             for FILE in "$DIR/"* "$DIR/."*; do
