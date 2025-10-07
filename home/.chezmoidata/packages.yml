@@ -36,6 +36,7 @@ packages:
     - 'org.signal.Signal'
     - 'org.torproject.torbrowser-launcher'
     - 'org.videolan.VLC'
+    - 'rocks.shy.VacuumTube'
     linux:
     - 'io.github.ungoogled_software.ungoogled_chromium'
     - 'io.gitlab.librewolf-community'
