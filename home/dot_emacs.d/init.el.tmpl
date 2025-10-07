@@ -55,21 +55,22 @@
   (modus-themes-to-toggle
    '(modus-operandi-tinted modus-vivendi-tinted)))
 
-(cond
- ((eq system-type 'android)
-  (load-theme 'modus-vivendi-tinted :no-confirm))
- (t
-  (use-package auto-dark
-    :config
-    (ignore-errors
-      (setq auto-dark-themes '((modus-operandi-tinted) (modus-vivendi-tinted)))
-      (add-hook 'auto-dark-dark-mode-hook
-                (lambda ()
-                  (load-theme 'modus-vivendi-tinted :no-confirm)))
-      (add-hook 'auto-dark-light-mode-hook
-                (lambda ()
-                  (load-theme 'modus-operandi-tinted :no-confirm)))
-      (auto-dark-mode 1)))))
+{{ if contains "android" .osid -}}
+(load-theme 'modus-vivendi-tinted :no-confirm)
+
+{{- else -}}
+(use-package auto-dark
+  :config
+  (ignore-errors
+    (setq auto-dark-themes '((modus-operandi-tinted) (modus-vivendi-tinted)))
+    (add-hook 'auto-dark-dark-mode-hook
+	      (lambda ()
+		(load-theme 'modus-vivendi-tinted :no-confirm)))
+    (add-hook 'auto-dark-light-mode-hook
+	      (lambda ()
+		(load-theme 'modus-operandi-tinted :no-confirm)))
+    (auto-dark-mode 1)))
+{{- end }}
 
 (setq org-agenda-files nil)
 
@@ -287,8 +288,7 @@
   :custom
   (citar-bibliography '("~/Documents/system/books.bib"))
   :config
-  (when (eq system-type 'android)
-    (setq citar-file-additional-files-separator "__"))
+  {{ if contains "android" .osid -}}(setq citar-file-additional-files-separator "__"){{- end }}
   (setq citar-library-paths
         (append
 	 (list "~/Audiobooks")
@@ -342,9 +342,7 @@
 (defun keepassxc ()
   (interactive)
   (cond
-   ((string-equal system-type "gnu/linux")
-    (shell-command "keepassxc.sh"))
-
+   {{ if contains "android" .osid -}}
    ((string-equal system-type "android")
     (let ((command "am startservice --user 0 -n com.termux/com.termux.app.RunCommandService \
 -a com.termux.RUN_COMMAND \
@@ -353,7 +351,13 @@
 --es com.termux.RUN_COMMAND_WORKDIR '/data/data/com.termux/files/home' \
 --ez com.termux.RUN_COMMAND_BACKGROUND 'true' \
 --es com.termux.RUN_COMMAND_SESSION_ACTION '0'"))
-    (shell-command command)))))
+      (shell-command command)))
+
+   {{- else if contains "linux" .osid -}}
+   ((string-equal system-type "gnu/linux")
+    (shell-command "keepassxc.sh"))
+   {{- end -}}
+   ))
 
 (use-package org-roam
   :init
@@ -434,9 +438,8 @@
 (unless (server-running-p)
   (server-start))
 
-(cond
- ((eq system-type 'android)
-  (defun android-emacs-background-service-file ()
+{{- if contains "android" .osid -}}
+(defun android-emacs-background-service-file ()
   (interactive)
   (let ((file-name "Emacs Background Service"))
     (when (file-exists-p file-name)
@@ -445,4 +448,5 @@
     (insert "This file is produced to keep Emacs running while it is in the background. Used in conjunction with Android 'Emacs Background Service' notification, see (emacs)Android Environment.")
     (read-only-mode)
     (bury-buffer)))
-  (android-emacs-background-service-file)))
+(android-emacs-background-service-file)
+{{- end -}}
