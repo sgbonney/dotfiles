@@ -1,9 +1,4 @@
-{{- if or (contains "android" .osid) (contains "fedora" .osid) -}}
-[".emacs.d"]
-    type = "git-repo"
-    url = "https://github.com/sgbonney/.emacs.d"
-
-{{-   if contains "fedora" .osid -}}  {{- "\n" }}
+{{- if contains "fedora" .osid -}}
 ["{{- output "bash" "-c" "find ~/ -type d -path '*/calibre/plugins' -print" | trimPrefix .chezmoi.homeDir | trimPrefix "/" | trim -}}/DeACSM_{{ (gitHubLatestRelease "Leseratte10/acsm-calibre-plugin").TagName | trimPrefix "v" }}.zip"]
     type = "file"
     url = {{ gitHubLatestReleaseAssetURL "Leseratte10/acsm-calibre-plugin" "*.zip" | quote }}
@@ -12,7 +7,6 @@
     type = "archive-file"
     url = {{ gitHubLatestReleaseAssetURL "noDRM/DeDRM_tools" "*.zip" | quote }}
     path = "DeDRM_plugin.zip"
-{{-   end -}}
 
 {{- else if contains "debian" .osid -}}
 ["Git/chezmoi"]

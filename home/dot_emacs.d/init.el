@@ -1,0 +1,448 @@
+(setq warning-minimum-level :emergency)
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file 'noerror)
+
+(setq inhibit-startup-screen t
+      initial-major-mode 'fundamental-mode
+      initial-scratch-message nil)
+
+(setq server-client-instructions nil)
+
+(setq overriding-text-conversion-style nil
+      touch-screen-display-keyboard t)
+
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(global-visual-line-mode 1)
+
+(add-to-list 'default-frame-alist '(undecorated . t))
+
+(setq make-backup-files nil)
+
+(use-package package
+  :config
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/"))
+  (package-initialize))
+
+(use-package use-package
+  :custom
+  (use-package-always-ensure t)
+  (package-native-compile t)
+  (warning-minimum-level :emergency))
+
+(use-package dired
+  :ensure nil
+  :defer t
+  :hook
+    (dired-mode . dired-hide-details-mode))
+
+(with-eval-after-load 'org
+  (add-to-list 'org-modules 'org-habit t))
+
+(global-set-key (kbd "<volume-up>") 'nov-scroll-down)
+(global-set-key (kbd "<volume-down>") 'nov-scroll-up)
+
+(setq custom-safe-themes t)
+
+(use-package modus-themes
+  :custom
+  (modus-themes-italic-constructs t)
+  (modus-themes-bold-constructs t)
+  (modus-themes-mixed-fonts t)
+  (modus-themes-to-toggle
+   '(modus-operandi-tinted modus-vivendi-tinted)))
+
+(cond
+ ((eq system-type 'android)
+  (load-theme 'modus-vivendi-tinted :no-confirm))
+ (t
+  (use-package auto-dark
+    :config
+    (ignore-errors
+      (setq auto-dark-themes '((modus-operandi-tinted) (modus-vivendi-tinted)))
+      (add-hook 'auto-dark-dark-mode-hook
+                (lambda ()
+                  (load-theme 'modus-vivendi-tinted :no-confirm)))
+      (add-hook 'auto-dark-light-mode-hook
+                (lambda ()
+                  (load-theme 'modus-operandi-tinted :no-confirm)))
+      (auto-dark-mode 1)))))
+
+(setq org-agenda-files nil)
+
+(defun refresh-org-agenda-files ()
+  (interactive)
+  (setq org-agenda-files
+        (directory-files-recursively
+         "~/Documents"
+         ".*_agn.*\\.org$"))
+  (message "Org agenda files refreshed."))
+
+(refresh-org-agenda-files)
+
+(setq org-todo-keywords
+      '((sequence "ACTIVITY(a)" "NEXT(n)" "PROJECT(p)" "SOMEDAY(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+
+(setq org-agenda-prefix-format '((agenda . " %i %?-12t% s")
+				 (timeline . "  % s")
+				 (todo . " %i %-12:c")
+				 (tags . " %i %-12:c")
+				 (search . " %i %-12:c")))
+
+(setq org-log-into-drawer t)
+
+(setq org-capture-templates
+      '(("i" "Inbox" entry
+         (file+headline "~/Documents/system/inbox.org" "Inbox")
+         "* I %<%Y%m%d%H%M%S>\n %?\n")
+        ("f" "Fuel" entry
+         (file+headline "~/Documents/system/fuel.org" "Fuel")
+         "* %?\n:PROPERTIES:\n:CUSTOM_ID: my-task-id\n:END:\n  %i\n  %a")
+        ("h" "HPC hours" entry
+         (file "~/Documents/system/hpc_hours.org")
+         "* %^{Tax year (YY/YY)}w%^{Pay cycle (WW)}\n\n** ACTIVITY Work at HPC\nSCHEDULED: <%<%Y-%m-%d %a 18:30>>--<%<%Y-%m-%d %a 06:00>>\n\n%?# Amend SCHEDULED end date then use C-c C-x c
+(org-clone-subtree-with-time-shift)"
+	 :prepend t)
+	("b" "Add book to read" entry
+	 (file+headline "~/Documents/books-test.org" "Books to read")
+	 (file "~/Documents/tpl-book.org")
+	 :empty-lines-after 2)))
+
+(use-package god-mode
+  :init
+  (setq god-mode-enable-function-key-translation nil)
+  :bind
+  (("C-." . god-local-mode)
+   ("C-x C-1" . delete-other-windows)
+   ("C-x C-2" . split-window-below)
+   ("C-x C-3" . split-window-right)
+   ("C-x C-0" . delete-window)
+   :map god-local-mode-map
+   ("z" . repeat)
+   ("[" . backward-paragraph)
+   ("]" . forward-paragraph))
+  :config
+  (defun my-god-mode-update-cursor ()
+    (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar))
+    (if (or god-local-mode)
+	(blink-cursor-mode -1)
+      (blink-cursor-mode 1)))
+
+  (add-hook 'post-command-hook #'my-god-mode-update-cursor)
+
+  (defun my-god-mode-update-mode-line ()
+    (cond
+     (god-local-mode
+      (set-face-attribute 'mode-line nil
+                          :foreground "#604000"
+                          :background "#fff29a")
+      (set-face-attribute 'mode-line-inactive nil
+                          :foreground "#3f3000"
+                          :background "#fff3da"))
+     (t
+      (set-face-attribute 'mode-line nil
+  			  :foreground "#0a0a0a"
+  			  :background "#d7d7d7")
+      (set-face-attribute 'mode-line-inactive nil
+  			  :foreground "#404148"
+  			  :background "#efefef"))))
+
+  (add-hook 'post-command-hook #'my-god-mode-update-mode-line))
+
+(use-package key-chord
+  :init
+  (key-chord-mode 1)
+  :config
+  (key-chord-define-global ".." 'god-local-mode))
+
+(use-package devil
+  :init
+  (global-devil-mode)
+  :config
+  (setq devil-all-keys-repeatable t))
+
+(use-package org
+  :bind (("C-c a" . org-agenda)
+	 ("C-c c" . org-capture)
+	 :map org-mode-map
+              ("C-'" . nil)
+	      ("C-," . nil)))
+
+(use-package avy)
+(global-set-key (kbd "C-:") 'avy-goto-char)
+(global-set-key (kbd "C-'") 'avy-goto-char-2)
+(global-set-key (kbd "M-g s") 'avy-goto-char-timer)
+(global-set-key (kbd "M-g f") 'avy-goto-line)
+(global-set-key (kbd "M-g w") 'avy-goto-word-1)
+
+(use-package hide-mode-line
+  :config
+  (add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
+  (add-hook 'nov-mode-hook #'hide-mode-line-mode))
+
+(use-package org-web-tools)
+
+(use-package magit)
+
+(use-package yasnippet
+  :config
+  (use-package yasnippet-snippets)
+  (yas-global-mode t)
+  (setq yas-snippet-dirs
+        '("~/Documents/system/templates/snippets/"))
+  (yas-reload-all))
+
+(use-package el-patch)
+
+(use-package vertico
+  :init
+  (vertico-mode)
+
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
+
+  ;; Show more candidates
+  ;; (setq vertico-count 20)
+
+  ;; Grow and shrink the Vertico minibuffer
+  (setq vertico-resize t)
+
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  (setq vertico-cycle t))
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package marginalia
+  :after vertico
+  :bind
+  (:map minibuffer-local-map
+   ("M-A" . marginalia-cycle))
+  :config
+  (marginalia-mode))
+
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package consult)
+
+(use-package denote
+  :config
+  (setq denote-directory "~/Documents")
+  (add-hook 'dired-mode-hook 'denote-dired-mode))
+
+(use-package denote-journal
+  :config
+  (setq denote-journal-directory
+        (expand-file-name "journal" denote-directory))
+  (setq denote-journal-keyword "journal")
+  (setq denote-journal-title-format 'day-date-month-year))
+
+;; type '<m' followed by TAB
+(require 'org-tempo)
+(add-to-list 'org-structure-template-alist
+	     '("m" . "src emacs-lisp"))
+
+(use-package consult-notes
+  :commands (consult-notes
+             consult-notes-search-in-all-notes
+             ;; if using org-roam 
+             consult-notes-org-roam-find-node
+             consult-notes-org-roam-find-node-relation)
+  :config
+;  (setq consult-notes-file-dir-sources
+  ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
+;	("Denote Notes"  ?d ,(denote-directory))
+;        ("Books"  ?b "~/Ebooks")))
+;  (setq consult-notes-org-headings-files '("~/path/to/file1.org"
+;                                           "~/path/to/file2.org"))
+;  (consult-notes-org-headings-mode)
+  (when (locate-library "denote")
+    (consult-notes-denote-mode))
+;  ;; search only for text files in denote dir
+;  (setq consult-notes-denote-files-function (function denote-directory-text-only-files))
+  :bind (("C-c n f" . consult-notes)))
+
+(use-package dictionary
+  :bind
+  ("M-#" . dictionary-lookup-definition))
+
+;;(use-package emacs
+  ;;:bind
+  ;;([remap capitalize-word] . capitalize-dwim)
+  ;;([remap downcase-word] . downcase-dwim)
+  ;;([remap upcase-word] . upcase-dwim))
+
+(use-package biblio)
+
+(use-package citar
+  :defer t
+  :custom
+  (citar-bibliography '("~/Documents/system/books.bib"))
+  :config
+  (when (eq system-type 'android)
+    (setq citar-file-additional-files-separator "__"))
+  (setq citar-library-paths
+        (append
+	 (list "~/Audiobooks")
+	 (directory-files "~/Audiobooks" t)
+	 (list "~/Ebooks")
+	 (directory-files "~/Ebooks" t)))
+  (setq citar-templates
+        '((main . "${title:48}     ${author editor:30%sn}     ${date year issued:4}")
+          (suffix . "          ${=key= id:15}    ${=type=:12}    ${tags keywords:*}")
+          (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
+          (note . "Notes on ${author editor:%etal}, ${title}")))
+  :bind
+  (("C-c w b o" . citar-open)))
+
+(use-package citar-denote
+  :custom
+  (citar-open-always-create-notes t)
+  :init
+  (citar-denote-mode)
+  :bind
+  (("C-c w b c" . citar-create-note)
+   ("C-c w b n" . citar-denote-open-note)
+   ("C-c w b x" . citar-denote-nocite)
+   :map org-mode-map
+   ("C-c w b k" . citar-denote-add-citekey)
+   ("C-c w b K" . citar-denote-remove-citekey)
+   ("C-c w b d" . citar-denote-dwim)
+   ("C-c w b e" . citar-denote-open-reference-entry)))
+
+(use-package emms
+  :init
+  (emms-standard)  
+  :config
+  (emms-playing-time-disable-display)
+  (emms-add-m3u-playlist "~/Applications/Transistor/transistor-backup/collection/collection.m3u")
+  :custom
+  (emms-player-list '(emms-player-mpv))
+  (emms-player-mpv-update-metadata t)
+  (emms-repeat-playlist t)
+  :bind-keymap
+  (("C-c r" . emms-playlist-mode-map)))
+
+(use-package titlecase
+  :defer t)
+
+(use-package jinx
+  :hook (emacs-startup . global-jinx-mode)
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
+
+(defun keepassxc ()
+  (interactive)
+  (cond
+   ((string-equal system-type "gnu/linux")
+    (shell-command "keepassxc.sh"))
+
+   ((string-equal system-type "android")
+    (let ((command "am startservice --user 0 -n com.termux/com.termux.app.RunCommandService \
+-a com.termux.RUN_COMMAND \
+--es com.termux.RUN_COMMAND_PATH '/data/data/com.termux/files/home/.local/bin/keepassxc.sh' \
+--esa com.termux.RUN_COMMAND_ARGUMENTS '' \
+--es com.termux.RUN_COMMAND_WORKDIR '/data/data/com.termux/files/home' \
+--ez com.termux.RUN_COMMAND_BACKGROUND 'true' \
+--es com.termux.RUN_COMMAND_SESSION_ACTION '0'"))
+    (shell-command command)))))
+
+(use-package org-roam
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/Documents")
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+;;         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         :map org-mode-map
+         ("C-M-i"   . completion-at-point))
+  :config
+  (org-roam-setup))
+(setq org-roam-node-display-template
+      (concat "${title:*} "
+              (propertize "${tags:10}" 'face 'org-tag)))
+
+(use-package nov
+  :init
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :hook ((nov-mode . (lambda ()
+                       (display-line-numbers-mode -1)))  ; Disable line numbers in nov mode
+         (nov-mode-hook . (lambda ()
+                            (make-local-variable 'my-line-numbers-enabled)
+                            (setq my-line-numbers-enabled nil))))
+  :config
+  (display-line-numbers-mode 0))
+
+(setq org-plantuml-jar-path
+      (expand-file-name "~/plantuml.jar"))
+
+(use-package f)
+
+(defun my/extract-pins-from-org ()
+  "Extract pins from the specified Org file and display them in a temporary buffer."
+  (interactive)
+  (let ((org-file-path "~/Documents/system/pin_boards/.pin_board_org_html.org"))  ;; Specify your Org file path here
+    (if (file-exists-p org-file-path)
+        (progn
+          (org-babel-load-file org-file-path)
+          (message "Pins extracted successfully."))
+      (error "Org file not found: %s" org-file-path))))
+
+(defun search-youtube-from-org ()
+  "Search for the song in the current Org mode heading on YouTube."
+  (interactive)
+  (when (org-at-heading-p)
+    (let* ((title (org-get-heading t t t t))
+           (artist (or (org-entry-get (point) "ARTIST") "Unknown Artist"))
+           (query (concat title " " artist))
+           (encoded-query (url-hexify-string query))
+           (url (concat "https://www.youtube.com/results?search_query=" encoded-query)))
+      (browse-url url)
+      (message "Searching for: %s" query))))
+
+(defun org-fetch-xcweather-forecast ()
+  "Fetch XCWeather forecast for the postcode found in the Org heading at point."
+  (interactive)
+  (when (org-at-heading-p)
+    (let* ((heading (org-get-heading t t t t))
+           (postcode (org-entry-get (point) "POSTCODE")))
+      (if postcode
+          (progn
+            (setq postcode (downcase postcode))  ;; Make postcode lowercase
+            (let ((url (concat "https://www.xcweather.co.uk/forecast/" (replace-regexp-in-string " " "_" postcode))))
+              (message "Fetching XCWeather forecast for postcode: %s" postcode)
+              (browse-url url)))  ;; Open the URL in the browser
+        (message "No postcode found in the properties.")))))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (plantuml . t)
+   (python . t)
+   (shell . t)))
+
+(unless (server-running-p)
+  (server-start))
+
+(cond
+ ((eq system-type 'android)
+  (defun android-emacs-background-service-file ()
+  (interactive)
+  (let ((file-name "Emacs Background Service"))
+    (when (file-exists-p file-name)
+      (delete-file file-name))
+    (find-file file-name)
+    (insert "This file is produced to keep Emacs running while it is in the background. Used in conjunction with Android 'Emacs Background Service' notification, see (emacs)Android Environment.")
+    (read-only-mode)
+    (bury-buffer)))
+  (android-emacs-background-service-file)))
