@@ -435,7 +435,7 @@
 (unless (server-running-p)
   (server-start))
 
-{{- if contains "android" .osid -}}
+{{ if contains "android" .osid -}}
 (defun android-emacs-background-service-file ()
   (interactive)
   (let ((file-name "Emacs Background Service"))
