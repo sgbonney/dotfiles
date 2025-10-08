@@ -1,2 +1,2 @@
 {{- $userID := keepassxcAttribute "Steam" "User ID" -}}
-{{- output "bash" "-c" (printf "find ~/ -type d -path '*/%s/**/remote' -print" $userID) | trim -}}
+{{- output "bash" "-c" (printf "find -L ~/ -type d -path '*/%s/**/remote' -print" $userID) | trim -}}
