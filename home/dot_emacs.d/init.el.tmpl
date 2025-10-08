@@ -95,23 +95,6 @@
 
 (setq org-log-into-drawer t)
 
-(setq org-capture-templates
-      '(("i" "Inbox" entry
-         (file+headline "~/Documents/system/inbox.org" "Inbox")
-         "* I %<%Y%m%d%H%M%S>\n %?\n")
-        ("f" "Fuel" entry
-         (file+headline "~/Documents/system/fuel.org" "Fuel")
-         "* %?\n:PROPERTIES:\n:CUSTOM_ID: my-task-id\n:END:\n  %i\n  %a")
-        ("h" "HPC hours" entry
-         (file "~/Documents/system/hpc_hours.org")
-         "* %^{Tax year (YY/YY)}w%^{Pay cycle (WW)}\n\n** ACTIVITY Work at HPC\nSCHEDULED: <%<%Y-%m-%d %a 18:30>>--<%<%Y-%m-%d %a 06:00>>\n\n%?# Amend SCHEDULED end date then use C-c C-x c
-(org-clone-subtree-with-time-shift)"
-	 :prepend t)
-	("b" "Add book to read" entry
-	 (file+headline "~/Documents/books-test.org" "Books to read")
-	 (file "~/Documents/tpl-book.org")
-	 :empty-lines-after 2)))
-
 (use-package god-mode
   :init
   (setq god-mode-enable-function-key-translation nil)
