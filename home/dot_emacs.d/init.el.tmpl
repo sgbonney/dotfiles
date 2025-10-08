@@ -269,7 +269,7 @@
 (use-package citar
   :defer t
   :custom
-  (citar-bibliography '("~/Documents/system/books.bib"))
+  (citar-bibliography '("{{- output "bash" "-c" "find -L ~/ -type f -path '**/20251008T085257*' -print" | trim -}}"))
   :config
   {{ if contains "android" .osid -}}(setq citar-file-additional-files-separator "__"){{- end }}
   (setq citar-library-paths
@@ -375,7 +375,7 @@
 (defun my/extract-pins-from-org ()
   "Extract pins from the specified Org file and display them in a temporary buffer."
   (interactive)
-  (let ((org-file-path "~/Documents/system/pin_boards/.pin_board_org_html.org"))  ;; Specify your Org file path here
+  (let ((org-file-path "{{- output "bash" "-c" "find -L ~/ -type f -path '**/20240808T080919*' -print" | trim -}}"))  ;; Specify your Org file path here
     (if (file-exists-p org-file-path)
         (progn
           (org-babel-load-file org-file-path)
