@@ -28,7 +28,6 @@ packages:
     - 'io.ente.photos'
     - 'network.loki.Session'
     - 'org.flatpak.Builder'
-    - 'org.gimp.GIMP'
     - 'org.gnome.Boxes'
     - 'org.libreoffice.LibreOffice'
     - 'org.mozilla.Thunderbird'
@@ -41,8 +40,6 @@ packages:
     - 'io.github.ungoogled_software.ungoogled_chromium'
     - 'io.gitlab.librewolf-community'
     - 'org.keepassxc.KeePassXC'
-    steamos:
-    - 'org.gimp.GIMP'
   pkg:
     android:
     - 'aspell-en'
