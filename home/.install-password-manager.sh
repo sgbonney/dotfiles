@@ -1,6 +1,6 @@
 #!/bin/sh
 
-KDBX=$(find -L ~/ -type f -path '**/20251004T115212--*' -print)
+KDBX=$(find ~/ -type f -path '**/20251004T115212--*' -print || find -L ~/ -type f -path '**/20251004T115212--*' -print)
 
 [ -f "$KDBX" ] && (command -v keepassxc >/dev/null 2>&1 || flatpak list --app | grep -q org.keepassxc.KeePassXC) && exit
 
@@ -33,7 +33,7 @@ fi
 
 while [ ! -f "$KDBX" ]; do
     echo "KeePassXC database not found."
-    echo "Please copy your database to $KDBX"
+    echo "Please copy your database."
     echo "Press Enter when done to continue."
     read -r
 done
