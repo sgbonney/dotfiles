@@ -271,7 +271,7 @@
 (use-package citar
   :defer t
   :custom
-  (citar-bibliography '("{{- output "bash" "-c" "find -L ~/ -type f -path '**/20251008T085257--*' -print" | trim -}}"))
+  (citar-bibliography '("{{- template "find/file" "**/20251008T085257--*" -}}"))
   :config
   {{ if contains "android" .osid -}}(setq citar-file-additional-files-separator "__"){{- end }}
   (setq citar-library-paths
@@ -308,7 +308,7 @@
   (emms-standard)  
   :config
   (emms-playing-time-disable-display)
-  (emms-add-m3u-playlist "{{- output "bash" "-c" "find -L ~/ -type f -path '*/Transistor/**/collection.m3u' -print" | trim -}}")
+  (emms-add-m3u-playlist "{{- template "find/file" "*/Transistor/**/collection.m3u" -}}")
   :custom
   (emms-player-list '(emms-player-mpv))
   (emms-player-mpv-update-metadata t)
@@ -329,7 +329,7 @@
   {{ if contains "android" .osid -}}
   (let ((command "am startservice --user 0 -n com.termux/com.termux.app.RunCommandService \
 -a com.termux.RUN_COMMAND \
---es com.termux.RUN_COMMAND_PATH '{{- output "bash" "-c" "find -L ~/ -type f -path '*/bin/keepassxc.sh' -print" | trim -}}' \
+--es com.termux.RUN_COMMAND_PATH '{{- template "find/file" "*/bin/keepassxc.s" -}}' \
 --esa com.termux.RUN_COMMAND_ARGUMENTS '' \
 --es com.termux.RUN_COMMAND_WORKDIR '{{- .chezmoi.homeDir -}}' \
 --ez com.termux.RUN_COMMAND_BACKGROUND 'true' \
@@ -337,7 +337,7 @@
     (shell-command command))
 
   {{- else if contains "linux" .osid -}}
-  (shell-command "{{- output "bash" "-c" "find -L ~/ -type f -path '*/bin/keepassxc.sh' -print" | trim -}}")
+  (shell-command "{{- template "find/file" "*/bin/keepassxc.s" -}}")
   {{- end -}}
   )
 
@@ -377,7 +377,7 @@
 (defun my/extract-pins-from-org ()
   "Extract pins from the specified Org file and display them in a temporary buffer."
   (interactive)
-  (let ((org-file-path "{{- output "bash" "-c" "find -L ~/ -type f -path '**/20240808T080919--*' -print" | trim -}}"))  ;; Specify your Org file path here
+  (let ((org-file-path "{{- template "find/file" "**/20240808T080919--*" -}}"))  ;; Specify your Org file path here
     (if (file-exists-p org-file-path)
         (progn
           (org-babel-load-file org-file-path)
