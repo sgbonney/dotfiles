@@ -1,0 +1,1 @@
+{{- output "bash" "-c" (printf "path='%s'; find ~/ -type d -path \"$path\" -print || find -L ~/ -type d -path \"$path\" -print" ( . )) | trim -}}
