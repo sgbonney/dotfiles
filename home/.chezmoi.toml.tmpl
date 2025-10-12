@@ -10,4 +10,4 @@
     command = ".local/share/chezmoi/home/.install-password-manager.sh"
 
 [keepassxc]
-    database = "{{- output "bash" "-c" "find ~/ -type f -path '**/20251004T115212--*' -print || find -L ~/ -type f -path '**/20251004T115212--*' -print" | trim -}}"
+    database = "{{- output "bash" "-c" "find -L ~/ -path '**/20251004T115212--*' -print -quit" | trim -}}"
