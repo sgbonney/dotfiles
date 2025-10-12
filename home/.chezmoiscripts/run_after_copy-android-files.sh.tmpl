@@ -1,6 +1,6 @@
-{{- template "bash-shebang" . -}}
-
 {{- if contains "android" .osid -}}
+#!{{- lookPath "bash" }}
+
 for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"{*,.*}; do
     if [ -d "$DIR" ]; then
         DIR_NAME=$(basename "$DIR")

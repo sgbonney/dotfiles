@@ -1,5 +1,5 @@
-{{- template "bash-shebang" . -}}
-
 {{- if contains "android" .osid -}}
+#!{{- lookPath "bash" }}
+
 termux-reload-settings
 {{- end -}}

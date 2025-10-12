@@ -1,7 +1,0 @@
-{{ if contains "android" .osid -}}
-#!/data/data/com.termux/files/usr/bin/bash
-
-{{ else if contains "linux" .osid -}}
-#!/bin/bash
-
-{{ end -}}

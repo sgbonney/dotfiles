@@ -1,6 +1,6 @@
-{{- template "bash-shebang" . -}}
-
 {{- if contains "android" .osid -}}
+#!{{- lookPath "bash" }}
+
 EMACS="/data/data/org.gnu.emacs/files"
 if [ -d "$EMACS" ]; then
     rm -rf "$EMACS"

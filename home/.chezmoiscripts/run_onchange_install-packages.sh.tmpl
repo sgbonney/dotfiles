@@ -1,4 +1,4 @@
-{{- template "bash-shebang" . -}}
+#!{{- lookPath "bash" }}
 
 {{ $packageManager := "apt" -}}
 if command -v apt >/dev/null 2>&1; then
