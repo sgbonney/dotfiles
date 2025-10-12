@@ -25,7 +25,9 @@ elif [ "$(uname -o)" = "Android" ]; then
     pkg install -y x11-repo
     pkg install -y termux-x11-nightly
     pkg install -y keepassxc || { echo "Failed to install KeePassXC."; exit 1; }
-    ln -s /storage/emulated/0/.keepass ~/.keepass || { echo "Failed to create .keepass symbolic link."; exit 1; }
+    if [ ! -L ~/.keepass ]; then
+        ln -s /storage/emulated/0/.keepass ~/.keepass || { echo "Failed to create .keepass symbolic link."; exit 1; }
+    fi
 else
     echo "Unsupported operating system: $(uname -o)"
     exit 1
