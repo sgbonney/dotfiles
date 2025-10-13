@@ -1,6 +1,6 @@
 #!/bin/sh
 
-KDBX=$(find -L ~/ -path '**/20251004T115212--*' -print -quit)
+KDBX=$(find -L ~/ -type f -path '**/20251004T115212--*' -print -quit)
 
 [ -f "$KDBX" ] && (command -v keepassxc >/dev/null 2>&1 || flatpak list --app | grep -q org.keepassxc.KeePassXC) && exit
 
