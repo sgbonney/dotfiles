@@ -337,7 +337,7 @@
     (shell-command command))
 
   {{- else if contains "linux" .osid -}}
-  (shell-command "{{- template "find" "*/bin/keepassxc.s" -}}")
+  (shell-command "{{- template "find" "**/bin/keepassxc.sh" -}}")
   {{- end -}}
   )
 
