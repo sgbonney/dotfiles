@@ -1,49 +1,33 @@
 #!{{- lookPath "bash" }}
 
-{{ $packageManager := "apt" -}}
-if command -v apt >/dev/null 2>&1; then
-    for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
+{{- range $manager, $software := .packages -}} {{- $manager := $manager | replace "_" "-" -}} {{- "\n" }}
+if command -v {{ $manager }}  >/dev/null 2>&1; then
+    for package in {{- range index $software $.chezmoi.os }} {{ . | quote }} {{- end -}} {{- if hasKey $.chezmoi.osRelease "id" -}} {{- range index $software $.chezmoi.osRelease.id }} {{ . | quote }} {{- end -}} {{- end -}}; do
+        {{- if eq $manager "apt" }}
         if ! dpkg -l | grep -q "^ii\s\+$package\s"; then
             sudo apt install -y "$package"
-        else
-            echo "$package is already installed."
-        fi
-    done
-fi
 
-{{ $packageManager := "brew" -}}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null)"
-if command -v brew >/dev/null 2>&1; then
-    for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
+        {{- else if eq $manager "brew" }}
         if ! brew list --formula | grep -q "^$package\$"; then
             brew install "$package"
-        fi
-    done
-fi
 
-{{ $packageManager := "flatpak" -}}
-if command -v flatpak >/dev/null 2>&1; then
-    for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
+        {{- else if eq $manager "flatpak" }}
         if ! flatpak list --app | grep -q "$package"; then
             flatpak install --system -y "$package"
-        fi
-    done
-fi
 
-{{ $packageManager := "pkg" -}}
-if command -v pkg >/dev/null 2>&1; then
-    for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
+        {{- else if eq $manager "pkg" }}
         if ! dpkg -l | grep -q "^ii\s\+$package"; then
             pkg install -y "$package"
-        fi
-    done
-fi
 
-{{ $packageManager := "rpm_ostree" -}}
-if command -v rpm-ostree >/dev/null 2>&1; then
-    for package in {{ range index (index .packages $packageManager) .chezmoi.os -}} {{ . | quote }} {{ end -}} {{ if hasKey .chezmoi.osRelease "id" }} {{ range index (index .packages $packageManager) .chezmoi.osRelease.id -}} {{ . | quote }} {{ end -}} {{ end -}}; do
+        {{- else if eq $manager "rpm-ostree" }}
         if ! rpm-ostree status | grep -q "$package"; then
             rpm-ostree install --assumeyes "$package"
+
+        {{- else }}
+            exit 1
+
+        {{- end }}
         fi
     done
 fi
+{{- end -}}
