@@ -1,14 +1,10 @@
-{{- if contains "fedora" .osid -}}
-["{{- output "bash" "-c" "find -L ~/ -type d -path '*/calibre/plugins' -print" | trimPrefix .chezmoi.homeDir | trimPrefix "/" | trim -}}/DeACSM_{{ (gitHubLatestRelease "Leseratte10/acsm-calibre-plugin").TagName | trimPrefix "v" }}.zip"]
-    type = "file"
-    url = {{ gitHubLatestReleaseAssetURL "Leseratte10/acsm-calibre-plugin" "*.zip" | quote }}
+{{- if contains "linux" .osid -}}
+{{-   if contains "fedora" .osid -}}
+{{ template "gitHub/downloadRelease" dict "source" "Leseratte10/acsm-calibre-plugin" "target" "*/calibre/plugins" "type" "file" "chezmoi" .chezmoi }}
 
-["{{- output "bash" "-c" "find -L ~/ -type d -path '*/calibre/plugins' -print" | trimPrefix .chezmoi.homeDir | trimPrefix "/" | trim -}}/DeDRM_{{ (gitHubLatestRelease "noDRM/DeDRM_tools").TagName | trimPrefix "v" }}.zip"]
-    type = "archive-file"
-    url = {{ gitHubLatestReleaseAssetURL "noDRM/DeDRM_tools" "*.zip" | quote }}
-    path = "DeDRM_plugin.zip"
+{{ template "gitHub/downloadRelease" dict "source" "noDRM/DeDRM_tools" "target" "*/calibre/plugins" "type" "archive-file" "path" "DeDRM_plugin.zip" "chezmoi" .chezmoi }}
 
-{{- else if contains "debian" .osid -}}
+{{-   else if contains "debian" .osid -}}
 ["Git/chezmoi"]
     type = "git-repo"
     url = "https://github.com/sgbonney/dotfiles"
@@ -17,9 +13,8 @@
 ["Git/fluidbuild"]
     type = "git-repo"
     url = "https://github.com/sgbonney/fluidbuild"
-{{- end -}}
+{{-   end }}
 
-{{- if contains "linux" .osid -}} {{- "\n" }}
 [".local/share/icons/syncthing.svg"]
     type = "file"
     url = "https://raw.githubusercontent.com/syncthing/syncthing/main/assets/logo-only.svg"
