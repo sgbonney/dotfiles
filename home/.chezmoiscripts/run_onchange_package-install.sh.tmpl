@@ -1,8 +1,8 @@
 #!{{- lookPath "bash" }}
 
-{{- range $manager, $software := .packages -}} {{- $manager := $manager | replace "_" "-" -}} {{- "\n" }}
+{{- range $manager, $package := .packages -}} {{- $manager := $manager | replace "_" "-" -}} {{- "\n" }}
 if command -v {{ $manager }}  >/dev/null 2>&1; then
-    for package in {{- range index $software $.chezmoi.os }} {{ . | quote }} {{- end -}} {{- if hasKey $.chezmoi.osRelease "id" -}} {{- range index $software $.chezmoi.osRelease.id }} {{ . | quote }} {{- end -}} {{- end -}}; do
+    for package in {{- range index $package $.chezmoi.os }} {{ . | quote }} {{- end -}} {{- if hasKey $.chezmoi.osRelease "id" -}} {{- range index $package $.chezmoi.osRelease.id }} {{ . | quote }} {{- end -}} {{- end -}}; do
         {{- if eq $manager "apt" }}
         if ! dpkg -l | grep -q "^ii\s\+$package\s"; then
             sudo apt install -y "$package"
