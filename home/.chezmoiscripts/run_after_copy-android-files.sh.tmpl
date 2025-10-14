@@ -4,7 +4,7 @@
 {{- $storage := output "bash" "-c" (printf "find ~/.local/share/%s/storage -mindepth 1 -maxdepth 1 -type d" $.osid) | split "\n" }}
 {{- range $index, $store := $storage }}
   {{- if and (ne $store ".") (ne $store "..") (ne $store "") }}
-  {{- $dirs := output "bash" "-c" (printf "find %s -mindepth 1 -type d" $store) | split "\n" }}
+  {{- $dirs := output "bash" "-c" (printf "find %s -mindepth 1 -maxdepth 1 -type d" $store) | split "\n" }}
   {{- range $index, $dir := $dirs }}
     {{- if and (ne $dir ".") (ne $dir "..") (ne $dir "") }}
 if [ -d "{{- $dir -}}" ]; then
