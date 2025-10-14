@@ -7,7 +7,6 @@ if command -v apt >/dev/null 2>&1; then
     apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
 fi
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null)"
 if command -v brew >/dev/null 2>&1; then
     brew update && brew upgrade
 fi
