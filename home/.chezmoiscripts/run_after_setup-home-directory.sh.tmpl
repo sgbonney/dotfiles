@@ -7,39 +7,23 @@ if [ -d "$EMACS" ]; then
     ln -s "$HOME" "$EMACS"
 fi
 
-for DIR in "$HOME/.local/share/{{- .osid -}}/storage/internal/"{*,.*}; do
-    if [ -d "$DIR" ]; then
-        DIR_NAME=$(basename "$DIR")
-        TARGET="/{{- template "storage/internal" . -}}/$DIR_NAME"
-        if [ -d "$TARGET" ]; then
-            if [ -L "$HOME/$DIR_NAME" ]; then
-                rm "$HOME/$DIR_NAME"
-            fi
-            ln -s "$TARGET" "$HOME/$DIR_NAME"
-        fi
-    fi
-done
-
-if [ -d "$HOME/.local/share/{{- .osid -}}/storage/internal/Downloads" ]; then
-    TARGET="/{{- template "storage/internal" . -}}/Download"
+{{- $storage := output "bash" "-c" (printf "find ~/.local/share/%s/storage -mindepth 1 -maxdepth 1 -type d" $.osid) | split "\n" }}
+{{- range $index, $store := $storage }}
+  {{- if and (ne $store ".") (ne $store "..") (ne $store "") }}
+  {{- $dirs := output "bash" "-c" (printf "find %s -mindepth 1 -maxdepth 1 -type d" $store) | split "\n" }}
+  {{- range $index, $dir := $dirs }}
+    {{- if and (ne $dir ".") (ne $dir "..") (ne $dir "") -}} {{- "\n" }}
+if [ -d "{{- $dir -}}" ]; then
+    TARGET="/{{- includeTemplate (printf "storage/%s" ($store | base)) . -}}/{{- if eq ($dir | base) "Downloads" -}}Download{{- else -}}{{- $dir | base -}}{{- end -}}"
     if [ -d "$TARGET" ]; then
-        if [ -L "$HOME/Downloads" ]; then
-            rm "$HOME/Downloads"
+        if [ -L "$HOME/{{- $dir | base -}}" ]; then
+            rm "$HOME/{{- $dir | base -}}"
         fi
-        ln -s "$TARGET" "$HOME/Downloads"
+        ln -s "$TARGET" "$HOME/{{- $dir | base -}}"
     fi
 fi
-
-for DIR in "$HOME/.local/share/{{- .osid -}}/storage/external/"{*,.*}; do
-    if [ -d "$DIR" ]; then
-        DIR_NAME=$(basename "$DIR")
-        TARGET="/{{- template "storage/external" . -}}/$DIR_NAME"
-        if [ -d "$TARGET" ]; then
-            if [ -L "$HOME/$DIR_NAME" ]; then
-                rm "$HOME/$DIR_NAME"
-            fi
-            ln -s "$TARGET" "$HOME/$DIR_NAME"
-        fi
-    fi
-done
+    {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
 {{- end -}}
