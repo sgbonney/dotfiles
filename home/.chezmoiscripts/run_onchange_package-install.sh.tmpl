@@ -26,6 +26,7 @@ if command -v {{ $manager }}  >/dev/null 2>&1; then
             rpm-ostree install --assumeyes "$package"
 
         {{- else }}
+            echo "Unsupported package manager."
             exit 1
 
         {{- end }}
