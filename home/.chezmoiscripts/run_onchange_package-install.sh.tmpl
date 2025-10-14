@@ -6,6 +6,8 @@ if command -v {{ $manager }}  >/dev/null 2>&1; then
         {{- if eq $manager "apt" }}
         if ! dpkg -l | grep -q "^ii\s\+$package\s"; then
             sudo apt install -y "$package"
+        else
+            echo "$package is already installed."
 
         {{- else if eq $manager "brew" }}
         if ! brew list --formula | grep -q "^$package\$"; then
