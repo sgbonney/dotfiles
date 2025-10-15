@@ -1,1 +1,3 @@
+{{- if contains "android" .osid -}}
 storage/emulated/0
+{{- end -}}
