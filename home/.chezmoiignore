@@ -16,6 +16,10 @@
 .var
 {{- end }}
 
+{{- if not (or (contains "debian" .osid) (contains "fedora" .osid)) }}
+**/deduplication.sh
+{{- end }}
+
 {{- if not (contains "fedora" .osid) }}
 **/emacs.*
 **/org.gnome.TextEditor
