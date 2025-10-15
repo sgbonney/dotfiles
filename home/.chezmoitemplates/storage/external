@@ -1,3 +1,0 @@
-{{- if contains "android" .osid -}}
-{{- output "bash" "-c" "df | grep /storage | cut -d '/' -f 4- | grep -v 'emulated' | tr -d '[:space:]'" | trim -}}
-{{- end -}}

@@ -8,7 +8,7 @@
   {{- range $index, $dir := $dirs }}
     {{- if and (ne $dir ".") (ne $dir "..") (ne $dir "") -}} {{- "\n" }}
 if [ -d "{{- $dir -}}" ]; then
-    TARGET="/{{- includeTemplate (printf "storage/%s" ($store | base)) . -}}/{{- if eq ($dir | base) "Downloads" -}}Download{{- else -}}{{- $dir | base -}}{{- end -}}"
+    TARGET="/{{- includeTemplate (printf "%s/storage/%s" $.osid ($store | base)) . -}}/{{- if eq ($dir | base) "Downloads" -}}Download{{- else -}}{{- $dir | base -}}{{- end -}}"
     if [ ! -d "$TARGET" ]; then
         mkdir -p "$TARGET"
     fi

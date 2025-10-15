@@ -5,7 +5,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-files="/{{- template "storage/internal" . -}}/.obtainium/obtainium-export-*.json"
+files="/{{- includeTemplate (printf "%s/storage" $.osid) . -}}/.obtainium/obtainium-export-*.json"
 source_file=$(chezmoi source-path "$HOME/.config/dev.imranr.obtainium/obtainium-export.json")
 
 if command -v chezmoi > /dev/null; then
