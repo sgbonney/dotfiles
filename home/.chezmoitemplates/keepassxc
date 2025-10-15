@@ -4,6 +4,11 @@ ConfigVersion=2
 [GUI]
 TrayIconAppearance=monochrome-light
 
+[KeeShare]
+Active="<?xml version=\"1.0\"?><KeeShare><Active><Import/><Export/></Active></KeeShare>\n"
+Own=
+QuietSuccess=true
+
 [PasswordGenerator]
 AdditionalChars=
 ExcludedChars=
