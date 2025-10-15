@@ -3,4 +3,4 @@
     url = {{ (index (gitHubLatestRelease .source).Assets 0).BrowserDownloadURL | quote}}
     {{- if hasKey . "path" }}
     path = {{ .path | quote }}
-    {{- end }}
+{{- end -}}
