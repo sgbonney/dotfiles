@@ -273,13 +273,9 @@
   :custom
   (citar-bibliography '("{{- template "find" "**/20251008T085257--*" -}}"))
   :config
-  {{ if contains "android" .osid -}}(setq citar-file-additional-files-separator "__"){{- end }}
+  (setq citar-file-additional-files-separator "__")
   (setq citar-library-paths
-        (append
-	 (list "~/Audiobooks")
-	 (directory-files "~/Audiobooks" t)
-	 (list "~/Ebooks")
-	 (directory-files "~/Ebooks" t)))
+        '("~/Audiobooks" "~/Ebooks" {{- if contains "android" .osid }} "~/Audiobooks/.placeholders" "~/Ebooks/.placeholders"{{- end -}}))
   (setq citar-templates
         '((main . "${title:48}     ${author editor:30%sn}     ${date year issued:4}")
           (suffix . "          ${=key= id:15}    ${=type=:12}    ${tags keywords:*}")
