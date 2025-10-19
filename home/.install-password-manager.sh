@@ -1,6 +1,10 @@
 #!/bin/sh
 
-KDBX=$(find -L ~/ -type f -path '**/passwords.kdbx' -print -quit)
+check_kdbx() {
+    find -L ~/ -type f -path '**/passwords.kdbx' -print -quit
+}
+
+KDBX=$(check_kdbx)
 
 [ -f "$KDBX" ] && (command -v keepassxc >/dev/null 2>&1 || flatpak list --app | grep -q org.keepassxc.KeePassXC) && exit
 
@@ -18,8 +22,10 @@ if [ "$(uname -o)" = "GNU/Linux" ]; then
     flatpak remote-modify --no-filter --enable flathub
     flatpak install --system -y flathub org.keepassxc.KeePassXC || { echo "Failed to install KeePassXC."; exit 1; }
 
-    mkdir -p ~/.local/bin/
+    mkdir -p ~/.local/bin
     cp ~/.local/share/chezmoi/home/private_dot_local/bin/executable_keepassxc-cli ~/.local/bin/keepassxc-cli && chmod +x ~/.local/bin/keepassxc-cli
+
+    mkdir -p ~/.keepass
 elif [ "$(uname -o)" = "Android" ]; then
     pkg update -y
     pkg install -y x11-repo
@@ -33,7 +39,13 @@ else
     exit 1
 fi
 
-while [ ! -f "$KDBX" ]; do
+while :; do
+    KDBX=$(check_kdbx)
+    
+    if [ -f "$KDBX" ]; then
+        break
+    fi
+
     echo "KeePassXC database not found."
     echo "Please copy your database."
     echo "Press Enter when done to continue."
