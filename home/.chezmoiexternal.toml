@@ -1,8 +1,10 @@
 {{- if contains "linux" .osid -}}
 {{-   if contains "fedora" .osid -}}
+{{-     if exec "bash" "-c" "flatpak list --app | grep -q 'com.calibre_ebook.calibre'" -}}
 {{ template "gitHub/downloadRelease" dict "source" "Leseratte10/acsm-calibre-plugin" "target" "*/calibre/plugins" "type" "file" "chezmoi" .chezmoi }}
 
 {{ template "gitHub/downloadRelease" dict "source" "noDRM/DeDRM_tools" "target" "*/calibre/plugins" "type" "archive-file" "path" "DeDRM_plugin.zip" "chezmoi" .chezmoi }}
+{{-    end -}}
 
 {{-   else if contains "debian" .osid -}}
 ["Git/chezmoi"]
