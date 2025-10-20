@@ -1,0 +1,6 @@
+{{- if or (contains "android" .osid) (contains "fedora" .osid) -}}
+[".local/share/plantuml/plantuml.jar"]
+    type = "file"
+    url = {{ gitHubLatestReleaseAssetURL "plantuml/plantuml" "plantuml.jar" | quote }}
+    refreshPeriod = "168h"
+{{- end -}}

@@ -366,7 +366,7 @@
   (display-line-numbers-mode 0))
 
 (setq org-plantuml-jar-path
-      (expand-file-name "~/plantuml.jar"))
+      (expand-file-name "{{- template "find" "**/plantuml.jar" -}}"))
 
 (use-package f)
 
