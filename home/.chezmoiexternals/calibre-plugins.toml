@@ -1,10 +1,10 @@
 {{- if contains "fedora" .osid -}}
-{{ template "gitHub/downloadRelease" dict
+{{ template "gitHub/downloadLatestRelease" dict
     "target" ".var/app/com.calibre_ebook.calibre/config/calibre/plugins"
     "source" "Leseratte10/acsm-calibre-plugin"
     "type" "file" }}
 
-{{ template "gitHub/downloadRelease" dict
+{{ template "gitHub/downloadLatestRelease" dict
     "target" ".var/app/com.calibre_ebook.calibre/config/calibre/plugins"
     "source" "noDRM/DeDRM_tools"
     "type" "archive-file"
