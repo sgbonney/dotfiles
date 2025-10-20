@@ -1,6 +1,6 @@
-["{{- toString (includeTemplate "find" .target) | trimPrefix .chezmoi.homeDir | trimPrefix "/" | trim -}}/{{- (index (gitHubLatestRelease .source).Assets 0).Name -}}"]
+["{{- .target | toString -}}/{{- (index (gitHubLatestRelease .source).Assets 0).Name -}}"]
     type = {{ .type | quote }}
     url = {{ (index (gitHubLatestRelease .source).Assets 0).BrowserDownloadURL | quote}}
-    {{- if hasKey . "path" }}
+  {{- if hasKey . "path" }}
     path = {{ .path | quote }}
-{{- end -}}
+  {{- end -}}

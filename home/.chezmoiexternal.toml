@@ -1,12 +1,21 @@
 {{- if contains "linux" .osid -}}
-{{-   if contains "fedora" .osid -}}
-{{-     if exec "bash" "-c" "flatpak list --app | grep -q 'com.calibre_ebook.calibre'" -}}
-{{ template "gitHub/downloadRelease" dict "source" "Leseratte10/acsm-calibre-plugin" "target" "*/calibre/plugins" "type" "file" "chezmoi" .chezmoi }}
+[".local/share/icons/syncthing.svg"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/syncthing/syncthing/main/assets/logo-only.svg"
 
-{{ template "gitHub/downloadRelease" dict "source" "noDRM/DeDRM_tools" "target" "*/calibre/plugins" "type" "archive-file" "path" "DeDRM_plugin.zip" "chezmoi" .chezmoi }}
-{{-    end -}}
+{{-   if contains "fedora" .osid -}}{{- "\n" }}
+{{ template "gitHub/downloadRelease" dict
+    "target" ".var/app/com.calibre_ebook.calibre/config/calibre/plugins"
+    "source" "Leseratte10/acsm-calibre-plugin"
+    "type" "file" }}
 
-{{-   else if contains "debian" .osid -}}
+{{ template "gitHub/downloadRelease" dict
+    "target" ".var/app/com.calibre_ebook.calibre/config/calibre/plugins"
+    "source" "noDRM/DeDRM_tools"
+    "type" "archive-file"
+    "path" "DeDRM_plugin.zip" }}
+
+{{-   else if contains "debian" .osid -}}{{- "\n" }}
 ["Git/chezmoi"]
     type = "git-repo"
     url = "https://github.com/sgbonney/dotfiles"
@@ -16,8 +25,4 @@
     type = "git-repo"
     url = "https://github.com/sgbonney/fluidbuild"
 {{-   end }}
-
-[".local/share/icons/syncthing.svg"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/syncthing/syncthing/main/assets/logo-only.svg"
 {{- end -}}
