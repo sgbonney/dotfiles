@@ -1,0 +1,5 @@
+{{- if contains "linux" .osid -}}
+[".local/share/icons/syncthing.svg"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/syncthing/syncthing/main/assets/logo-only.svg"
+{{- end -}}

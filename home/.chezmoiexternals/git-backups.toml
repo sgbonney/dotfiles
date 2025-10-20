@@ -1,0 +1,10 @@
+{{- if contains "debian" .osid -}}
+["Git/chezmoi"]
+    type = "git-repo"
+    url = "https://github.com/sgbonney/dotfiles"
+    refreshPeriod = "24h"
+
+["Git/fluidbuild"]
+    type = "git-repo"
+    url = "https://github.com/sgbonney/fluidbuild"
+{{- end -}}
