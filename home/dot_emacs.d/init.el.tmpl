@@ -366,7 +366,7 @@
   (display-line-numbers-mode 0))
 
 (setq org-plantuml-jar-path
-      (expand-file-name "{{- template "find" "**/plantuml.jar" -}}"))
+      (expand-file-name "{{- if contains "android" .osid -}}{{- "/data/data/com.termux/files/usr/share/java/plantuml.jar" | trim -}}{{- else if contains "fedora" .osid -}}{{- output "bash" "-c" "find /home/linuxbrew/.linuxbrew/ -name 'plantuml.jar'" | trim -}}{{- end -}}"))
 
 (use-package f)
 
