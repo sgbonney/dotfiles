@@ -177,10 +177,9 @@
 
 (use-package yasnippet
   :config
-  (use-package yasnippet-snippets)
   (yas-global-mode t)
   (setq yas-snippet-dirs
-        '("~/Documents/system/templates/snippets/"))
+        '("{{- template "find" "*/snippets" -}}"))
   (yas-reload-all))
 
 (use-package el-patch)
