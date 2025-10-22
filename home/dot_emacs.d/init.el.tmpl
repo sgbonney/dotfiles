@@ -9,9 +9,11 @@
 
 (setq server-client-instructions nil)
 
+{{ if contains "android" .osid -}}
 (setq overriding-text-conversion-style nil
       touch-screen-display-keyboard t)
 
+{{ end -}}
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
