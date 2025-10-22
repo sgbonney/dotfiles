@@ -413,6 +413,10 @@
    (python . t)
    (shell . t)))
 
+(dolist (entry '(("\\.el.tmpl\\'" . emacs-lisp-mode)
+                 ("\\.sh.tmpl\\'" . shell-script-mode)))
+  (add-to-list 'auto-mode-alist entry))
+
 (unless (server-running-p)
   (server-start))
 
