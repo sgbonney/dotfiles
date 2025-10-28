@@ -7,5 +7,5 @@
 
 {{- else if contains "linux" .osid -}}
 (setenv "PATH" (concat "/home/linuxbrew/.linuxbrew/bin:" (getenv "PATH")))
-(add-to-list 'exec-path "/home/linuxbrew/.linuxbrew/bin"))
+(add-to-list 'exec-path "/home/linuxbrew/.linuxbrew/bin")
 {{- end -}}
