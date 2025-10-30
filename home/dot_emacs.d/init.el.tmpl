@@ -182,11 +182,11 @@
   (yas-global-mode t)
   (setq yas-snippet-dirs
         '("{{- template "find" "*/custom-snippets" -}}"))
-  (defun yas-expand-snippet-to-string (snippet-name &optional mode noerror)
-    (when-let ((template (yas-lookup-snippet snippet-name mode noerror)))
+  (defun yas-expand-snippet-to-string (template-or-lookup)
+    (when template-or-lookup
       (with-temp-buffer
 	(yas-minor-mode 1)
-	(yas-expand-snippet template)
+	(yas-expand-snippet template-or-lookup)
 	(buffer-string))))
   (defun yas-lookup-snippet-by-uuid (uuid &optional mode noerror)
     (let ((template
