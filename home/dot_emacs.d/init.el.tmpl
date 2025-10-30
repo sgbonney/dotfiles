@@ -182,6 +182,13 @@
   (yas-global-mode t)
   (setq yas-snippet-dirs
         '("{{- template "find" "*/custom-snippets" -}}"))
+  (defun yas-get-snippet-name-by-uuid (uuid)
+    (let ((result nil))
+      (maphash (lambda (mode table)
+                 (when-let ((template (gethash uuid (yas--table-uuidhash table))))
+                   (setq result (yas--template-name template))))
+               yas--tables)
+      result))
   (yas-reload-all))
 
 (use-package el-patch)
