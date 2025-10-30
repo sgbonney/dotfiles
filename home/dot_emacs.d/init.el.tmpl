@@ -101,6 +101,12 @@
 
 (setq org-log-into-drawer t)
 
+(setq org-capture-templates
+      '(("f" "Fuel logs" entry
+	 (file+headline "{{- template "find" "**/20190317T144500--*" -}}" "Total")
+	 "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251030T105223\" 'org-mode))"
+	 :empty-lines 1 :prepend t)))
+
 (use-package god-mode
   :init
   (setq god-mode-enable-function-key-translation nil)
