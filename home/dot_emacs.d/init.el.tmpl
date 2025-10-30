@@ -195,6 +195,21 @@
                    (setq result (yas--template-name template))))
                yas--tables)
       result))
+  (defun yas-lookup-snippet-by-uuid (uuid &optional mode noerror)
+    (let ((template
+	   (if mode
+	       (when-let ((table (gethash mode yas--tables)))
+		 (gethash uuid (yas--table-uuidhash table)))
+	     (let ((result nil))
+	       (maphash (lambda (_mode table)
+			  (when-let ((tmpl (gethash uuid (yas--table-uuidhash table))))
+			    (setq result tmpl)))
+			yas--tables)
+	       result))))
+      (or template
+	  (unless noerror
+	    (error "No snippet with uuid: %s%s" uuid
+		   (if mode (format " in mode: %s" mode) ""))))))
   (yas-reload-all))
 
 (use-package el-patch)
