@@ -188,13 +188,6 @@
 	(yas-minor-mode 1)
 	(yas-expand-snippet template)
 	(buffer-string))))
-  (defun yas-get-snippet-name-by-uuid (uuid)
-    (let ((result nil))
-      (maphash (lambda (mode table)
-                 (when-let ((template (gethash uuid (yas--table-uuidhash table))))
-                   (setq result (yas--template-name template))))
-               yas--tables)
-      result))
   (defun yas-lookup-snippet-by-uuid (uuid &optional mode noerror)
     (let ((template
 	   (if mode
