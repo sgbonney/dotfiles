@@ -165,7 +165,78 @@
 	 ("C-c c" . org-capture)
 	 :map org-mode-map
               ("C-'" . nil)
-	      ("C-," . nil)))
+	      ("C-," . nil))
+  :config
+  (defun org-columns-dblock-write-relative-links (ipos table params)
+    (let ((link (plist-get params :link))
+	  (width-specs
+	   (mapcar (lambda (spec) (nth 2 spec))
+		   org-columns-current-fmt-compiled)))
+      (when table
+	(let ((item-index
+	       (let ((p (assoc "ITEM" org-columns-current-fmt-compiled)))
+		 (and p (cl-position p
+				     org-columns-current-fmt-compiled
+				     :test #'equal))))
+	      (hlines (plist-get params :hlines))
+	      (indent (plist-get params :indent))
+	      new-table)
+	  (push (pop table) new-table)
+	  (push (pop table) new-table)
+	  (dolist (row table (setq table (nreverse new-table)))
+	    (let ((level (car row)))
+	      (when (and (not (eq (car new-table) 'hline))
+			 (or (eq hlines t)
+			     (and (numberp hlines) (<= level hlines))))
+		(push 'hline new-table))
+	      (when item-index
+		(let* ((raw (nth item-index (cdr row)))
+		       (cleaned (org-columns--clean-item raw))
+		       (item (if (not link) cleaned
+			       (let ((search (org-link-heading-search-string raw))
+				     (file-path (buffer-file-name)))
+				 (org-link-make-string
+				  (if (not file-path) search
+				    (format "file:%s::%s"
+					    (file-relative-name file-path)
+					    search))
+				  cleaned)))))
+		  (setf (nth item-index (cdr row))
+			(if (and indent (> level 1))
+			    (concat "\\_" (make-string (* 2 (1- level)) ?\s) item)
+			  item))))
+	      (push (cdr row) new-table))))
+	(when (plist-get params :vlines)
+	  (setq table
+		(let ((size (length org-columns-current-fmt-compiled)))
+		  (append (mapcar (lambda (x) (if (eq 'hline x) x (cons "" x)))
+				  table)
+			  (list (cons "/" (make-list size "<>")))))))
+	(when (seq-find #'identity width-specs)
+	  (push (mapcar (lambda (width) (when width (format "<%d>" width))) width-specs) table))
+	(goto-char ipos)
+	(let ((content-lines (org-split-string (plist-get params :content) "\n"))
+	      recalc)
+	  (when content-lines
+	    (while (string-match-p "\\`[ \t]*#\\+" (car content-lines))
+	      (insert (string-trim-left (pop content-lines)) "\n")))
+	  (save-excursion
+	    (insert
+	     (mapconcat (lambda (row)
+			  (if (eq row 'hline) "|-|"
+			    (format "|%s|" (mapconcat #'identity row "|"))))
+			table
+			"\n"))
+	    (let ((case-fold-search t))
+	      (dolist (line content-lines)
+		(when (string-match-p "\\`[ \t]*#\\+TBLFM:" line)
+		  (insert "\n" (string-trim-left line))
+		  (unless recalc (setq recalc t))))))
+	  (when recalc (org-table-recalculate 'all t))
+	  (org-table-align)
+	  (when (seq-find #'identity width-specs)
+	    (org-table-shrink))))))
+  (setq org-columns-dblock-formatter #'org-columns-dblock-write-relative-links))
 
 (use-package avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
