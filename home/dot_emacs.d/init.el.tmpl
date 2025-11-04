@@ -376,7 +376,8 @@
 (use-package citar
   :defer t
   :custom
-  (citar-bibliography '("{{- template "find" "**/20251008T085257--*" -}}"))
+  (citar-bibliography '("{{- template "find" "**/20251008T085257--*" -}}"
+			"{{- template "find" "**/20251104T145004--*" -}}"))
   :config
   (setq citar-file-additional-files-separator "__")
   (setq citar-library-paths
