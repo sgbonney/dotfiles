@@ -704,25 +704,6 @@
             "allowIdChange": true
         },
         {
-            "id": "org.cromite.cromite",
-            "url": "https://github.com/uazo/cromite",
-            "author": "uazo",
-            "name": "Cromite",
-            "installedVersion": "v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c",
-            "latestVersion": "v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c",
-            "apkUrls": "[[\"arm64_ChromePublic.apk\",\"https://api.github.com/repos/uazo/cromite/releases/assets/310584906\"],[\"arm64_SystemWebView.apk\",\"https://api.github.com/repos/uazo/cromite/releases/assets/310588132\"],[\"arm64_SystemWebViewShell.apk\",\"https://api.github.com/repos/uazo/cromite/releases/assets/310588744\"],[\"arm_ChromePublic.apk\",\"https://api.github.com/repos/uazo/cromite/releases/assets/310584437\"],[\"x64_ChromePublic.apk\",\"https://api.github.com/repos/uazo/cromite/releases/assets/310585378\"]]",
-            "otherAssetUrls": "[[\"arm64_ChromePublic.apk.mapping\",\"https://github.com/uazo/cromite/releases/download/v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c/arm64_ChromePublic.apk.mapping\"],[\"arm64_ninja_log_trace.html\",\"https://github.com/uazo/cromite/releases/download/v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c/arm64_ninja_log_trace.html\"],[\"arm64_symbols.zip\",\"https://github.com/uazo/cromite/releases/download/v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c/arm64_symbols.zip\"],[\"chrome-lin64.tar.gz\",\"https://github.com/uazo/cromite/releases/download/v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c/chrome-lin64.tar.gz\"],[\"chrome-win.zip\",\"https://github.com/uazo/cromite/releases/download/v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c/chrome-win.zip\"],[\"updateurl.txt\",\"https://github.com/uazo/cromite/releases/download/v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c/updateurl.txt\"],[\"x64_ChromePublic.apk.mapping\",\"https://github.com/uazo/cromite/releases/download/v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c/x64_ChromePublic.apk.mapping\"],[\"v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c.tar.gz\",\"https://api.github.com/repos/uazo/cromite/tarball/v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c\"],[\"v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c.zip\",\"https://api.github.com/repos/uazo/cromite/zipball/v142.0.7444.60-28351d970456ac78902df4463190a35a7106df6c\"]]",
-            "preferredApkIndex": 0,
-            "additionalSettings": "{\"includePrereleases\":false,\"fallbackToOlderReleases\":true,\"filterReleaseTitlesByRegEx\":\"\",\"filterReleaseNotesByRegEx\":\"\",\"verifyLatestTag\":false,\"sortMethodChoice\":\"date\",\"useLatestAssetDateAsReleaseDate\":false,\"releaseTitleAsVersion\":false,\"trackOnly\":false,\"versionExtractionRegEx\":\"\",\"matchGroupToUse\":\"\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"\",\"refreshBeforeDownload\":false,\"includeZips\":false,\"zippedApkFilterRegEx\":\"\"}",
-            "lastUpdateCheck": 1762217414375541,
-            "pinned": false,
-            "categories": [],
-            "releaseDate": 1761841539000000,
-            "changeLog": "https://github.com/uazo/cromite/issues/2438#issuecomment-3467845926\n",
-            "overrideSource": null,
-            "allowIdChange": false
-        },
-        {
             "id": "org.thoughtcrime.securesms",
             "url": "https://github.com/signalapp/Signal-Android",
             "author": "signalapp",
