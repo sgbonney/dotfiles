@@ -39,7 +39,6 @@ packages:
     - 'rocks.shy.VacuumTube'
     linux:
     - 'com.brave.Browser'
-    - 'io.gitlab.librewolf-community'
     - 'org.keepassxc.KeePassXC'
   pkg:
     android:
