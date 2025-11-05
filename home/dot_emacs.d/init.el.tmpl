@@ -250,6 +250,26 @@
 	    (org-table-shrink)))))
   (setq org-columns-dblock-formatter #'org-columns-dblock-write-relative-links)))
 
+(defun my/denote-archive-location (location)
+  (if (string-match "^denote:\\([0-9]\\{8\\}T[0-9]\\{6\\}\\)::" location)
+      (let* ((denote-id (match-string 1 location))
+	     (heading-fmt (substring location (match-end 0)))
+	     (archive-file (denote-get-path-by-id denote-id)))
+	(cons
+	 (or archive-file
+	     (error "No Denote file found with ID: %s" denote-id))
+	 (format heading-fmt "")))
+    (let ((current-file (buffer-file-name (buffer-base-buffer)))
+	  (file-fmt (substring location 0 (string-match "::" location)))
+	  (heading-fmt (substring location (match-end 0))))
+      (cons
+       (if (org-string-nw-p file-fmt)
+	   (expand-file-name
+	    (format file-fmt (file-name-nondirectory current-file)))
+	 current-file)
+       (format heading-fmt (file-name-nondirectory current-file))))))
+(advice-add 'org-archive--compute-location :override #'my/denote-archive-location)
+
 (use-package avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "C-'") 'avy-goto-char-2)
