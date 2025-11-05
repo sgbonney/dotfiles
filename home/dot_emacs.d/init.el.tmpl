@@ -247,8 +247,8 @@
 	  (when recalc (org-table-recalculate 'all t))
 	  (org-table-align)
 	  (when (seq-find #'identity width-specs)
-	    (org-table-shrink))))))
-  (setq org-columns-dblock-formatter #'org-columns-dblock-write-relative-links))
+	    (org-table-shrink)))))
+  (setq org-columns-dblock-formatter #'org-columns-dblock-write-relative-links)))
 
 (use-package avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
