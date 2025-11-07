@@ -76,18 +76,6 @@
     (auto-dark-mode 1)))
 {{- end }}
 
-(setq org-agenda-files nil)
-
-(defun refresh-org-agenda-files ()
-  (interactive)
-  (setq org-agenda-files
-        (directory-files-recursively
-         "~/Documents"
-         ".*_agenda.*\\.org$"))
-  (message "Org agenda files refreshed."))
-
-(refresh-org-agenda-files)
-
 (setq org-log-done 'time)
 
 (setq org-todo-keywords
@@ -173,12 +161,22 @@
   (setq devil-all-keys-repeatable t))
 
 (use-package org
+  :custom
+  (org-agenda-files nil)
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
 	 :map org-mode-map
               ("C-'" . nil)
 	      ("C-," . nil))
   :config
+  (defun refresh-org-agenda-files ()
+    (interactive)
+    (setq org-agenda-files
+          (directory-files-recursively
+           "~/Documents"
+           ".*_agenda.*\\.org$"))
+    (message "Org agenda files refreshed."))
+  (refresh-org-agenda-files)
   (defun org-columns-dblock-write-relative-links (ipos table params)
     (let ((link (plist-get params :link))
 	  (width-specs
