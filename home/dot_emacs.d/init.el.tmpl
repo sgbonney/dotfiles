@@ -353,6 +353,7 @@
 (use-package denote
   :config
   (setq denote-directory "~/Documents")
+  (setq denote-excluded-files-regexp "_archive\\(_\\|\\.\\)")
   (add-hook 'dired-mode-hook 'denote-dired-mode))
 
 (use-package denote-journal
@@ -384,8 +385,16 @@
   (when (locate-library "denote")
     (consult-notes-denote-mode))
 ;  ;; search only for text files in denote dir
-;  (setq consult-notes-denote-files-function (function denote-directory-text-only-files))
-  :bind (("C-c n f" . consult-notes)))
+					;  (setq consult-notes-denote-files-function (function denote-directory-text-only-files))
+  (defun consult-notes-all ()
+    "Search all Denote notes including those excluded by `denote-excluded-files-regexp'.
+  This temporarily disables the exclusion filter to allow searching through
+  all notes, including archived ones."
+    (interactive)
+    (let ((denote-excluded-files-regexp nil))
+      (call-interactively #'consult-notes)))
+  :bind (("C-c n f" . consult-notes)
+	 ("C-c n a" . consult-notes-all)))
 
 (use-package dictionary
   :bind
