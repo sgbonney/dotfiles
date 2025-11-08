@@ -371,30 +371,18 @@
 (use-package consult-notes
   :commands (consult-notes
              consult-notes-search-in-all-notes
-             ;; if using org-roam 
              consult-notes-org-roam-find-node
              consult-notes-org-roam-find-node-relation)
-  :config
-;  (setq consult-notes-file-dir-sources
-  ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
-;	("Denote Notes"  ?d ,(denote-directory))
-;        ("Books"  ?b "~/Ebooks")))
-;  (setq consult-notes-org-headings-files '("~/path/to/file1.org"
-;                                           "~/path/to/file2.org"))
-;  (consult-notes-org-headings-mode)
-  (when (locate-library "denote")
-    (consult-notes-denote-mode))
-;  ;; search only for text files in denote dir
-					;  (setq consult-notes-denote-files-function (function denote-directory-text-only-files))
-  (defun consult-notes-all ()
-    "Search all Denote notes including those excluded by `denote-excluded-files-regexp'.
-  This temporarily disables the exclusion filter to allow searching through
-  all notes, including archived ones."
+  :preface
+  (defun consult-notes-filtered ()
     (interactive)
-    (let ((denote-excluded-files-regexp nil))
+    (let ((denote-excluded-files-regexp "_archive\\(_\\|\\.\\)"))
       (call-interactively #'consult-notes)))
-  :bind (("C-c n f" . consult-notes)
-	 ("C-c n a" . consult-notes-all)))
+  :bind (("C-c n a" . consult-notes)
+         ("C-c n f" . consult-notes-filtered))
+  :config
+  (when (locate-library "denote")
+    (consult-notes-denote-mode)))
 
 (use-package dictionary
   :bind
