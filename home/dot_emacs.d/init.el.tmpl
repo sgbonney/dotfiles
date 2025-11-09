@@ -43,6 +43,26 @@
   :hook
     (dired-mode . dired-hide-details-mode))
 
+(use-package bicycle
+  :after outline
+  :bind (:map outline-minor-mode-map
+              ("<tab>" . bicycle-cycle)
+              ("S-<tab>" . bicycle-cycle-global)))
+
+(use-package prog-mode
+  :config
+  (add-hook 'prog-mode-hook 'outline-minor-mode)
+  (add-hook 'prog-mode-hook 'hs-minor-mode))
+
+(use-package outline-minor-faces
+  :after outline
+  :config (add-hook 'outline-minor-mode-hook
+                    #'outline-minor-faces-mode))
+
+(use-package backline
+  :after outline
+  :config (advice-add 'outline-flag-region :after 'backline-update))
+
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
 
