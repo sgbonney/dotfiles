@@ -43,8 +43,10 @@
 (use-package bicycle
   :after outline
   :bind (:map outline-minor-mode-map
-              ("<tab>" . bicycle-cycle)
-              ("S-<tab>" . bicycle-cycle-global)))
+	      ("TAB" . bicycle-cycle)
+	      ("<tab>" . bicycle-cycle)
+	      ("S-TAB" . bicycle-cycle-global)
+	      ("<backtab>" . bicycle-cycle-global)))
 
 (use-package prog-mode
   :config
