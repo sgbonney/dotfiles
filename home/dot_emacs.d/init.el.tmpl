@@ -99,13 +99,13 @@
                           (with-current-buffer (find-file-noselect "{{- template "find" "**/20240316T110159--*" -}}")
                             (org-bibtex "{{- template "find" "**/20251104T145004--*" -}}"))))
 	("f" "Fuel log" entry
-	 (file+headline "{{- template "find" "**/20190317T144500--*" -}}" "Total")
+	 (file+headline "{{- template "find" "**/20190317T144500--*" -}}" "2025-26")
 	 "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251030T105223\" 'org-mode))"
-	 :empty-lines 1 :prepend t)
+	 :empty-lines 1)
 	("w" "Work schedule" entry
-	 (file "{{- template "find" "**/20241007T195225--*" -}}")
+	 (file+headline "{{- template "find" "**/20241008T004852--*" -}}" "Employment")
 	 "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251103T081423\" 'org-mode))"
-	 :empty-lines 1 :prepend t)))
+	 :empty-lines 1)))
 
 (use-package god-mode
   :init
