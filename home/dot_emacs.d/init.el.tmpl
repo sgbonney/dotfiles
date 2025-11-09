@@ -508,18 +508,6 @@
           (message "Pins extracted successfully."))
       (error "Org file not found: %s" org-file-path))))
 
-(defun search-youtube-from-org ()
-  "Search for the song in the current Org mode heading on YouTube."
-  (interactive)
-  (when (org-at-heading-p)
-    (let* ((title (org-get-heading t t t t))
-           (artist (or (org-entry-get (point) "ARTIST") "Unknown Artist"))
-           (query (concat title " " artist))
-           (encoded-query (url-hexify-string query))
-           (url (concat "https://www.youtube.com/results?search_query=" encoded-query)))
-      (browse-url url)
-      (message "Searching for: %s" query))))
-
 (defun org-fetch-xcweather-forecast ()
   "Fetch XCWeather forecast for the postcode found in the Org heading at point."
   (interactive)
