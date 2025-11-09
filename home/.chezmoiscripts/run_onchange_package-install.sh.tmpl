@@ -1,3 +1,5 @@
+{{- /* -*- mode: sh -*- */ -}}
+
 #!{{- lookPath "bash" }}
 
 {{- range $manager, $package := .packages -}} {{- $manager := $manager | replace "_" "-" -}} {{- "\n" }}

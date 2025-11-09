@@ -1,3 +1,5 @@
+{{- /* -*- mode: emacs-lisp -*- */ -}}
+
 (setq warning-minimum-level :emergency)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -528,10 +530,6 @@
    (plantuml . t)
    (python . t)
    (shell . t)))
-
-(dolist (entry '(("\\.el.tmpl\\'" . emacs-lisp-mode)
-                 ("\\.sh.tmpl\\'" . shell-script-mode)))
-  (add-to-list 'auto-mode-alist entry))
 
 (unless (server-running-p)
   (server-start))
