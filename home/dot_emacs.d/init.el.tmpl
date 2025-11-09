@@ -102,7 +102,7 @@
 	 (file+headline "{{- template "find" "**/20190317T144500--*" -}}" "2025-26")
 	 "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251030T105223\" 'org-mode))"
          :empty-lines 1
-         :after-finalize (lambda ()
+         :before-finalize (lambda ()
                           (with-current-buffer (org-capture-get :buffer)
                             (org-update-all-dblocks))))
 	("w" "Work schedule" entry
