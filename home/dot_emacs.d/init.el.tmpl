@@ -148,12 +148,6 @@
 
   (add-hook 'post-command-hook #'my-god-mode-update-mode-line))
 
-(use-package key-chord
-  :init
-  (key-chord-mode 1)
-  :config
-  (key-chord-define-global ".." 'god-local-mode))
-
 (use-package devil
   :init
   (global-devil-mode)
