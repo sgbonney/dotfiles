@@ -96,7 +96,7 @@
 	 "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251104T160623\" 'org-mode))"
 	 :empty-lines 1
 	 :after-finalize (lambda ()
-                          (with-current-buffer (find-file-noselect "{{- template "find" "**/20240316T110159--*" -}}")
+                          (with-current-buffer (org-capture-get :buffer)
                             (org-bibtex "{{- template "find" "**/20251104T145004--*" -}}"))))
 	("f" "Fuel log" entry
 	 (file+headline "{{- template "find" "**/20190317T144500--*" -}}" "2025-26")
