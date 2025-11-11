@@ -5,19 +5,33 @@
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (load custom-file 'noerror)
   (setq custom-safe-themes t)
+
   {{ if contains "android" .osid -}}
   (setq touch-screen-display-keyboard t)
-  (defun toggle-text-conversion-style ()
+
+  (defvar-local text-conversion-default nil
+
+  (defun record-text-conversion-default ()
+    (setq text-conversion-default text-conversion-style))
+
+  (defun toggle-based-on-text-conversion-default ()
     (interactive)
-    (if text-conversion-style
-	(progn
-	  (setq overriding-text-conversion-style
-		(if overriding-text-conversion-style
-		    nil
-		  t))
-	  (when (fboundp 'set-text-conversion-style)
-	    (set-text-conversion-style text-conversion-style)))
-      nil))
+    (if text-conversion-default
+        (if text-conversion-style
+            (progn
+              (setq-local text-conversion-style nil)
+              (when (fboundp 'set-text-conversion-style)
+                (set-text-conversion-style nil))
+              (when (fboundp 'god-local-mode)
+                (god-local-mode 1)))
+          (setq-local text-conversion-style t)
+          (when (fboundp 'set-text-conversion-style)
+            (set-text-conversion-style t))
+          (when (fboundp 'god-local-mode)
+            (god-local-mode -1)))
+      (when (fboundp 'god-local-mode)
+        (god-local-mode (if god-local-mode -1 1)))))
+
   {{ end -}}
   :custom
   (warning-minimum-level :emergency)
@@ -26,12 +40,21 @@
   (initial-scratch-message nil)
   (server-client-instructions nil)
   (make-backup-files nil)
+
   :config
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
   (global-visual-line-mode 1)
-  (add-to-list 'default-frame-alist '(undecorated . t)))
+  (add-to-list 'default-frame-alist '(undecorated . t))
+  {{- if contains "android" .osid }}
+
+  :hook
+  (after-change-major-mode . record-text-conversion-default)
+
+  :bind
+  ("<f9>" . toggle-based-on-text-conversion-default)
+  {{- end -}})
 
 (use-package package
   :config
