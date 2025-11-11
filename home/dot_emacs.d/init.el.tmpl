@@ -6,8 +6,18 @@
   (load custom-file 'noerror)
   (setq custom-safe-themes t)
   {{ if contains "android" .osid -}}
-  (setq overriding-text-conversion-style nil
-        touch-screen-display-keyboard t)
+  (setq touch-screen-display-keyboard t)
+  (defun toggle-text-conversion-style ()
+    (interactive)
+    (if text-conversion-style
+	(progn
+	  (setq overriding-text-conversion-style
+		(if overriding-text-conversion-style
+		    nil
+		  t))
+	  (when (fboundp 'set-text-conversion-style)
+	    (set-text-conversion-style text-conversion-style)))
+      nil))
   {{ end -}}
   :custom
   (warning-minimum-level :emergency)
