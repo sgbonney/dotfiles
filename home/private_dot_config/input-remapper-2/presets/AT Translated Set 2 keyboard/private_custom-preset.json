@@ -1,0 +1,31 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 58,
+                "origin_hash": "d30fb9a3c87654c9091f7bbae6355818"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_F9",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 42,
+                "origin_hash": "d30fb9a3c87654c9091f7bbae6355818"
+            },
+            {
+                "type": 1,
+                "code": 54,
+                "origin_hash": "d30fb9a3c87654c9091f7bbae6355818"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_CAPSLOCK",
+        "mapping_type": "key_macro"
+    }
+]

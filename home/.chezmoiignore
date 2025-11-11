@@ -22,6 +22,7 @@
 {{- end }}
 
 {{- if not (contains "fedora" .osid) }}
+.config/input-remapper-2
 **/emacs.*
 **/org.gnome.TextEditor
 **/restart-emacs.sh
