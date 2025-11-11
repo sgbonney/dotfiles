@@ -158,8 +158,11 @@
 (use-package god-mode
   :init
   (setq god-mode-enable-function-key-translation nil)
+
   :bind
-  (("C-." . god-local-mode)
+  ({{- if contains "fedora" .osid -}}
+   ("<f9>" . god-local-mode)
+   {{ end -}}
    ("C-x C-1" . delete-other-windows)
    ("C-x C-2" . split-window-below)
    ("C-x C-3" . split-window-right)
@@ -168,14 +171,17 @@
    ("z" . repeat)
    ("[" . backward-paragraph)
    ("]" . forward-paragraph))
+
+  :hook
+  (post-command . my-god-mode-update-cursor)
+  (post-command . my-god-mode-update-mode-line)
+
   :config
   (defun my-god-mode-update-cursor ()
     (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar))
     (if (or god-local-mode)
-	(blink-cursor-mode -1)
+        (blink-cursor-mode -1)
       (blink-cursor-mode 1)))
-
-  (add-hook 'post-command-hook #'my-god-mode-update-cursor)
 
   (defun my-god-mode-update-mode-line ()
     (cond
@@ -188,13 +194,11 @@
                           :background "#fff3da"))
      (t
       (set-face-attribute 'mode-line nil
-  			  :foreground "#0a0a0a"
-  			  :background "#d7d7d7")
+                          :foreground "#0a0a0a"
+                          :background "#d7d7d7")
       (set-face-attribute 'mode-line-inactive nil
-  			  :foreground "#404148"
-  			  :background "#efefef"))))
-
-  (add-hook 'post-command-hook #'my-god-mode-update-mode-line))
+                          :foreground "#404148"
+                          :background "#efefef")))))
 
 (use-package devil
   :init
