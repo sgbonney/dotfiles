@@ -9,7 +9,7 @@
   {{ if contains "android" .osid -}}
   (setq touch-screen-display-keyboard t)
 
-  (defvar-local text-conversion-default nil
+  (defvar-local text-conversion-default nil)
 
   (defun record-text-conversion-default ()
     (setq text-conversion-default text-conversion-style))
