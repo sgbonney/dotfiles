@@ -1,6 +1,7 @@
 {{- if not (contains "android" .osid) }}
 .config/dev.imranr.obtainium
 .config/fr.neamar.kiss
+.config/helium314.keyboard
 .config/juloo.keyboard2
 .config/keepassxc
 .local/share/android
