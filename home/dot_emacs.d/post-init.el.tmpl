@@ -181,10 +181,7 @@
    (expand-file-name "{{- if contains "android" .osid -}}{{- "/data/data/com.termux/files/usr/share/java/plantuml.jar" | trim -}}{{- else if contains "fedora" .osid -}}{{- output "bash" "-c" "find /home/linuxbrew/.linuxbrew/ -name 'plantuml.jar'" | trim -}}{{- end -}}"))
 
   :bind (("C-c a" . org-agenda)
-	 ("C-c c" . org-capture)
-	 :map org-mode-map
-              ("C-'" . nil)
-	      ("C-," . nil))
+         ("C-c c" . org-capture))
 
   :config
   (add-to-list 'org-modules 'org-habit t)
@@ -580,17 +577,6 @@
   :ensure t
   :custom
   (citar-open-always-create-notes t)
-
-  :bind
-  (("C-c w b c" . citar-create-note)
-   ("C-c w b n" . citar-denote-open-note)
-   ("C-c w b x" . citar-denote-nocite)
-   :map org-mode-map
-   ("C-c w b k" . citar-denote-add-citekey)
-   ("C-c w b K" . citar-denote-remove-citekey)
-   ("C-c w b d" . citar-denote-dwim)
-   ("C-c w b e" . citar-denote-open-reference-entry))
-
   :init
   (citar-denote-mode))
 
