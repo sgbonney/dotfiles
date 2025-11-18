@@ -415,6 +415,32 @@
   :commands (marginalia-cycle)
   :hook (after-init . marginalia-mode))
 
+(use-package embark
+  :commands (embark-act
+             embark-dwim
+             embark-export
+             embark-collect
+             embark-bindings
+             embark-prefix-help-command)
+
+  :bind
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim)
+   ("C-h B" . embark-bindings))
+
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
 (use-package denote
   :custom
   (denote-directory "~/Documents")
