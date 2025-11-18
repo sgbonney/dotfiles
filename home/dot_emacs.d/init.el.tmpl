@@ -1,5 +1,9 @@
 {{- /* -*- mode: emacs-lisp -*- */ -}}
 
+;;; init.el --- Init -*- lexical-binding: t; -*-
+
+;;;; Packages
+
 (use-package emacs
   :ensure nil
   :custom
@@ -549,6 +553,8 @@
   (display-line-numbers-mode 0))
 
 (use-package f)
+
+;;;; Functions
 
 (defun my/extract-pins-from-org ()
   "Extract pins from the specified Org file and display them in a temporary buffer."
