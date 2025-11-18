@@ -397,7 +397,6 @@
 (use-package el-patch)
 
 (use-package vertico
-  :ensure t
   :config
   (vertico-mode))
 
@@ -406,6 +405,12 @@
   :init
   (savehist-mode))
 
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
+
 (use-package marginalia
   :after vertico
   :bind
@@ -413,12 +418,6 @@
    ("M-A" . marginalia-cycle))
   :config
   (marginalia-mode))
-
-(use-package orderless
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
-
 
 (use-package denote
   :custom
