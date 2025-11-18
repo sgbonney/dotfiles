@@ -8,6 +8,11 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 
+(setq package-archive-priorities '(("melpa"        . 90)
+                                   ("gnu"          . 70)
+                                   ("nongnu"       . 60)
+                                   ("melpa-stable" . 50)))
+
 {{ if contains "android" .osid -}}
 (let ((termux-bin "/data/data/com.termux/files/usr/bin")
       (ssh-sock "/data/data/com.termux/files/home/.ssh/ssh-agent.sock"))
