@@ -47,7 +47,6 @@ packages:
     - 'ffmpeg'
     - 'graphviz'
     - 'keepassxc'
-    - 'mpv'
     - 'mupdf-tools'
     - 'plantuml'
   rpm_ostree:
