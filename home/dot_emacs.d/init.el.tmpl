@@ -1,6 +1,7 @@
 {{- /* -*- mode: emacs-lisp -*- */ -}}
 
 (use-package emacs
+  :ensure nil
   :custom
   (warning-minimum-level :emergency)
   (inhibit-startup-screen t)
@@ -77,11 +78,13 @@
   {{- end -}})
 
 (use-package server
+  :ensure nil
   :config
   (unless (server-running-p)
     (server-start)))
 
 (use-package use-package
+  :ensure nil
   :custom
   (use-package-always-ensure t)
   (package-native-compile t))
@@ -100,6 +103,7 @@
 	      ("<backtab>" . bicycle-cycle-global)))
 
 (use-package prog-mode
+  :ensure nil
   :config
   (add-hook 'prog-mode-hook 'outline-minor-mode)
   (add-hook 'prog-mode-hook 'hs-minor-mode))
@@ -403,6 +407,7 @@
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
+  :ensure nil
   :init
   (savehist-mode))
 
