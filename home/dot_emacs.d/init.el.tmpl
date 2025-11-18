@@ -518,10 +518,8 @@
   :bind-keymap
   (("C-c r" . emms-playlist-mode-map))
 
-  :init
-  (emms-standard)
-
   :config
+  (emms-standard)
   (emms-playing-time-disable-display)
   (emms-add-m3u-playlist "{{- template "find" "*/Transistor/**/collection.m3u" -}}"))
 
