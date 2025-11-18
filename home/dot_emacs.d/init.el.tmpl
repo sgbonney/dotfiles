@@ -1,48 +1,131 @@
 {{- /* -*- mode: emacs-lisp -*- */ -}}
 
-;;; post-init.el --- Post Init -*- no-byte-compile: t; lexical-binding: t; -*-
-
-;;;; Packages
-;; Native compilation enhances Emacs performance by converting Elisp code into
-;; native machine code, resulting in faster execution and improved
-;; responsiveness.
-;;
-;; Ensure adding the following compile-angel code at the very beginning
-;; of your `~/.emacs.d/post-init.el` file, before all other packages.
-(use-package compile-angel
-  :demand t
-  :ensure t
+(use-package emacs
   :custom
-  ;; Set `compile-angel-verbose` to nil to suppress output from compile-angel.
-  ;; Drawback: The minibuffer will not display compile-angel's actions.
-  (compile-angel-verbose t)
+  (warning-minimum-level :emergency)
+  (inhibit-startup-screen t)
+  (initial-major-mode 'fundamental-mode)
+  (initial-scratch-message nil)
+  (server-client-instructions nil)
+  (make-backup-files nil)
+
+  {{ if contains "android" .osid -}}
+  :bind
+  ("<f9>" . toggle-based-on-text-conversion-default)
+
+  :hook
+  (after-change-major-mode . record-text-conversion-default)
+
+  {{ end -}}
+  :init
+  (setq custom-file (concat user-emacs-directory "custom.el"))
+  (load custom-file 'noerror)
+  (setq custom-safe-themes t)
+
+  {{ if contains "android" .osid -}}
+  (setq touch-screen-display-keyboard t)
+
+  (defvar-local text-conversion-default nil)
+
+  (defun record-text-conversion-default ()
+    (setq text-conversion-default text-conversion-style))
+
+  (defun toggle-based-on-text-conversion-default ()
+    (interactive)
+    (if text-conversion-default
+        (if text-conversion-style
+            (progn
+              (setq-local text-conversion-style nil)
+              (when (fboundp 'set-text-conversion-style)
+                (set-text-conversion-style nil))
+              (when (fboundp 'god-local-mode)
+                (god-local-mode 1)))
+          (setq-local text-conversion-style t)
+          (when (fboundp 'set-text-conversion-style)
+            (set-text-conversion-style t))
+          (when (fboundp 'god-local-mode)
+            (god-local-mode -1)))
+      (when (fboundp 'god-local-mode)
+        (god-local-mode (if god-local-mode -1 1)))))
+
+  {{ end -}}
 
   :config
-  ;; The following directive prevents compile-angel from compiling your init
-  ;; files. If you choose to remove this push to `compile-angel-excluded-files'
-  ;; and compile your pre/post-init files, ensure you understand the
-  ;; implications and thoroughly test your code. For example, if you're using
-  ;; the `use-package' macro, you'll need to explicitly add:
-  ;; (eval-when-compile (require 'use-package))
-  ;; at the top of your init file.
-  (push "/init.el" compile-angel-excluded-files)
-  (push "/early-init.el" compile-angel-excluded-files)
-  (push "/pre-init.el" compile-angel-excluded-files)
-  (push "/post-init.el" compile-angel-excluded-files)
-  (push "/pre-early-init.el" compile-angel-excluded-files)
-  (push "/post-early-init.el" compile-angel-excluded-files)
+  (require-theme 'modus-themes)
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs t
+        modus-themes-mixed-fonts t
+  {{- if contains "android" .osid }}
+        modus-themes-to-toggle '(modus-operandi-tinted modus-vivendi-tinted))
+  (load-theme 'modus-vivendi-tinted :no-confirm)
+  {{- else -}})
+  {{- end }}
 
-  ;; A local mode that compiles .el files whenever the user saves them.
-  ;; (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (global-visual-line-mode 1)
+  (add-to-list 'default-frame-alist '(undecorated . t))
+  {{- if contains "android" .osid }}
 
-  ;; A global mode that compiles .el files prior to loading them via `load' or
-  ;; `require'. Additionally, it compiles all packages that were loaded before
-  ;; the mode `compile-angel-on-load-mode' was activated.
-  (compile-angel-on-load-mode 1))
+  (defun android-emacs-background-service-file ()
+    (interactive)
+    (let ((file-name "Emacs Background Service"))
+      (when (file-exists-p file-name)
+	(delete-file file-name))
+      (find-file file-name)
+      (insert "This file is produced to keep Emacs running while it is in the background. Used in conjunction with Android 'Emacs Background Service' notification, see (emacs)Android Environment.")
+      (read-only-mode)
+      (bury-buffer)))
+  (android-emacs-background-service-file)
+  {{- end -}})
+
+(use-package server
+  :config
+  (unless (server-running-p)
+    (server-start)))
+
+(use-package package
+  :config
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/"))
+  (package-initialize))
+
+(use-package use-package
+  :custom
+  (use-package-always-ensure t)
+  (package-native-compile t))
+
+(use-package dired
+  :ensure nil
+  :defer t
+  :hook
+  (dired-mode . dired-hide-details-mode))
+
+(use-package bicycle
+  :after outline
+  :bind (:map outline-minor-mode-map
+	      ("TAB" . bicycle-cycle)
+	      ("<tab>" . bicycle-cycle)
+	      ("S-TAB" . bicycle-cycle-global)
+	      ("<backtab>" . bicycle-cycle-global)))
+
+(use-package prog-mode
+  :config
+  (add-hook 'prog-mode-hook 'outline-minor-mode)
+  (add-hook 'prog-mode-hook 'hs-minor-mode))
+
+(use-package outline-minor-faces
+  :after outline
+  :config (add-hook 'outline-minor-mode-hook
+                    #'outline-minor-faces-mode))
+
+(use-package backline
+  :after outline
+  :config (advice-add 'outline-flag-region :after 'backline-update))
 
 {{ if contains "fedora" .osid -}}
 (use-package auto-dark
-  :ensure t
   :config
   (ignore-errors
     (setq auto-dark-themes '((modus-operandi-tinted) (modus-vivendi-tinted)))
@@ -53,42 +136,9 @@
 	      (lambda ()
 		(load-theme 'modus-operandi-tinted :no-confirm)))
     (auto-dark-mode 1)))
-
 {{ end -}}
-(use-package dired
-  :ensure nil
-  :defer t
-  :hook
-  (dired-mode . dired-hide-details-mode))
-
-(use-package prog-mode
-  :ensure nil
-  :config
-  (add-hook 'prog-mode-hook 'outline-minor-mode)
-  (add-hook 'prog-mode-hook 'hs-minor-mode))
-
-(use-package bicycle
-  :ensure t
-  :after outline
-  :bind (:map outline-minor-mode-map
-	      ("TAB" . bicycle-cycle)
-	      ("<tab>" . bicycle-cycle)
-	      ("S-TAB" . bicycle-cycle-global)
-	      ("<backtab>" . bicycle-cycle-global)))
-
-(use-package outline-minor-faces
-  :ensure t
-  :after outline
-  :config (add-hook 'outline-minor-mode-hook
-                    #'outline-minor-faces-mode))
-
-(use-package backline
-  :ensure t
-  :after outline
-  :config (advice-add 'outline-flag-region :after 'backline-update))
 
 (use-package god-mode
-  :ensure t
   :bind
   ({{- if contains "fedora" .osid -}}
    ("<f9>" . god-local-mode)
@@ -133,15 +183,14 @@
                           :foreground "#404148"
                           :background "#efefef")))))
 
-;;;;; (use-package devil
-;  :init
-;  (global-devil-mode)
-;
-;  :config
-;  (setq devil-all-keys-repeatable t))
+(use-package devil
+  :init
+  (global-devil-mode)
+
+  :config
+  (setq devil-all-keys-repeatable t))
 
 (use-package org
-  :ensure t
   :custom
   (org-log-done 'time)
   (org-log-into-drawer t)
@@ -181,7 +230,10 @@
    (expand-file-name "{{- if contains "android" .osid -}}{{- "/data/data/com.termux/files/usr/share/java/plantuml.jar" | trim -}}{{- else if contains "fedora" .osid -}}{{- output "bash" "-c" "find /home/linuxbrew/.linuxbrew/ -name 'plantuml.jar'" | trim -}}{{- end -}}"))
 
   :bind (("C-c a" . org-agenda)
-         ("C-c c" . org-capture))
+	 ("C-c c" . org-capture)
+	 :map org-mode-map
+              ("C-'" . nil)
+	      ("C-," . nil))
 
   :config
   (add-to-list 'org-modules 'org-habit t)
@@ -295,29 +347,23 @@
      (shell . t))))
 
 (use-package org-web-tools
-  :ensure t
   :after org)
 
 (use-package avy
-  :ensure t
-  :commands (avy-goto-char
-             avy-goto-char-2
-             avy-next)
-
-  :init
-  (global-set-key (kbd "C-'") 'avy-goto-char-2))
+  :bind (("C-:" . avy-goto-char)
+	 ("C-'" . avy-goto-char-2)
+	 ("M-g s" . avy-goto-char-timer)
+	 ("M-g f" . avy-goto-line)
+	 ("M-g w" . avy-goto-word-1)))
 
 (use-package hide-mode-line
-  :ensure t
   :config
   (add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
   (add-hook 'nov-mode-hook #'hide-mode-line-mode))
 
-(use-package magit
-  :ensure t)
+(use-package magit)
 
 (use-package yasnippet
-  :ensure t
   :config
   (yas-global-mode t)
   (setq yas-snippet-dirs
@@ -348,168 +394,44 @@
 
   (yas-reload-all))
 
-;; Vertico provides a vertical completion interface, making it easier to
-;; navigate and select from completion candidates (e.g., when `M-x` is pressed).
-(use-package vertico
-  ;; (Note: It is recommended to also enable the savehist package.)
-  :ensure t
-  :config
-  (vertico-mode))
+(use-package el-patch)
 
+(use-package vertico
+  :init
+  (vertico-mode)
+
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
+
+  ;; Show more candidates
+  ;; (setq vertico-count 20)
+
+  ;; Grow and shrink the Vertico minibuffer
+  (setq vertico-resize t)
+
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  (setq vertico-cycle t))
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
-  :ensure nil
   :init
   (savehist-mode))
 
-;; Vertico leverages Orderless' flexible matching capabilities, allowing users
-;; to input multiple patterns separated by spaces, which Orderless then
-;; matches in any order against the candidates.
+(use-package marginalia
+  :after vertico
+  :bind
+  (:map minibuffer-local-map
+   ("M-A" . marginalia-cycle))
+  :config
+  (marginalia-mode))
+
 (use-package orderless
-  :ensure t
   :custom
   (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
-;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
-;; In addition to that, Marginalia also enhances Vertico by adding rich
-;; annotations to the completion candidates displayed in Vertico's interface.
-(use-package marginalia
-  :ensure t
-  :commands (marginalia-mode marginalia-cycle)
-  :hook (after-init . marginalia-mode))
-
-;; Embark integrates with Consult and Vertico to provide context-sensitive
-;; actions and quick access to commands based on the current selection, further
-;; improving user efficiency and workflow within Emacs. Together, they create a
-;; cohesive and powerful environment for managing completions and interactions.
-(use-package embark
-  ;; Embark is an Emacs package that acts like a context menu, allowing
-  ;; users to perform context-sensitive actions on selected items
-  ;; directly from the completion interface.
-  :ensure t
-  :commands (embark-act
-             embark-dwim
-             embark-export
-             embark-collect
-             embark-bindings
-             embark-prefix-help-command)
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
-  :init
-  (setq prefix-help-command #'embark-prefix-help-command)
-
-  :config
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
-
-(use-package embark-consult
-  :ensure t
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
-
-;; Consult offers a suite of commands for efficient searching, previewing, and
-;; interacting with buffers, file contents, and more, improving various tasks.
-(use-package consult
-  :ensure t
-  :bind (;; C-c bindings in `mode-specific-map'
-         ("C-c M-x" . consult-mode-command)
-         ("C-c h" . consult-history)
-         ("C-c k" . consult-kmacro)
-         ("C-c m" . consult-man)
-         ("C-c i" . consult-info)
-         ([remap Info-search] . consult-info)
-         ;; C-x bindings in `ctl-x-map'
-         ("C-x M-:" . consult-complex-command)
-         ("C-x b" . consult-buffer)
-         ("C-x 4 b" . consult-buffer-other-window)
-         ("C-x 5 b" . consult-buffer-other-frame)
-         ("C-x t b" . consult-buffer-other-tab)
-         ("C-x r b" . consult-bookmark)
-         ("C-x p b" . consult-project-buffer)
-         ;; Custom M-# bindings for fast register access
-         ("M-#" . consult-register-load)
-         ("M-'" . consult-register-store)
-         ("C-M-#" . consult-register)
-         ;; Other custom bindings
-         ("M-y" . consult-yank-pop)
-         ;; M-g bindings in `goto-map'
-         ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flymake)
-         ("M-g g" . consult-goto-line)
-         ("M-g M-g" . consult-goto-line)
-         ("M-g o" . consult-outline)
-         ("M-g m" . consult-mark)
-         ("M-g k" . consult-global-mark)
-         ("M-g i" . consult-imenu)
-         ("M-g I" . consult-imenu-multi)
-         ;; M-s bindings in `search-map'
-         ("M-s d" . consult-find)
-         ("M-s c" . consult-locate)
-         ("M-s g" . consult-grep)
-         ("M-s G" . consult-git-grep)
-         ("M-s r" . consult-ripgrep)
-         ("M-s l" . consult-line)
-         ("M-s L" . consult-line-multi)
-         ("M-s k" . consult-keep-lines)
-         ("M-s u" . consult-focus-lines)
-         ;; Isearch integration
-         ("M-s e" . consult-isearch-history)
-         :map isearch-mode-map
-         ("M-e" . consult-isearch-history)
-         ("M-s e" . consult-isearch-history)
-         ("M-s l" . consult-line)
-         ("M-s L" . consult-line-multi)
-         ;; Minibuffer history
-         :map minibuffer-local-map
-         ("M-s" . consult-history)
-         ("M-r" . consult-history))
-
-  ;; Enable automatic preview at point in the *Completions* buffer.
-  :hook (completion-list-mode . consult-preview-at-point-mode)
-
-  :init
-  ;; Optionally configure the register formatting. This improves the register
-  (setq register-preview-delay 0.5
-        register-preview-function #'consult-register-format)
-
-  ;; Optionally tweak the register preview window.
-  (advice-add #'register-preview :override #'consult-register-window)
-
-  ;; Use Consult to select xref locations with preview
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
-
-  ;; Aggressive asynchronous that yield instantaneous results. (suitable for
-  ;; high-performance systems.) Note: Minad, the author of Consult, does not
-  ;; recommend aggressive values.
-  ;; Read: https://github.com/minad/consult/discussions/951
-  ;;
-  ;; However, the author of minimal-emacs.d uses these parameters to achieve
-  ;; immediate feedback from Consult.
-  ;; (setq consult-async-input-debounce 0.02
-  ;;       consult-async-input-throttle 0.05
-  ;;       consult-async-refresh-delay 0.02)
-
-  :config
-  (consult-customize
-   consult-theme :preview-key '(:debounce 0.2 any)
-   consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file consult-xref
-   consult--source-bookmark consult--source-file-register
-   consult--source-recent-file consult--source-project-recent-file
-   ;; :preview-key "M-."
-   :preview-key '(:debounce 0.4 any))
-  (setq consult-narrow-key "<"))
 
 (use-package denote
-  :ensure t
   :custom
   (denote-directory "~/Documents")
 
@@ -517,15 +439,15 @@
   (dired-mode . denote-dired-mode))
 
 (use-package denote-journal
-  :ensure t
   :after denote
   :custom
   (denote-journal-directory (expand-file-name "journal" denote-directory))
   (denote-journal-keyword "journal")
   (denote-journal-title-format 'day-date-month-year))
 
+(use-package consult)
+
 (use-package consult-notes
-  :ensure t
   :commands (consult-notes
              consult-notes-search-in-all-notes
              consult-notes-org-roam-find-node
@@ -544,15 +466,13 @@
   (when (locate-library "denote")
     (consult-notes-denote-mode)))
 
-;;;;; (use-package dictionary
-;  :bind
-;  ("M-#" . dictionary-lookup-definition))
+(use-package dictionary
+  :bind
+  ("M-#" . dictionary-lookup-definition))
 
-(use-package biblio
-  :ensure t)
+(use-package biblio)
 
 (use-package citar
-  :ensure t
   :defer t
   :custom
   (citar-bibliography '("{{- template "find" "**/20251008T085257--*" -}}"
@@ -574,15 +494,23 @@
           (note . "Notes on ${author editor:%etal}, ${title}"))))
 
 (use-package citar-denote
-  :ensure t
   :custom
   (citar-open-always-create-notes t)
+
+  :bind
+  (("C-c w b c" . citar-create-note)
+   ("C-c w b n" . citar-denote-open-note)
+   ("C-c w b x" . citar-denote-nocite)
+   :map org-mode-map
+   ("C-c w b k" . citar-denote-add-citekey)
+   ("C-c w b K" . citar-denote-remove-citekey)
+   ("C-c w b d" . citar-denote-dwim)
+   ("C-c w b e" . citar-denote-open-reference-entry))
+
   :init
   (citar-denote-mode))
 
-{{ if contains "fedora" .osid -}}
 (use-package emms
-  :ensure t
   :custom
   (emms-player-list '(emms-player-mpv))
   (emms-player-mpv-update-metadata t)
@@ -598,19 +526,15 @@
   (emms-playing-time-disable-display)
   (emms-add-m3u-playlist "{{- template "find" "*/Transistor/**/collection.m3u" -}}"))
 
-{{ end -}}
 (use-package titlecase
-  :ensure t
   :defer t)
 
 (use-package jinx
-  :ensure t
   :hook (emacs-startup . global-jinx-mode)
   :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages)))
 
 (use-package nov
-  :ensure t
   {{ if contains "android" .osid -}}
   :bind (("<volume-up>" . nov-scroll-down)
          ("<volume-down>" . nov-scroll-up))
@@ -628,10 +552,8 @@
   :config
   (display-line-numbers-mode 0))
 
-(use-package f
-  :ensure t)
+(use-package f)
 
-;;;; Functions
 (defun my/extract-pins-from-org ()
   "Extract pins from the specified Org file and display them in a temporary buffer."
   (interactive)

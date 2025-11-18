@@ -9,10 +9,6 @@
 .termux
 {{- end }}
 
-{{- if not (or (contains "android" .osid) (contains "fedora" .osid)) }}
-.emacs.d
-{{- end }}
-
 {{- if not (contains "linux" .osid) }}
 .config/systemd
 **/keepassxc-cli

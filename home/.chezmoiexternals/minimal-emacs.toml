@@ -1,9 +1,0 @@
-{{- if or (contains "android" .osid) (contains "fedora" .osid) -}}
-[".emacs.d/early-init.el"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/jamescherti/minimal-emacs.d/main/early-init.el"
-
-[".emacs.d/init.el"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/jamescherti/minimal-emacs.d/main/init.el"
-{{- end }}
