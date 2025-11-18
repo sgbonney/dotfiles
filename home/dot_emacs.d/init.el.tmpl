@@ -412,12 +412,8 @@
   (completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package marginalia
-  :after vertico
-  :bind
-  (:map minibuffer-local-map
-   ("M-A" . marginalia-cycle))
-  :config
-  (marginalia-mode))
+  :commands (marginalia-cycle)
+  :hook (after-init . marginalia-mode))
 
 (use-package denote
   :custom
