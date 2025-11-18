@@ -504,6 +504,7 @@
   :init
   (citar-denote-mode))
 
+{{ if contains "fedora" .osid -}}
 (use-package emms
   :custom
   (emms-player-list '(emms-player-mpv))
@@ -520,6 +521,7 @@
   (emms-playing-time-disable-display)
   (emms-add-m3u-playlist "{{- template "find" "*/Transistor/**/collection.m3u" -}}"))
 
+{{ end -}}
 (use-package titlecase
   :defer t)
 
