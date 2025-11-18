@@ -4,6 +4,12 @@
 
 ;;;; Packages
 
+(use-package use-package
+  :ensure nil
+  :custom
+  (use-package-always-ensure t)
+  (package-native-compile t))
+
 (use-package emacs
   :ensure nil
   :custom
@@ -81,46 +87,6 @@
   (android-emacs-background-service-file)
   {{- end -}})
 
-(use-package server
-  :ensure nil
-  :config
-  (unless (server-running-p)
-    (server-start)))
-
-(use-package use-package
-  :ensure nil
-  :custom
-  (use-package-always-ensure t)
-  (package-native-compile t))
-
-(use-package dired
-  :ensure nil
-  :hook
-  (dired-mode . dired-hide-details-mode))
-
-(use-package bicycle
-  :after outline
-  :bind (:map outline-minor-mode-map
-	      ("TAB" . bicycle-cycle)
-	      ("<tab>" . bicycle-cycle)
-	      ("S-TAB" . bicycle-cycle-global)
-	      ("<backtab>" . bicycle-cycle-global)))
-
-(use-package prog-mode
-  :ensure nil
-  :config
-  (add-hook 'prog-mode-hook 'outline-minor-mode)
-  (add-hook 'prog-mode-hook 'hs-minor-mode))
-
-(use-package outline-minor-faces
-  :after outline
-  :config (add-hook 'outline-minor-mode-hook
-                    #'outline-minor-faces-mode))
-
-(use-package backline
-  :after outline
-  :config (advice-add 'outline-flag-region :after 'backline-update))
-
 {{ if contains "linux" .osid -}}
 (use-package auto-dark
   :config
@@ -134,6 +100,40 @@
 		(load-theme 'modus-operandi-tinted :no-confirm)))
     (auto-dark-mode 1)))
 {{ end -}}
+
+(use-package server
+  :ensure nil
+  :config
+  (unless (server-running-p)
+    (server-start)))
+
+(use-package dired
+  :ensure nil
+  :hook
+  (dired-mode . dired-hide-details-mode))
+
+(use-package prog-mode
+  :ensure nil
+  :config
+  (add-hook 'prog-mode-hook 'outline-minor-mode)
+  (add-hook 'prog-mode-hook 'hs-minor-mode))
+
+(use-package bicycle
+  :after outline
+  :bind (:map outline-minor-mode-map
+	      ("TAB" . bicycle-cycle)
+	      ("<tab>" . bicycle-cycle)
+	      ("S-TAB" . bicycle-cycle-global)
+	      ("<backtab>" . bicycle-cycle-global)))
+
+(use-package outline-minor-faces
+  :after outline
+  :config (add-hook 'outline-minor-mode-hook
+                    #'outline-minor-faces-mode))
+
+(use-package backline
+  :after outline
+  :config (advice-add 'outline-flag-region :after 'backline-update))
 
 (use-package god-mode
   :bind
