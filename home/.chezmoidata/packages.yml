@@ -8,6 +8,7 @@ packages:
     - 'rclone'
     - 'rsync'
     fedora:
+    - 'exiftool'
     - 'ffmpeg'
     - 'mpv'
     - 'pandoc'
@@ -44,6 +45,7 @@ packages:
     android:
     - 'aspell-en'
     - 'enchant'
+    - 'exiftool'
     - 'ffmpeg'
     - 'graphviz'
     - 'keepassxc'
