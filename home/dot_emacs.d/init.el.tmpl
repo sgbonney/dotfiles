@@ -236,6 +236,9 @@
   :config
   (add-to-list 'org-modules 'org-habit t)
 
+  (add-to-list 'safe-local-variable-values
+               '(org-duration-format . h:mm))
+
   (defun refresh-org-agenda-files ()
     (interactive)
     (setq org-agenda-files
