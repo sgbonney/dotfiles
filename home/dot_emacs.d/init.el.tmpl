@@ -61,11 +61,7 @@
   {{- else -}})
   {{- end }}
 
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
   (global-visual-line-mode 1)
-  (add-to-list 'default-frame-alist '(undecorated . t))
   {{- if contains "android" .osid }}
 
   (defun android-emacs-background-service-file ()
