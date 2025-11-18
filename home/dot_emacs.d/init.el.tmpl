@@ -348,11 +348,13 @@
   :after org)
 
 (use-package avy
-  :bind (("C-:" . avy-goto-char)
-	 ("C-'" . avy-goto-char-2)
-	 ("M-g s" . avy-goto-char-timer)
-	 ("M-g f" . avy-goto-line)
-	 ("M-g w" . avy-goto-word-1)))
+  :ensure t
+  :commands (avy-goto-char
+             avy-goto-char-2
+             avy-next)
+
+  :init
+  (global-set-key (kbd "C-'") 'avy-goto-char-2))
 
 (use-package hide-mode-line
   :config
