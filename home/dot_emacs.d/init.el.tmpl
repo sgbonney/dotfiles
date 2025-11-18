@@ -117,7 +117,7 @@
   :after outline
   :config (advice-add 'outline-flag-region :after 'backline-update))
 
-{{ if contains "fedora" .osid -}}
+{{ if contains "linux" .osid -}}
 (use-package auto-dark
   :config
   (ignore-errors
@@ -133,7 +133,7 @@
 
 (use-package god-mode
   :bind
-  ({{- if contains "fedora" .osid -}}
+  ({{- if contains "linux" .osid -}}
    ("<f9>" . god-local-mode)
    {{ end -}}
    ("C-x C-1" . delete-other-windows)
@@ -221,7 +221,7 @@
       :empty-lines 1)))
 
   (org-plantuml-jar-path
-   (expand-file-name "{{- if contains "android" .osid -}}{{- "/data/data/com.termux/files/usr/share/java/plantuml.jar" | trim -}}{{- else if contains "fedora" .osid -}}{{- output "bash" "-c" "find /home/linuxbrew/.linuxbrew/ -name 'plantuml.jar'" | trim -}}{{- end -}}"))
+   (expand-file-name "{{- if contains "android" .osid -}}{{- "/data/data/com.termux/files/usr/share/java/plantuml.jar" | trim -}}{{- else if contains "linux" .osid -}}{{- output "bash" "-c" "find /home/linuxbrew/.linuxbrew/ -name 'plantuml.jar'" | trim -}}{{- end -}}"))
 
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
