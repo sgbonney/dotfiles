@@ -541,6 +541,8 @@
              consult-notes-search-in-all-notes)
 
   :preface
+  (defvar denote-excluded-files-regexp)
+
   (defun consult-notes-filtered ()
     (interactive)
     (let ((denote-excluded-files-regexp "_archive\\(_\\|\\.\\)"))
