@@ -2,6 +2,10 @@
 
 #!{{- lookPath "bash" }}
 
+{{ if contains "fedora" .osid -}}
+systemctl enable --now input-remapper
+
+{{ end -}}
 if command -v systemctl >/dev/null 2>&1; then
     for systemd in {{ range .services.systemd -}} {{ . | quote }} {{ end -}}; do
         if ! command -v "$systemd" &> /dev/null; then
