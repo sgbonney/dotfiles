@@ -246,6 +246,7 @@
           (directory-files-recursively
            "~/Documents"
            ".*_agenda.*\\.org$"))
+    (org-agenda-prepare-buffers org-agenda-files)
     (message "Org agenda files refreshed."))
   (refresh-org-agenda-files)
 
