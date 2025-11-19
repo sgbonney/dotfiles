@@ -190,7 +190,6 @@
 
 (use-package org
   :custom
-  (org-log-done 'time)
   (org-log-into-drawer t)
 
   (org-todo-keywords
@@ -238,6 +237,8 @@
 
   (add-to-list 'safe-local-variable-values
                '(org-duration-format . h:mm))
+  (add-to-list 'safe-local-variable-values
+               '(org-log-done . time))
 
   (defun refresh-org-agenda-files ()
     (interactive)
