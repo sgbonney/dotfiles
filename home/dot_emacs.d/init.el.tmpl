@@ -183,6 +183,13 @@
                           :foreground "#404148"
                           :background "#efefef")))))
 
+(use-package which-key
+  :ensure nil
+  :after god-mode
+  :config
+  (which-key-mode 1)
+  (which-key-enable-god-mode-support))
+
 (use-package org
   :demand t
   :custom
