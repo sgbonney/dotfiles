@@ -349,6 +349,16 @@
 (use-package org-web-tools
   :after org)
 
+(use-package markdown-mode
+  :bind (:map markdown-mode-map
+              ("C-c C-e" . markdown-do))
+
+  :mode
+  ("README\\.md\\'" . gfm-mode)
+
+  :init
+  (setq markdown-command "multimarkdown"))
+
 (use-package avy
   :ensure t
   :commands (avy-goto-char
