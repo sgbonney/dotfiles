@@ -44,20 +44,14 @@
   (defun toggle-based-on-text-conversion-default ()
     (interactive)
     (if text-conversion-default
-        (if text-conversion-style
-            (progn
-              (setq-local text-conversion-style nil)
-              (when (fboundp 'set-text-conversion-style)
-                (set-text-conversion-style nil))
-              (when (fboundp 'god-local-mode)
-                (god-local-mode 1)))
-          (setq-local text-conversion-style t)
-          (when (fboundp 'set-text-conversion-style)
-            (set-text-conversion-style t))
-          (when (fboundp 'god-local-mode)
-            (god-local-mode -1)))
+	(let ((enable-conversion (not text-conversion-style)))
+	  (setq-local text-conversion-style enable-conversion)
+	  (when (fboundp 'set-text-conversion-style)
+	    (set-text-conversion-style enable-conversion))
+	  (when (fboundp 'god-local-mode)
+	    (god-local-mode (if enable-conversion -1 1))))
       (when (fboundp 'god-local-mode)
-        (god-local-mode (if god-local-mode -1 1)))))
+	(god-local-mode (if god-local-mode -1 1)))))
 
   {{ end -}}
 
