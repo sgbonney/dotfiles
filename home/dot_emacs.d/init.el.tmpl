@@ -8,6 +8,7 @@
   :ensure nil
   :custom
   (use-package-always-ensure t)
+  
   (package-native-compile t))
 
 (use-package emacs
@@ -20,14 +21,6 @@
   (server-client-instructions nil)
   (make-backup-files nil)
 
-  {{ if contains "android" .osid -}}
-  :bind
-  ("<f9>" . toggle-based-on-text-conversion-default)
-
-  :hook
-  (after-change-major-mode . record-text-conversion-default)
-
-  {{ end -}}
   :init
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (load custom-file 'noerror)
@@ -38,21 +31,15 @@
 
   (defvar-local text-conversion-default nil)
 
-  (defun record-text-conversion-default ()
-    (setq text-conversion-default text-conversion-style))
+  (defun text-conversion-save-and-disable ()
+    (setq text-conversion-default text-conversion-style)
+    (when (fboundp 'set-text-conversion-style)
+      (set-text-conversion-style nil)))
 
-  (defun toggle-based-on-text-conversion-default ()
-    (interactive)
-    (if text-conversion-default
-	(let ((enable-conversion (not text-conversion-style)))
-	  (setq-local text-conversion-style enable-conversion)
-	  (when (fboundp 'set-text-conversion-style)
-	    (set-text-conversion-style enable-conversion))
-	  (when (fboundp 'god-local-mode)
-	    (god-local-mode (if enable-conversion -1 1))))
-      (when (fboundp 'god-local-mode)
-	(god-local-mode (if god-local-mode -1 1)))))
-
+  (defun text-conversion-restore-default ()
+    (when (and text-conversion-default
+               (fboundp 'set-text-conversion-style))
+      (set-text-conversion-style text-conversion-default)))
   {{ end -}}
 
   :config
@@ -134,9 +121,7 @@
 
 (use-package god-mode
   :bind
-  ({{- if contains "linux" .osid -}}
-   ("<f9>" . god-local-mode)
-   {{ end -}}
+  (("<f9>" . god-local-mode)
    ("C-x C-1" . delete-other-windows)
    ("C-x C-2" . split-window-below)
    ("C-x C-3" . split-window-right)
@@ -147,6 +132,11 @@
    ("]" . forward-paragraph))
 
   :hook
+  {{ if contains "android" .osid -}}
+  (god-mode-enabled . text-conversion-save-and-disable)
+  (god-mode-disabled . text-conversion-restore-default)
+
+  {{ end -}}
   (post-command . my-god-mode-update-cursor)
   (post-command . my-god-mode-update-mode-line)
 
@@ -154,6 +144,8 @@
   (setq god-mode-enable-function-key-translation nil)
 
   :config
+  (god-mode-all)
+
   (defun my-god-mode-update-cursor ()
     (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar))
     (if (or god-local-mode)
