@@ -1,4 +1,4 @@
-{{- /* -*- mode: emacs-lisp -*- */ -}}
+{{- /* -*- mode: emacs-lisp; outline-default-state: 2; eval: (outline-minor-mode 1); -*- */ -}}
 
 ;;; init.el --- Init -*- lexical-binding: t; -*-
 
@@ -101,6 +101,12 @@
   :config
   (add-hook 'prog-mode-hook 'outline-minor-mode)
   (add-hook 'prog-mode-hook 'hs-minor-mode))
+
+(use-package outline
+  :ensure nil
+  :config
+  (add-to-list 'safe-local-variable-values
+               '(outline-default-state . 2)))
 
 (use-package bicycle
   :after outline
