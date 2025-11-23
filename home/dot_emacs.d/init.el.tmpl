@@ -679,6 +679,8 @@
               (browse-url url)))  ;; Open the URL in the browser
         (message "No postcode found in the properties.")))))
 
+;;;;; KeePass
+
 (defun keepassxc ()
   (interactive)
   {{ if contains "android" .osid -}}
@@ -694,3 +696,8 @@
   {{- else if contains "linux" .osid -}}
   (shell-command "{{- template "find" "**/bin/keepassxc.sh" -}}")
   {{- end -}})
+
+(defun keepass-ssh-add ()
+  (interactive)
+  (let ((process-connection-type t))
+    (comint-run "{{- template "find" "**/bin/keepass-ssh-add.sh" -}}")))
