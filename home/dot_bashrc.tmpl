@@ -71,6 +71,11 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+if [ -n "$SSH_AUTH_SOCK" ] && [ -S "$SSH_AUTH_SOCK" ]; then
+    rm -f ~/.ssh/ssh-agent.sock
+    ln -s "$SSH_AUTH_SOCK" ~/.ssh/ssh-agent.sock
+fi
+
 {{- else if contains "android" .osid -}}
 if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
     rm -f ~/.ssh/ssh-agent.sock
