@@ -9,7 +9,7 @@
     osid = {{ $osid | quote }}
 
 [hooks.read-source-state.pre]
-    command = ".local/share/chezmoi/home/.install-password-manager.sh"
+    command = "{{- .chezmoi.homeDir -}}/.local/share/chezmoi/home/.install-password-manager.sh"
 
 [keepassxc]
-    database = "{{- output "bash" "-c" "find -L ~/ -type f -path '**/passwords.kdbx' -print -quit" | trim -}}"
+    database = "{{- .chezmoi.homeDir -}}/.keepass/passwords.kdbx"
