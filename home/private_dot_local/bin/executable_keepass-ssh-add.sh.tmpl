@@ -1,0 +1,27 @@
+{{- /* -*- mode: sh -*- */ -}}
+
+#!{{- lookPath "bash" }}
+
+set -e
+
+keepass-ssh-add() {
+    local entry="$1"
+    local tmpfile="{{- if contains "android" .osid -}}/data/data/com.termux/files/usr{{- end -}}/tmp/ssh_key.$$"
+
+    if [[ -z "$entry" ]]; then
+        read -p "Enter entry name: " entry
+        if [[ -z "$entry" ]]; then
+            echo "Error: Entry name cannot be empty" >&2
+            return 1
+        fi
+    fi
+
+    keepassxc-cli attachment-export "{{- template "find" "**/passwords.kdbx" -}}" "$entry" "ssh_key" "$tmpfile" && \
+    chmod 600 "$tmpfile" && \
+    ssh-add -t 300 "$tmpfile" && \
+    rm "$tmpfile"
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    keepass-ssh-add "$@"
+fi
