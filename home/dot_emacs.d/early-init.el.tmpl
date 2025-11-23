@@ -29,6 +29,7 @@
   (setenv "SSH_AUTH_SOCK" ssh-sock))
 
 {{- else if contains "linux" .osid -}}
+(setenv "SSH_AUTH_SOCK" (expand-file-name "~/.ssh/ssh-agent.sock"))
 (setenv "PATH" (concat "/home/linuxbrew/.linuxbrew/bin:" (getenv "PATH")))
 (add-to-list 'exec-path "/home/linuxbrew/.linuxbrew/bin")
 {{- end -}}
