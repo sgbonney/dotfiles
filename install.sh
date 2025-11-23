@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -f "$HOME/.bashrc" ] || { echo "Failed to find ~/.bashrc"; exit 1; }
+[ -f "$HOME/.bashrc" ] || touch "$HOME/.bashrc"
 
 eval_append() {
     eval "$1"
