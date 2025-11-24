@@ -73,7 +73,9 @@ unset rc
 
 {{ end -}}
 if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
-    eval "$(ssh-agent -s > /dev/null)"
+    rm -f ~/.ssh/ssh-agent.sock
+    eval "$(ssh-agent -s -a ~/.ssh/ssh-agent.sock > /dev/null)"
+    export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock
+else
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh-agent.sock
 fi
-
-ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh-agent.sock
