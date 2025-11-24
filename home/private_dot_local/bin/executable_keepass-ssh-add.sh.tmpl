@@ -16,7 +16,7 @@ keepass-ssh-add() {
         fi
     fi
 
-    keepassxc-cli attachment-export "{{- template "find" "**/passwords.kdbx" -}}" "$entry" "ssh_key" "$tmpfile" && \
+    keepassxc-cli attachment-export "{{- .chezmoi.homeDir -}}/.keepass/passwords.kdbx" "$entry" "ssh_key" "$tmpfile" && \
     chmod 600 "$tmpfile" && \
     ssh-add -t 300 "$tmpfile" && \
     rm "$tmpfile"
