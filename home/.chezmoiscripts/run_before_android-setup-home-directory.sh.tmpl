@@ -2,7 +2,6 @@
 
 {{- if contains "android" .osid -}}
 #!{{- lookPath "bash" }}
-# Directory contents: {{ output "ls" "-la" (printf "%s/private_dot_local/share/%s/storage" $.chezmoi.sourceDir $.osid) }}
 
 EMACS="/data/data/org.gnu.emacs/files"
 if [ -d "$EMACS" ]; then
