@@ -28,4 +28,6 @@ fi
   {{- end }}
   {{- end }}
 {{- end }}
+
+chezmoi execute-template --file "{{- .chezmoi.sourceDir -}}/dot_emacs.d/init.el.tmpl" > "{{- .chezmoi.homeDir -}}/.emacs.d/init.el"
 {{- end -}}
