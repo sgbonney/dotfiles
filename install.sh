@@ -1,8 +1,7 @@
 #!/bin/bash
 
-[ -f "$HOME/.bashrc" ] || touch "$HOME/.bashrc"
-
 eval_append() {
+    [ -f "$HOME/.bashrc" ] || touch "$HOME/.bashrc"
     eval "$1"
     echo -e "\n$1" >> ~/.bashrc
     source ~/.bashrc
@@ -22,20 +21,18 @@ fi
 EOF
 )
 
-BREW_SHELLENV=$(cat <<'EOF'
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    eval_append "$PATH_UPDATE"
+    [ "$(passwd -S | awk '{print $2}')" == "NP" ] && passwd
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval_append "$(cat <<'EOF'
 if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 EOF
-)
-
-eval_append "$PATH_UPDATE"
-
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    [ "$(passwd -S | awk '{print $2}')" == "NP" ] && passwd
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval_append "$BREW_SHELLENV" || handle_failure "brew"
+    )" || handle_failure "brew"
     brew install chezmoi || handle_failure "chezmoi"
 elif [[ "$OSTYPE" == *"android"* ]]; then
+    eval_append "$PATH_UPDATE"
     pkg update -y || { echo "Failed to update package list. Exiting."; exit 1; }
     pkg install -y git || handle_failure "git"
     pkg install -y chezmoi || handle_failure "chezmoi"
