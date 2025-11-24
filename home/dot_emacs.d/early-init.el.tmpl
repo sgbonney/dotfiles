@@ -21,15 +21,17 @@
                                    ("nongnu"       . 60)
                                    ("melpa-stable" . 50)))
 
-{{ if contains "android" .osid -}}
-(let ((termux-bin "/data/data/com.termux/files/usr/bin")
-      (ssh-sock "/data/data/com.termux/files/home/.ssh/ssh-agent.sock"))
-  (setenv "PATH" (format "%s:%s" termux-bin (getenv "PATH")))
-  (add-to-list 'exec-path termux-bin)
-  (setenv "SSH_AUTH_SOCK" ssh-sock))
+{{- $binPath := "" }}
+{{- $pathExpression := "" }}
+{{- if contains "android" .osid }}
+{{-   $binPath = "/data/data/com.termux/files/usr/bin" }}
+{{-   $pathExpression = printf "format \"%%s:%%s\" \"%s\"" $binPath }}
+{{- else if contains "linux" .osid }}
+{{-   $binPath = "/home/linuxbrew/.linuxbrew/bin" }}
+{{-   $pathExpression = printf "concat \"%s:\"" $binPath }}
+{{- end }}
 
-{{- else if contains "linux" .osid -}}
-(setenv "SSH_AUTH_SOCK" (expand-file-name "~/.ssh/ssh-agent.sock"))
-(setenv "PATH" (concat "/home/linuxbrew/.linuxbrew/bin:" (getenv "PATH")))
-(add-to-list 'exec-path "/home/linuxbrew/.linuxbrew/bin")
-{{- end -}}
+(setenv "PATH" ({{- $pathExpression }} (getenv "PATH")))
+(add-to-list 'exec-path "{{- $binPath -}}")
+
+(setenv "SSH_AUTH_SOCK" "{{- .chezmoi.homeDir -}}/.ssh/ssh-agent.sock")
