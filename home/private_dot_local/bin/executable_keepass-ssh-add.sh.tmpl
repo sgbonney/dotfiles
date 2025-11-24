@@ -4,9 +4,12 @@
 
 set -e
 
+tmpfile="{{- if contains "android" .osid -}}/data/data/com.termux/files/usr{{- end -}}/tmp/ssh_key.$$"
+
+trap '[[ -e "$tmpfile" ]] && rm "$tmpfile"' EXIT
+
 keepass-ssh-add() {
     local entry="$1"
-    local tmpfile="{{- if contains "android" .osid -}}/data/data/com.termux/files/usr{{- end -}}/tmp/ssh_key.$$"
 
     if [[ -z "$entry" ]]; then
         read -p "Enter entry name: " entry
