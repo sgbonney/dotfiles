@@ -14,6 +14,7 @@
 {{- end }}
 
 {{- if not (contains "linux" .osid) }}
+.config/autostart
 .config/systemd
 **/keepassxc-cli
 .local/share/applications
