@@ -5,6 +5,11 @@
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
+encryption = "age"
+[age]
+    identity = "{{- .chezmoi.homeDir -}}/.config/chezmoi/key.txt"
+    recipient = "age1xhfuuxs5y9f4xfg3gtfc3rshnds2ckqwm283vet4hlhu98cwtpjscln5cd"
+
 [data]
     osid = {{ $osid | quote }}
 
