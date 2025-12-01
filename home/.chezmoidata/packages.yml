@@ -26,7 +26,6 @@ packages:
     - 'com.calibre_ebook.calibre'
     - 'com.github.jeromerobert.pdfarranger'
     - 'com.google.AndroidStudio'
-    - 'com.protonvpn.www'
     - 'io.ente.photos'
     - 'network.loki.Session'
     - 'org.flatpak.Builder'
@@ -40,6 +39,7 @@ packages:
     - 'rocks.shy.VacuumTube'
     linux:
     - 'com.brave.Browser'
+    - 'com.protonvpn.www'
     - 'org.keepassxc.KeePassXC'
   pkg:
     android:
