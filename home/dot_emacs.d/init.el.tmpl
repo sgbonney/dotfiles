@@ -42,6 +42,12 @@
     (when (and text-conversion-default
                (fboundp 'set-text-conversion-style))
       (set-text-conversion-style text-conversion-default)))
+
+  (setenv "PATH" (concat (getenv "PATH") ":/data/data/com.termux/files/usr/bin/texlive"))
+  (setenv "TEXMFROOT" "/data/data/com.termux/files/usr/share/texlive/2025")
+  (setenv "TEXMFLOCAL" "/data/data/com.termux/files/usr/share/texlive/texmf-local")
+  (setenv "OSFONTDIR" "/data/data/com.termux/files/usr/share/fonts/TTF")
+  (setenv "TRFONTS" "/data/data/com.termux/files/usr/share/groff/{current/font,site-font}/devps")
   {{ end -}}
 
   :config

@@ -52,6 +52,7 @@ packages:
     - 'keepassxc'
     - 'mupdf-tools'
     - 'plantuml'
+    - 'texlive-installer'
   rpm_ostree:
     fedora:
     - 'backintime-qt'
