@@ -666,25 +666,6 @@
             "allowIdChange": false
         },
         {
-            "id": "com.github.ashutoshgngwr.noice",
-            "url": "https://github.com/trynoice/android-app",
-            "author": "trynoice",
-            "name": "Noice",
-            "installedVersion": "2.5.7",
-            "latestVersion": "2.5.7",
-            "apkUrls": "[[\"noice-free.apk\",\"https://api.github.com/repos/trynoice/android-app/releases/assets/171486976\"],[\"noice-full.apk\",\"https://api.github.com/repos/trynoice/android-app/releases/assets/171486977\"]]",
-            "otherAssetUrls": "[[\"noice-free-mapping.txt\",\"https://github.com/trynoice/android-app/releases/download/2.5.7/noice-free-mapping.txt\"],[\"noice-full-mapping.txt\",\"https://github.com/trynoice/android-app/releases/download/2.5.7/noice-full-mapping.txt\"],[\"2.5.7.tar.gz\",\"https://api.github.com/repos/trynoice/android-app/tarball/2.5.7\"],[\"2.5.7.zip\",\"https://api.github.com/repos/trynoice/android-app/zipball/2.5.7\"]]",
-            "preferredApkIndex": 0,
-            "additionalSettings": "{\"includePrereleases\":false,\"fallbackToOlderReleases\":true,\"filterReleaseTitlesByRegEx\":\"\",\"filterReleaseNotesByRegEx\":\"\",\"verifyLatestTag\":false,\"sortMethodChoice\":\"date\",\"useLatestAssetDateAsReleaseDate\":false,\"releaseTitleAsVersion\":false,\"trackOnly\":false,\"versionExtractionRegEx\":\"\",\"matchGroupToUse\":\"\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"\",\"refreshBeforeDownload\":false,\"includeZips\":false,\"zippedApkFilterRegEx\":\"\"}",
-            "lastUpdateCheck": 1764559540009064,
-            "pinned": false,
-            "categories": [],
-            "releaseDate": 1717348352000000,
-            "changeLog": "- CRITICAL: Fixes app-crash on opening the app as a premium user.\n",
-            "overrideSource": null,
-            "allowIdChange": true
-        },
-        {
             "id": "org.thoughtcrime.securesms",
             "url": "https://github.com/signalapp/Signal-Android",
             "author": "signalapp",
