@@ -22,6 +22,8 @@
   (make-backup-files nil)
 
   :init
+  (setq confirm-kill-processes nil)
+
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (load custom-file 'noerror)
   (setq custom-safe-themes t)
