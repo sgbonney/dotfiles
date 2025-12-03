@@ -356,6 +356,8 @@
      (python . t)
      (shell . t))))
 
+(use-package org-contrib)
+
 (use-package org-web-tools
   :after org)
 
@@ -367,6 +369,11 @@
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
+(use-package ox-extra
+  :after org-contrib
+  :config
+  (ox-extras-activate '(ignore-headlines)))
 
 (use-package markdown-mode
   :bind (:map markdown-mode-map
