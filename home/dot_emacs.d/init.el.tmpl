@@ -359,6 +359,15 @@
 (use-package org-web-tools
   :after org)
 
+(use-package ox-latex
+  :ensure nil
+  :config
+  (add-to-list 'org-latex-classes
+               '("moderncv" "\\documentclass{moderncv}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
 (use-package markdown-mode
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do))
