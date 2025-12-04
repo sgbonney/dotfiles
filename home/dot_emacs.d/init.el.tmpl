@@ -407,7 +407,10 @@
   (add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
   (add-hook 'nov-mode-hook #'hide-mode-line-mode))
 
-(use-package magit)
+(use-package transient)
+
+(use-package magit
+  :after transient)
 
 (use-package yasnippet
   :config
