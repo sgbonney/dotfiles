@@ -1,5 +1,0 @@
-{{- if or (contains "android" .osid) (contains "fedora" .osid) -}}
-[".emacs.d/elpaca-installer.el"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/progfolio/elpaca/master/doc/installer.el"
-{{- end }}
