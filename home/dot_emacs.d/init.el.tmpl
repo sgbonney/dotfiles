@@ -81,6 +81,7 @@
 
 {{ if contains "linux" .osid -}}
 (use-package auto-dark
+  :vc t
   :custom
   (auto-dark-themes '((modus-vivendi-tinted) (modus-operandi-tinted)))
   :init
@@ -111,6 +112,7 @@
                '(outline-default-state . 2)))
 
 (use-package bicycle
+  :vc t
   :after outline
   :bind (:map outline-minor-mode-map
 	      ("TAB" . bicycle-cycle)
@@ -119,15 +121,18 @@
 	      ("<backtab>" . bicycle-cycle-global)))
 
 (use-package outline-minor-faces
+  :vc t
   :after outline
   :config (add-hook 'outline-minor-mode-hook
                     #'outline-minor-faces-mode))
 
 (use-package backline
+  :vc t
   :after outline
   :config (advice-add 'outline-flag-region :after 'backline-update))
 
 (use-package god-mode
+  :vc t
   :bind
   (("<f9>" . god-local-mode)
    :map god-local-mode-map
@@ -189,6 +194,7 @@
   (which-key-enable-god-mode-support))
 
 (use-package org
+  :ensure nil
   :demand t
   :custom
   (org-log-into-drawer t)
@@ -350,9 +356,11 @@
      (python . t)
      (shell . t))))
 
-(use-package org-contrib)
+(use-package org-contrib
+  :vc t)
 
 (use-package org-web-tools
+  :vc t
   :after org)
 
 (use-package ox-latex
@@ -371,6 +379,7 @@
   (ox-extras-activate '(ignore-headlines)))
 
 (use-package markdown-mode
+  :vc t
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do))
 
@@ -381,7 +390,7 @@
   (setq markdown-command "multimarkdown"))
 
 (use-package avy
-  :ensure t
+  :vc t
   :commands (avy-goto-char
              avy-goto-char-2
              avy-next)
@@ -390,13 +399,16 @@
   (global-set-key (kbd "C-'") 'avy-goto-char-2))
 
 (use-package hide-mode-line
+  :vc t
   :config
   (add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
   (add-hook 'nov-mode-hook #'hide-mode-line-mode))
 
-(use-package magit)
+(use-package magit
+  :vc t)
 
 (use-package yasnippet
+  :vc t
   :config
   (yas-global-mode t)
   (setq yas-snippet-dirs
@@ -427,9 +439,11 @@
 
   (yas-reload-all))
 
-(use-package el-patch)
+(use-package el-patch
+  :vc t)
 
 (use-package vertico
+  :vc t
   :config
   (vertico-mode))
 
@@ -439,16 +453,19 @@
   (savehist-mode))
 
 (use-package orderless
+  :vc t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package marginalia
+  :vc t
   :commands (marginalia-cycle)
   :hook (after-init . marginalia-mode))
 
 (use-package embark
+  :vc t
   :commands (embark-act
              embark-dwim
              embark-export
@@ -471,6 +488,7 @@
                  (window-parameters (mode-line-format . none)))))
 
 (use-package consult
+  :vc t
   :bind (;; C-c bindings in `mode-specific-map'
          ("C-c M-x" . consult-mode-command)
          ("C-c h" . consult-history)
@@ -547,10 +565,12 @@
   (setq consult-narrow-key "<"))
 
 (use-package embark-consult
+  :vc t
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package denote
+  :vc t
   :custom
   (denote-directory "{{- .chezmoi.homeDir -}}/Documents")
 
@@ -558,6 +578,7 @@
   (dired-mode . denote-dired-mode))
 
 (use-package denote-journal
+  :vc t
   :after denote
   :custom
   (denote-journal-directory (expand-file-name "journal" denote-directory))
@@ -565,6 +586,7 @@
   (denote-journal-title-format 'day-date-month-year))
 
 (use-package consult-notes
+  :vc t
   :commands (consult-notes
              consult-notes-search-in-all-notes)
 
@@ -583,9 +605,11 @@
   (when (locate-library "denote")
     (consult-notes-denote-mode)))
 
-(use-package biblio)
+(use-package biblio
+  :vc t)
 
 (use-package citar
+  :vc t
   :defer t
   :custom
   (citar-bibliography '("{{- template "find" "**/20251008T085257--*" -}}"
@@ -607,6 +631,7 @@
           (note . "Notes on ${author editor:%etal}, ${title}"))))
 
 (use-package citar-denote
+  :vc t
   :after org
   :custom
   (citar-open-always-create-notes t)
@@ -626,6 +651,7 @@
 
 {{ if contains "fedora" .osid -}}
 (use-package emms
+  :vc t
   :custom
   (emms-player-list '(emms-player-mpv))
   (emms-player-mpv-update-metadata t)
@@ -641,14 +667,17 @@
 
 {{ end -}}
 (use-package titlecase
+  :vc t
   :defer t)
 
 (use-package jinx
+  :vc t
   :hook (emacs-startup . global-jinx-mode)
   :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages)))
 
 (use-package nov
+  :vc t
   {{ if contains "android" .osid -}}
   :bind (("<volume-up>" . nov-scroll-down)
          ("<volume-down>" . nov-scroll-up))
@@ -666,7 +695,8 @@
   :config
   (display-line-numbers-mode 0))
 
-(use-package f)
+(use-package f
+  :vc t)
 
 ;;;; Functions
 
