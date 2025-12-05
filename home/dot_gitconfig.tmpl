@@ -3,9 +3,12 @@
 [user]
     name = Samuel Bonney
     email = {{ (keepassxc "GitHub").UserName }}
+
 [core]
     editor = emacsclient -c
+
 [init]
     defaultBranch = main
-[url "git@github.com:"]
-    insteadOf = https://github.com/
+
+[includeIf "gitdir:{{- .chezmoi.homeDir -}}/.local/share/chezmoi/"]
+    path = {{ .chezmoi.homeDir -}}/.gitconfig-chezmoi
