@@ -13,8 +13,8 @@ fi
 
 {{ end -}}
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+if ! [[ "$PATH" =~ "{{- .chezmoi.homeDir -}}/.local/bin:{{- .chezmoi.homeDir -}}/bin:" ]]; then
+    PATH="{{- .chezmoi.homeDir -}}/.local/bin:{{- .chezmoi.homeDir -}}/bin:$PATH"
 fi
 export PATH
 
@@ -25,20 +25,20 @@ fi
 
 {{ end -}}
 # User specific aliases and functions
-[ -f ~/.hushlogin ] || touch ~/.hushlogin
+[ -f {{ .chezmoi.homeDir -}}/.hushlogin ] || touch {{ .chezmoi.homeDir -}}/.hushlogin
 MOTD="/{{- if contains "android" .osid -}}data/data/com.termux/files/usr/{{- end -}}etc/motd"
 if [ -f "$MOTD" ]; then
-    cmp -s "$HOME/.hushlogin" "$MOTD"
+    cmp -s "{{- .chezmoi.homeDir -}}/.hushlogin" "$MOTD"
     if [ $? != 0 ]; then
         tee < "$MOTD"
         read -p $'\nDo you want to dismiss this message for future logins? (y/n): ' choice
         if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-            cp -f "$MOTD" "$HOME/.hushlogin"
+            cp -f "$MOTD" "{{- .chezmoi.homeDir -}}/.hushlogin"
         fi
     fi
 fi
 
-for script in "$HOME/.local/bin"/*.sh "$HOME/bin"/*.sh; do
+for script in "{{- .chezmoi.homeDir -}}/.local/bin"/*.sh "{{- .chezmoi.homeDir -}}/bin"/*.sh; do
     script_name=$(basename "$script" .sh)
     alias "$script_name"="$script"
 done
@@ -62,8 +62,8 @@ function git() {
 }
 
 {{ if contains "fedora" .osid -}}
-if [ -d ~/.bashrc.d ]; then
-    for rc in ~/.bashrc.d/*; do
+if [ -d {{ .chezmoi.homeDir -}}/.bashrc.d ]; then
+    for rc in {{ .chezmoi.homeDir -}}/.bashrc.d/*; do
         if [ -f "$rc" ]; then
             . "$rc"
         fi
@@ -73,9 +73,9 @@ unset rc
 
 {{ end -}}
 if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
-    rm -f ~/.ssh/ssh-agent.sock
-    eval "$(ssh-agent -s -a ~/.ssh/ssh-agent.sock > /dev/null)"
-    export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock
-elif [ "$SSH_AUTH_SOCK" != "$HOME/.ssh/ssh-agent.sock" ]; then
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh-agent.sock
+    rm -f {{ .chezmoi.homeDir -}}/.ssh/ssh-agent.sock
+    eval "$(ssh-agent -s -a {{ .chezmoi.homeDir -}}/.ssh/ssh-agent.sock > /dev/null)"
+    export SSH_AUTH_SOCK={{ .chezmoi.homeDir -}}/.ssh/ssh-agent.sock
+elif [ "$SSH_AUTH_SOCK" != "{{- .chezmoi.homeDir -}}/.ssh/ssh-agent.sock" ]; then
+    ln -sf "$SSH_AUTH_SOCK" {{ .chezmoi.homeDir -}}/.ssh/ssh-agent.sock
 fi

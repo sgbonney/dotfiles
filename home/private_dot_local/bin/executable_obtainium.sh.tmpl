@@ -8,7 +8,7 @@ if [ -z "$1" ]; then
 fi
 
 files="/{{- includeTemplate (printf "%s/storage/internal" $.osid) . -}}/.obtainium/obtainium-export-*.json"
-source_file=$(chezmoi source-path "$HOME/.config/dev.imranr.obtainium/obtainium-export.json")
+source_file=$(chezmoi source-path "{{- .chezmoi.homeDir -}}/.config/dev.imranr.obtainium/obtainium-export.json")
 
 if command -v chezmoi > /dev/null; then
     if [ ! -f "$source_file" ]; then

@@ -3,7 +3,7 @@
 {{- if contains "android" .osid -}}
 #!{{- lookPath "bash" }}
 
-{{- $storage := output "bash" "-c" (printf "find ~/.local/share/%s/storage -mindepth 1 -maxdepth 1 -type d" $.osid) | split "\n" }}
+{{- $storage := output "bash" "-c" (printf "find %s/.local/share/%s/storage -mindepth 1 -maxdepth 1 -type d" $.chezmoi.homeDir $.osid) | split "\n" }}
 {{- range $index, $store := $storage }}
   {{- if and (ne $store ".") (ne $store "..") (ne $store "") }}
   {{- $dirs := output "bash" "-c" (printf "find %s -mindepth 1 -maxdepth 1 -type d" $store) | split "\n" }}
