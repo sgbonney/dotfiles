@@ -6,10 +6,10 @@
 EMACS="/data/data/org.gnu.emacs/files"
 if [ -d "$EMACS" ]; then
     rm -rf "$EMACS"
-    ln -s "{{- .chezmoi.homeDir -}}" "$EMACS"
+    ln -s "$HOME" "$EMACS"
 fi
 
-{{- $storage := output "bash" "-c" (printf "find %s/**/share/%s/storage -mindepth 1 -maxdepth 1 -type d" $.chezmoi.sourceDir $.osid) | split "\n" }}
+{{- $storage := output "bash" "-c" (printf "find %s/private_dot_local/share/%s/storage -mindepth 1 -maxdepth 1 -type d" $.chezmoi.sourceDir $.osid) | split "\n" }}
 {{- range $index, $store := $storage }}
   {{- if and (ne $store ".") (ne $store "..") (ne $store "") }}
   {{- $dirs := output "bash" "-c" (printf "find %s -mindepth 1 -maxdepth 1 -type d" $store) | split "\n" }}
@@ -18,10 +18,10 @@ fi
 if [ -d "{{- $dir -}}" ]; then
     TARGET="/{{- includeTemplate (printf "%s/storage/%s" $.osid ($store | base)) . -}}/{{- if eq ($dir | base) "Downloads" -}}Download{{- else -}}{{- $dir | base -}}{{- end -}}"
     if [ -d "$TARGET" ]; then
-        if [ -L "{{- .chezmoi.homeDir -}}/{{- $dir | base -}}" ]; then
-            rm "{{- .chezmoi.homeDir -}}/{{- $dir | base -}}"
+        if [ -L "$HOME/{{- $dir | base -}}" ]; then
+            rm "$HOME/{{- $dir | base -}}"
         fi
-        ln -s "$TARGET" "{{- .chezmoi.homeDir -}}/{{- $dir | base -}}"
+        ln -s "$TARGET" "$HOME/{{- $dir | base -}}"
     fi
 fi
     {{- end }}
