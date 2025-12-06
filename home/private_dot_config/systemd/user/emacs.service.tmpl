@@ -11,6 +11,7 @@ ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
 Environment="PATH={{- .chezmoi.homeDir -}}/.local/bin:{{- .chezmoi.homeDir -}}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
 Environment=HOME={{- .chezmoi.homeDir }}
 Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+Environment=WAYLAND_DISPLAY=%t/wayland-0
 Restart=on-failure
 
 [Install]
