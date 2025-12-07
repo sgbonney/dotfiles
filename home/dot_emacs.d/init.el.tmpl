@@ -23,21 +23,7 @@
                (message "Failed to install keyring update: %s" (error-message-string err))))
             (setq package-check-signature 'allow-unsigned)
             (message "Signature verification re-enabled (allow-unsigned)"))
-        (setq package-check-signature original-value))))
-
-  (defun package--check-signature-with-auto-retry (location file &optional string async callback unwind)
-    "Wrapper around `package--check-signature' that auto-updates keys on failure."
-    (condition-case err
-        (package--check-signature location file string async callback unwind)
-      (bad-signature
-       (if (y-or-n-p "Signature verification failed. Update GPG keys and retry? ")
-           (progn
-             (update-gpg-keyring)
-             (package--check-signature location file string async callback unwind))
-         (signal (car err) (cdr err))))))
-
-  (advice-add 'package--check-signature :override
-              #'package--check-signature-with-auto-retry))
+        (setq package-check-signature original-value)))))
 
 (use-package use-package
   :ensure nil
