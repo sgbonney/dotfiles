@@ -39,7 +39,6 @@ packages:
     - 'org.videolan.VLC'
     - 'rocks.shy.VacuumTube'
     linux:
-    - 'com.brave.Browser'
     - 'com.protonvpn.www'
     - 'io.github.ungoogled_software.ungoogled_chromium'
     - 'io.gitlab.librewolf-community'
