@@ -41,6 +41,7 @@ packages:
     linux:
     - 'com.brave.Browser'
     - 'com.protonvpn.www'
+    - 'io.gitlab.librewolf-community'
     - 'org.keepassxc.KeePassXC'
   pkg:
     android:
