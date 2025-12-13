@@ -9,7 +9,7 @@ if [ -d "$EMACS" ]; then
     ln -s "$HOME" "$EMACS"
 fi
 
-{{- $storage := output "bash" "-c" (printf "find %s/private_dot_local/share/%s/storage -mindepth 1 -maxdepth 1 -type d" $.chezmoi.sourceDir $.osid) | split "\n" }}
+{{- $storage := output "bash" "-c" (printf "find %s/.local/share/%s/storage -mindepth 1 -maxdepth 1 -type d" $.chezmoi.homeDir $.osid) | split "\n" }}
 {{- range $index, $store := $storage }}
   {{- if and (ne $store ".") (ne $store "..") (ne $store "") }}
   {{- $dirs := output "bash" "-c" (printf "find %s -mindepth 1 -maxdepth 1 -type d" $store) | split "\n" }}
