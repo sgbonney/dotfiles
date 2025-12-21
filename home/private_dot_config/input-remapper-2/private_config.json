@@ -1,6 +1,7 @@
 {
     "version": "2.2.0",
     "autoload": {
-        "AT Translated Set 2 keyboard": "custom-preset"
+        "AT Translated Set 2 keyboard": "custom-preset",
+        "Compx Flow84-L@Lofree": "custom-preset"
     }
 }
