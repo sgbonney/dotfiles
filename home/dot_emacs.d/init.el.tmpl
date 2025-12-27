@@ -115,6 +115,11 @@
   (unless (server-running-p)
     (server-start)))
 
+(use-package autorevert
+  :ensure nil
+  :config
+  (global-auto-revert-mode 1))
+
 (use-package dired
   :ensure nil
   :hook
