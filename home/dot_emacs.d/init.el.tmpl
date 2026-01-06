@@ -417,7 +417,19 @@
 (use-package reftex
   :ensure nil
   :custom
-  (reftex-default-bibliography org-cite-global-bibliography))
+  (reftex-default-bibliography org-cite-global-bibliography)
+
+  :config
+  (defadvice reftex-view-crossref (around auto-switch-to-latex activate)
+    "Automatically switch to latex-mode if not already in a LaTeX mode."
+    (if (memq major-mode '(latex-mode tex-mode))
+        ad-do-it
+      (let ((original-mode major-mode))
+        (major-mode-suspend)
+        (latex-mode)
+        (unwind-protect
+            ad-do-it
+          (major-mode-restore (list original-mode)))))))
 
 (use-package avy
   :ensure t
