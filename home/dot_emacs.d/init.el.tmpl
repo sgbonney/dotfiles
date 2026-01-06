@@ -414,6 +414,11 @@
   :init
   (setq markdown-command "multimarkdown"))
 
+(use-package reftex
+  :ensure nil
+  :custom
+  (reftex-default-bibliography org-cite-global-bibliography))
+
 (use-package avy
   :ensure t
   :commands (avy-goto-char
