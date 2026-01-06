@@ -252,6 +252,12 @@
       "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251103T081423\" 'org-mode))"
       :empty-lines 1)))
 
+  (org-cite-global-bibliography
+   '("{{- template "find" "**/20251008T085257--*" -}}"
+     "{{- template "find" "**/20251104T145004--*" -}}"
+     "{{- template "find" "**/20251107T112447--*" -}}"
+     "{{- template "find" "**/20251107T113324--*" -}}"))
+
   (org-plantuml-jar-path
    (expand-file-name "{{- if contains "android" .osid -}}{{- "/data/data/com.termux/files/usr/share/java/plantuml.jar" | trim -}}{{- else if contains "linux" .osid -}}{{- output "bash" "-c" "find /home/linuxbrew/.linuxbrew/ -name 'plantuml.jar'" | trim -}}{{- end -}}"))
 
