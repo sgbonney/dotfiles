@@ -608,6 +608,9 @@
   :hook
   (dired-mode . denote-dired-mode))
 
+(use-package denote-org
+  :after denote)
+
 (use-package denote-journal
   :after denote
   :custom
