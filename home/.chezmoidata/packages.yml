@@ -29,7 +29,6 @@ packages:
     - 'com.google.AndroidStudio'
     - 'io.ente.photos'
     - 'network.loki.Session'
-    - 'org.equicord.equibop'
     - 'org.flatpak.Builder'
     - 'org.gnome.Boxes'
     - 'org.libreoffice.LibreOffice'
