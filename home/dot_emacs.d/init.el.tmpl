@@ -430,6 +430,11 @@
   :config
   (setq plantuml-output-type "svg"))
 
+(use-package csv-mode
+  :hook
+  ((csv-mode . (lambda () (visual-line-mode -1)))
+   (csv-mode . csv-align-mode)))
+
 (use-package reftex
   :ensure nil
   :custom
