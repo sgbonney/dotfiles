@@ -258,8 +258,7 @@
      "{{- template "find" "**/20251107T112447--*" -}}"
      "{{- template "find" "**/20251107T113324--*" -}}"))
 
-  (org-plantuml-jar-path
-   (expand-file-name "{{- if contains "android" .osid -}}{{- "/data/data/com.termux/files/usr/share/java/plantuml.jar" | trim -}}{{- else if contains "linux" .osid -}}{{- output "bash" "-c" "find /home/linuxbrew/.linuxbrew/ -name 'plantuml.jar'" | trim -}}{{- end -}}"))
+  (org-plantuml-jar-path "{{- if contains "android" .osid -}}{{- "/data/data/com.termux/files/usr/share/java/plantuml.jar" | trim -}}{{- else if contains "linux" .osid -}}{{- output "bash" "-c" "find /home/linuxbrew/.linuxbrew/ -name 'plantuml.jar'" | trim -}}{{- end -}}")
 
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
