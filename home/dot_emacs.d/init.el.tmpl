@@ -419,6 +419,17 @@
   :init
   (setq markdown-command "multimarkdown"))
 
+(use-package plantuml-mode
+  :custom
+  (plantuml-jar-path org-plantuml-jar-path)
+  (plantuml-default-exec-mode 'jar)
+
+  :init
+  (add-to-list 'auto-mode-alist '("\\.\\(plantuml\\|puml\\)\\'" . plantuml-mode))
+
+  :config
+  (setq plantuml-output-type "svg"))
+
 (use-package reftex
   :ensure nil
   :custom
