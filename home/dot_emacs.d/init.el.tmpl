@@ -385,7 +385,10 @@
      (shell . t))))
 
 (use-package org-transclusion
-  :after org)
+  :after org
+  :hook (org-mode . org-transclusion-mode)
+  :config
+  (setq org-transclusion-add-all-on-activate t))
 
 (use-package org-contrib)
 
