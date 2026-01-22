@@ -424,8 +424,8 @@
   (plantuml-jar-path org-plantuml-jar-path)
   (plantuml-default-exec-mode 'jar)
 
-  :init
-  (add-to-list 'auto-mode-alist '("\\.\\(plantuml\\|puml\\)\\'" . plantuml-mode))
+  :mode
+  ("\\.\\(plantuml\\|puml\\)\\'")
 
   :config
   (setq plantuml-output-type "svg"))
