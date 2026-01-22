@@ -464,9 +464,8 @@
   (global-set-key (kbd "C-'") 'avy-goto-char-2))
 
 (use-package hide-mode-line
-  :config
-  (add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
-  (add-hook 'nov-mode-hook #'hide-mode-line-mode))
+  :hook
+  (completion-list-mode nov-mode))
 
 (use-package magit)
 
