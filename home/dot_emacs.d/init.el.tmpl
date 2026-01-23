@@ -224,7 +224,7 @@
    '((sequence "ACTIVITY(a)" "NEXT(n)" "PROJECT(p)" "SOMEDAY(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 
   (org-agenda-files nil)
-  (org-agenda-hide-tags-regexp "agenda")
+  (org-agenda-hide-tags-regexp "todo")
   (org-agenda-prefix-format '((agenda . " %i %?-12t% s")
                               (timeline . "  % s")
                               (todo . " %i %-12:c")
@@ -279,7 +279,7 @@
     (setq org-agenda-files
           (directory-files-recursively
            "{{- .chezmoi.homeDir -}}/Documents"
-           ".*_agenda.*\\.org$"))
+           ".*_todo.*\\.org$"))
     (org-agenda-prepare-buffers org-agenda-files)
     (message "Org agenda files refreshed."))
   (refresh-org-agenda-files)
