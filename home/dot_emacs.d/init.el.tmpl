@@ -277,9 +277,12 @@
   (defun refresh-org-agenda-files ()
     (interactive)
     (setq org-agenda-files
-          (directory-files-recursively
-           "{{- .chezmoi.homeDir -}}/Documents"
-           ".*_todo.*\\.org$"))
+	  (cl-remove-if
+	   (lambda (file)
+	     (string-match "_archive" file))
+	   (directory-files-recursively
+	    "{{- .chezmoi.homeDir -}}/Documents"
+	    ".*_todo.*\\.org$")))
     (org-agenda-prepare-buffers org-agenda-files)
     (message "Org agenda files refreshed."))
   (refresh-org-agenda-files)
