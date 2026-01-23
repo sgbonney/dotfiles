@@ -649,7 +649,7 @@
 
   (defun consult-notes-filtered ()
     (interactive)
-    (let ((denote-excluded-files-regexp "_archive\\(_\\|\\.\\)"))
+    (let ((denote-excluded-files-regexp "_archive\\($\\|_\\|\\.\\)"))
       (call-interactively #'consult-notes)))
 
   :bind (("C-c n a" . consult-notes)
