@@ -637,7 +637,7 @@
   :after denote
   :custom
   (denote-journal-directory (expand-file-name "journal" denote-directory))
-  (denote-journal-keyword "journal")
+  (denote-journal-keyword '("archive" "journal"))
   (denote-journal-title-format 'day-date-month-year))
 
 (use-package consult-notes
