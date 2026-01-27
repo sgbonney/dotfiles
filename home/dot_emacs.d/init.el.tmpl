@@ -458,6 +458,12 @@
                         (apply orig-fun args)
                       (major-mode-restore (list original-mode))))))))
 
+(use-package lilypond-mode
+  :ensure nil
+  :load-path "{{- if contains "android" .osid -}}{{- output "bash" "-c" "readlink -f $(dirname $(find /data/data/com.termux/files/usr/ -type f -path '*lilypond-mode.el'))" | trim -}}{{- else if contains "linux" .osid -}}{{- output "bash" "-c" "readlink -f $(dirname $(find /home/linuxbrew/.linuxbrew/ -type f -path '*lilypond-mode.el'))" | trim -}}{{- end -}}"
+  :mode "\\.\\(ly\\|ily\\)$"
+  :commands lilypond-mode)
+
 (use-package avy
   :ensure t
   :commands (avy-goto-char
