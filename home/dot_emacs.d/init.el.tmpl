@@ -461,8 +461,7 @@
 (use-package lilypond-mode
   :ensure nil
   :load-path "{{- if contains "android" .osid -}}{{- output "bash" "-c" "readlink -f $(dirname $(find /data/data/com.termux/files/usr/ -type f -path '*lilypond-mode.el'))" | trim -}}{{- else if contains "linux" .osid -}}{{- output "bash" "-c" "readlink -f $(dirname $(find /home/linuxbrew/.linuxbrew/ -type f -path '*lilypond-mode.el'))" | trim -}}{{- end -}}"
-  :mode "\\.\\(ly\\|ily\\)$"
-  :commands lilypond-mode)
+  :mode ("\\.\\(ly\\|ily\\)$" . LilyPond-mode))
 
 (use-package avy
   :ensure t
