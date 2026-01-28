@@ -42,6 +42,11 @@
   (server-client-instructions nil)
   (make-backup-files nil)
 
+  {{ if contains "android" .osid -}}
+  :custom-face
+  (default ((t (:family "DejaVu Sans Mono"))))
+
+  {{ end -}}
   :init
   (setq confirm-kill-processes nil)
   (setq auto-save-list-file-prefix nil)

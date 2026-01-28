@@ -57,6 +57,7 @@ packages:
     - 'mupdf-tools'
     - 'plantuml'
     - 'texlive-installer'
+    - 'ttf-dejavu'
   rpm_ostree:
     fedora:
     - 'backintime-qt'

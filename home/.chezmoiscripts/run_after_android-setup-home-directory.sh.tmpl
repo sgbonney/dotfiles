@@ -28,4 +28,13 @@ fi
   {{- end }}
   {{- end }}
 {{- end }}
+
+FONT_SOURCE="/data/data/com.termux/files/usr/share/fonts/TTF"
+FONT_TARGET="{{- .chezmoi.homeDir -}}/fonts"
+if [ -d "$FONT_SOURCE" ]; then
+    if [ -L "$FONT_TARGET" ]; then
+        rm "$FONT_TARGET"
+    fi
+    ln -s "$FONT_SOURCE" "$FONT_TARGET"
+fi
 {{- end -}}
