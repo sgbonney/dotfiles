@@ -130,6 +130,11 @@
   :hook
   (dired-mode . dired-hide-details-mode))
 
+(use-package image-mode
+  :ensure nil
+  :config
+  (add-to-list 'safe-local-eval-forms '(image-transform-fit-to-window)))
+
 (use-package prog-mode
   :ensure nil
   :config
