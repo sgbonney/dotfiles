@@ -18,6 +18,7 @@ packages:
     - 'rclone'
     - 'rsync'
     - 'texlive'
+    - 'zint'
     linux:
     - 'syncthing'
   flatpak:
