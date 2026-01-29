@@ -7,6 +7,7 @@ key.txt.age
 .config/juloo.keyboard2
 .config/keepassxc
 .local/share/android
+.local/share/mime
 **/obtainium.sh
 .termux
 {{- end }}
