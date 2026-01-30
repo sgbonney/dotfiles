@@ -389,6 +389,41 @@
 	    (org-table-shrink))))))
   (setq org-columns-dblock-formatter #'org-columns-dblock-write-relative-links)
 
+  ;; Enhanced git link type that supports both formats:
+  ;; [[git:COMMIT_HASH]] - original format (auto-detect repo)
+  ;; [[git:/path/to/repo:COMMIT_HASH]] - new format (specify repo)
+  (defun org-link--open-git-enhanced (path arg)
+    "Open a git link, supporting both original and enhanced formats.
+PATH can be either COMMIT_HASH (original) or /path/to/repo:COMMIT_HASH (enhanced).
+ARG is the prefix argument."
+    (if (string-match-p ":" path)
+        ;; Enhanced format: /path/to/repo:COMMIT_HASH
+        (let* ((parts (split-string path ":"))
+               (repo-path (car parts))
+               (commit-hash (cadr parts)))
+          (unless (and repo-path commit-hash)
+            (error "Invalid git link format. Use: COMMIT_HASH or /path/to/repo:COMMIT_HASH"))
+          (unless (file-directory-p (expand-file-name repo-path))
+            (error "Repository directory does not exist: %s" repo-path))
+          (let ((default-directory (expand-file-name repo-path)))
+            (unless (file-exists-p ".git")
+              (error "Not a git repository: %s" repo-path))
+            (if arg
+                (async-shell-command (format "git log %s" commit-hash))
+              (async-shell-command (format "git show %s" commit-hash)))))
+      ;; Original format: COMMIT_HASH (auto-detect repo)
+      (let ((default-directory (or (locate-dominating-file default-directory ".git")
+                                   default-directory)))
+        (unless (and default-directory (file-exists-p (expand-file-name ".git" default-directory)))
+          (error "Not in a git repository"))
+        (if arg
+            (async-shell-command (format "git log %s" path))
+          (async-shell-command (format "git show %s" path))))))
+
+  ;; Update the existing git link type
+  (org-link-set-parameters "git"
+                           :follow #'org-link--open-git-enhanced)
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
