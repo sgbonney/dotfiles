@@ -31,6 +31,7 @@ packages:
     - 'com.google.AndroidStudio'
     - 'io.ente.photos'
     - 'network.loki.Session'
+    - 'org.equicord.equibop'
     - 'org.flatpak.Builder'
     - 'org.gimp.GIMP'
     - 'org.gnome.Boxes'
@@ -48,6 +49,7 @@ packages:
     - 'io.gitlab.librewolf-community'
     - 'org.keepassxc.KeePassXC'
     steamos:
+    - 'org.equicord.equibop'
     - 'org.gimp.GIMP'
   pkg:
     android:
