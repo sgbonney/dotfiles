@@ -680,6 +680,7 @@ ARG is the prefix argument."
 (use-package denote
   :custom
   (denote-directory "{{- .chezmoi.homeDir -}}/Documents")
+  (denote-known-keywords '("archive" "hidden" "inbox" "todo"))
 
   :hook
   (dired-mode . denote-dired-mode))
