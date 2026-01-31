@@ -703,7 +703,7 @@ ARG is the prefix argument."
 
   (defun consult-notes-filtered ()
     (interactive)
-    (let ((denote-excluded-files-regexp "\\(_archive\\|_hidden\\)\\($\\|_\\|\\.\\)"))
+    (let ((denote-excluded-files-regexp "\\(_archive\\|_hidden\\|_inbox\\)\\($\\|_\\|\\.\\)"))
       (call-interactively #'consult-notes)))
 
   :bind (("C-c n a" . consult-notes)
