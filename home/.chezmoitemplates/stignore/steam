@@ -2,11 +2,11 @@
 !*/exports
 !*/screenshots/*.jpg
 
-{{- else if contains "steamos" .osid -}}
+{{- else if contains "fedora" .osid -}}
 */cache
 !{{- .games.gp_bikes.path }}/**
 !{{- .games.mx_bikes.path }}/**
-!*/{{- keepassxcAttribute "Steam" "User ID" -}}/**/remote
+!{{- template "steam/screenshots" -}}
 
 {{- end }}
 *
