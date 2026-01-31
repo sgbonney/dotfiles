@@ -1,0 +1,2 @@
+{{- $game := .games.gp_bikes.path -}}
+{{- output "bash" "-c" (printf "find -L ~/ -type d -path '%s' -print" $game) | trim -}}
