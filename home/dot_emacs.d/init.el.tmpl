@@ -680,7 +680,7 @@ ARG is the prefix argument."
 (use-package denote
   :custom
   (denote-directory "{{- .chezmoi.homeDir -}}/Documents")
-  (denote-known-keywords '("archive" "hidden" "inbox" "todo"))
+  (denote-known-keywords '("archive" "hidden" "todo"))
 
   :hook
   (dired-mode . denote-dired-mode))
@@ -692,7 +692,7 @@ ARG is the prefix argument."
   :after denote
   :custom
   (denote-journal-directory (expand-file-name "journal" denote-directory))
-  (denote-journal-keyword '("inbox" "journal"))
+  (denote-journal-keyword '("archive" "journal"))
   (denote-journal-title-format 'day-date-month-year))
 
 (use-package consult-notes
@@ -704,7 +704,7 @@ ARG is the prefix argument."
 
   (defun consult-notes-filtered ()
     (interactive)
-    (let ((denote-excluded-files-regexp "\\(_archive\\|_hidden\\|_inbox\\)\\($\\|_\\|\\.\\)"))
+    (let ((denote-excluded-files-regexp "\\(_archive\\|_hidden\\)\\($\\|_\\|\\.\\)"))
       (call-interactively #'consult-notes)))
 
   :bind (("C-c n a" . consult-notes)
