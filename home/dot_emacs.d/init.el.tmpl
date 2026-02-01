@@ -226,7 +226,59 @@
   (which-key-enable-god-mode-support))
 
 (use-package org
-  :demand t
+  :preface
+  (defun my-org-narrow-cycle-next ()
+    "Cycle to next subtree when in narrowed buffer."
+    (interactive)
+    (when (buffer-narrowed-p) (widen))
+    (org-next-visible-heading 1)
+    (org-narrow-to-subtree))
+
+  (defun my-org-narrow-cycle-previous ()
+    "Cycle to previous subtree when in narrowed buffer."
+    (interactive)
+    (when (buffer-narrowed-p) (widen))
+    (org-previous-visible-heading 1)
+    (org-narrow-to-subtree))
+
+  (defun my-org-next-visible-heading-or-cycle ()
+    "Move to next heading in narrowed view, or cycle to next subtree if none."
+    (interactive)
+    (if (buffer-narrowed-p)
+        (let ((next-heading-pos
+               (save-excursion
+                 (save-restriction
+                   (widen)
+                   (when (org-at-heading-p)
+                     (forward-line 1))
+                   (when (re-search-forward org-heading-regexp nil t)
+                     (match-beginning 0))))))
+          (if (and next-heading-pos
+                   (>= next-heading-pos (point-min))
+                   (<= next-heading-pos (point-max)))
+              (goto-char next-heading-pos)
+            (my-org-narrow-cycle-next)))
+      (org-next-visible-heading 1)))
+
+  (defun my-org-previous-visible-heading-or-cycle ()
+    "Move to previous heading in narrowed view, or cycle to previous subtree if none."
+    (interactive)
+    (if (buffer-narrowed-p)
+        (let ((prev-heading-pos
+               (save-excursion
+                 (save-restriction
+                   (widen)
+                   (when (org-at-heading-p)
+                     (forward-line 0))
+                   (when (re-search-backward org-heading-regexp nil t)
+                     (match-beginning 0))))))
+          (if (and prev-heading-pos
+                   (>= prev-heading-pos (point-min))
+                   (<= prev-heading-pos (point-max)))
+              (goto-char prev-heading-pos)
+            (my-org-narrow-cycle-previous)))
+      (org-previous-visible-heading 1)))
+
   :custom
   (org-log-into-drawer t)
 
@@ -275,6 +327,13 @@
 	 :map org-mode-map
               ("C-'" . nil)
 	      ("C-," . nil))
+
+  :hook
+  (org-mode . (lambda ()
+                (define-key org-mode-map (kbd "C-c C-n") #'my-org-next-visible-heading-or-cycle)
+                (define-key org-mode-map (kbd "C-c C-p") #'my-org-previous-visible-heading-or-cycle)))
+
+  :demand t
 
   :config
   (add-to-list 'org-modules 'org-habit t)
