@@ -304,8 +304,9 @@
                          (org-bibtex "{{- template "find" "**/20251104T145004--*" -}}"))))
      ("d" "Brain dump" entry
       (file "{{- template "find" "**/20241008T005006--*" -}}")
-      "* %?\n%(format-time-string \"[%Y-%m-%d %a %H:%M]\")\n"
-      :prepend t)
+      "* %?\n%U"
+      :prepend t
+      :empty-lines 1)
      ("f" "Fuel log" entry
       (file+headline "{{- template "find" "**/20190317T144500--*" -}}" "2025-26")
       "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251030T105223\" 'org-mode))"
