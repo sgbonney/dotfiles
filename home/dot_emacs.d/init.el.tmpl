@@ -302,6 +302,10 @@
       :after-finalize (lambda ()
                        (with-current-buffer (org-capture-get :buffer)
                          (org-bibtex "{{- template "find" "**/20251104T145004--*" -}}"))))
+     ("d" "Brain dump" entry
+      (file "{{- template "find" "**/20241008T005006--*" -}}")
+      "* %?\n%(format-time-string \"[%Y-%m-%d %a %H:%M]\")\n"
+      :prepend t)
      ("f" "Fuel log" entry
       (file+headline "{{- template "find" "**/20190317T144500--*" -}}" "2025-26")
       "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251030T105223\" 'org-mode))"
@@ -325,13 +329,10 @@
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
 	 :map org-mode-map
-              ("C-'" . nil)
-	      ("C-," . nil))
-
-  :hook
-  (org-mode . (lambda ()
-                (define-key org-mode-map (kbd "C-c C-n") #'my-org-next-visible-heading-or-cycle)
-                (define-key org-mode-map (kbd "C-c C-p") #'my-org-previous-visible-heading-or-cycle)))
+	 ("C-'" . nil)
+	 ("C-," . nil)
+	 ("C-c C-n" . my-org-next-visible-heading-or-cycle)
+	 ("C-c C-p" . my-org-previous-visible-heading-or-cycle))
 
   :demand t
 
