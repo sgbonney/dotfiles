@@ -49,6 +49,7 @@ packages:
     - 'org.keepassxc.KeePassXC'
     steamos:
     - 'org.gimp.GIMP'
+    - 'rocks.shy.VacuumTube'
   pkg:
     android:
     - 'aspell-en'
