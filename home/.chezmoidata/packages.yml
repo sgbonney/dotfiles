@@ -51,7 +51,6 @@ packages:
     steamos:
     - 'org.equicord.equibop'
     - 'org.gimp.GIMP'
-    - 'org.videolan.VLC'
   pkg:
     android:
     - 'aspell-en'
