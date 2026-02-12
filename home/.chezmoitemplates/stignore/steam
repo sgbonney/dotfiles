@@ -1,11 +1,7 @@
 {{- if contains "android" .osid -}}
-!*/exports
 !*/screenshots/*.jpg
 
 {{- else if contains "fedora" .osid -}}
-*/cache
-!{{- .games.gp_bikes.path }}/**
-!{{- .games.mx_bikes.path }}/**
 !{{- template "steam/screenshots" -}}
 
 {{- end }}
