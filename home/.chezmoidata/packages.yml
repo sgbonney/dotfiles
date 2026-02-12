@@ -32,7 +32,6 @@ packages:
     - 'io.ente.photos'
     - 'network.loki.Session'
     - 'org.flatpak.Builder'
-    - 'org.gimp.GIMP'
     - 'org.gnome.Boxes'
     - 'org.libreoffice.LibreOffice'
     - 'org.mozilla.Thunderbird'
@@ -48,7 +47,6 @@ packages:
     - 'io.gitlab.librewolf-community'
     - 'org.keepassxc.KeePassXC'
     steamos:
-    - 'org.gimp.GIMP'
     - 'rocks.shy.VacuumTube'
   pkg:
     android:
