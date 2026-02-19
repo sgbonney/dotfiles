@@ -529,6 +529,8 @@ ARG is the prefix argument."
   (setq markdown-command "multimarkdown"))
 
 (use-package plantuml-mode
+  :demand t
+
   :custom
   (plantuml-jar-path org-plantuml-jar-path)
   (plantuml-default-exec-mode 'jar)
