@@ -625,9 +625,13 @@ ARG is the prefix argument."
          ("M-DEL" . bibtex-kill-field)))
 
 (use-package csv-mode
-  :hook
-  ((csv-mode . (lambda () (visual-line-mode -1)))
-   (csv-mode . csv-align-mode)))
+  :bind (:map csv-mode-map
+         ("M-m" . casual-csv-tmenu))
+  :hook ((csv-mode . (lambda ()
+                       (visual-line-mode -1)
+                       (toggle-truncate-lines 1)))
+         (csv-mode . csv-guess-set-separator)
+         (csv-mode . csv-align-mode)))
 
 (use-package vcard)
 
