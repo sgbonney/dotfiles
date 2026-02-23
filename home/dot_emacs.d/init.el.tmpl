@@ -292,7 +292,7 @@
   (org-todo-keywords
    '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(D)" "CNCL(c)")))
 
-  (org-agenda-hide-tags-regexp "todo")
+  (org-agenda-hide-tags-regexp "agenda")
   (org-agenda-prefix-format '((agenda . " %i %?-12t% s")
                               (timeline . "  % s")
                               (todo . " %i %-12:c")
@@ -358,7 +358,7 @@
 	     (string-match "_archive" file))
 	   (directory-files-recursively
 	    "{{- .chezmoi.homeDir -}}/Documents"
-	    ".*_todo.*\\.org$")))
+	    ".*_agenda.*\\.org$")))
     (org-agenda-prepare-buffers org-agenda-files)
     (message "Org agenda files refreshed."))
   (refresh-org-agenda-files)
@@ -788,7 +788,7 @@ ARG is the prefix argument."
 (use-package denote
   :custom
   (denote-directory "{{- .chezmoi.homeDir -}}/Documents")
-  (denote-known-keywords '("archive" "hidden" "todo"))
+  (denote-known-keywords '("agenda" "archive" "hidden"))
 
   :hook
   (dired-mode . denote-dired-mode))
