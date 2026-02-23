@@ -132,6 +132,12 @@
   :hook
   (dired-mode . dired-hide-details-mode))
 
+(use-package bookmark
+  :ensure nil
+  :bind (:map bookmark-bmenu-mode-map
+         ("C-o" . casual-bookmarks-tmenu)
+         ("J" . bookmark-jump)))
+
 (use-package isearch
   :ensure nil
   :bind (:map isearch-mode-map
