@@ -506,7 +506,7 @@ ARG is the prefix argument."
   ;; Suppress upgrade warnings (must be set before package loads)
   (setq org-gtd-update-ack "4.0.0")
   ;; Where org-gtd will keep its files (defaults to ~/gtd/)
-  ;; (setq org-gtd-directory "~/my-gtd/")
+  (setq org-gtd-directory "{{- .chezmoi.homeDir -}}/Documents/gtd/")
 
   :custom
   ;; Map GTD semantic states to your keywords
