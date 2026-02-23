@@ -351,7 +351,9 @@
          :map org-table-fedit-map
          ("M-m" . casual-org-table-fedit-tmenu)
 	 :map org-agenda-mode-map
-         ("C-o" . casual-agenda-tmenu))
+         ("C-o" . casual-agenda-tmenu)
+         ("M-j" . org-agenda-clock-goto)
+         ("J" . bookmark-jump))
 
   :config
   (add-to-list 'org-modules 'org-habit t)
