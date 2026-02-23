@@ -140,7 +140,10 @@
 (use-package image-mode
   :ensure nil
   :config
-  (add-to-list 'safe-local-eval-forms '(image-transform-fit-to-window)))
+  (add-to-list 'safe-local-eval-forms '(image-transform-fit-to-window))
+
+  :bind (:map image-mode-map
+         ("C-o" . casual-image-tmenu)))
 
 (use-package prog-mode
   :ensure nil
