@@ -598,6 +598,24 @@ ARG is the prefix argument."
   :config
   (setq plantuml-output-type "svg"))
 
+(use-package bibtex
+  :ensure nil
+  :hook (bibtex-mode . hl-line-mode)
+  :bind (:map bibtex-mode-map
+         ("M-m" . casual-bibtex-tmenu)
+         ("<TAB>" . bibtex-next-field)
+         ("<backtab>" . previous-line)
+         ("C-n" . bibtex-next-field)
+         ("M-n" . bibtex-next-entry)
+         ("M-p" . bibtex-previous-entry)
+         ("<prior>" . bibtex-previous-entry)
+         ("<next>" . bibtex-next-entry)
+         ("C-c C-o" . bibtex-url)
+         ("C-c C-c" . casual-bibtex-fill-and-clean)
+         ("<clear>" . bibtex-empty-field)
+         ("M-<clear>" . bibtex-kill-field)
+         ("M-DEL" . bibtex-kill-field)))
+
 (use-package csv-mode
   :hook
   ((csv-mode . (lambda () (visual-line-mode -1)))
