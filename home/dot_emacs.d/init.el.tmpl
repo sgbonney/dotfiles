@@ -132,6 +132,11 @@
   :hook
   (dired-mode . dired-hide-details-mode))
 
+(use-package isearch
+  :ensure nil
+  :bind (:map isearch-mode-map
+         ("<f9>" . casual-isearch-tmenu)))
+
 (use-package image-mode
   :ensure nil
   :config
@@ -216,14 +221,6 @@
       (set-face-attribute 'mode-line-inactive nil
                           :foreground "#404148"
                           :background "#efefef")))))
-
-(use-package god-mode-isearch
-  :ensure nil
-  :after (god-mode isearch)
-  :bind (:map isearch-mode-map
-              ("<f9>" . god-mode-isearch-activate)
-         :map god-mode-isearch-map
-              ("<f9>" . god-mode-isearch-disable)))
 
 (use-package which-key
   :ensure nil
