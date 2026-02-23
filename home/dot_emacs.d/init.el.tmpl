@@ -184,6 +184,11 @@
   :init
   (setq god-mode-enable-function-key-translation nil)
 
+  (setq god-mode-alist
+      '((nil . "C-")
+        ("m" . "M-")
+        ("M" . "C-M-")))
+
   :config
   (god-mode-all)
 
