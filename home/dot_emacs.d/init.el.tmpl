@@ -341,7 +341,12 @@
 	 ("C-'" . nil)
 	 ("C-," . nil)
 	 ("C-c C-n" . my-org-next-visible-heading-or-cycle)
-	 ("C-c C-p" . my-org-previous-visible-heading-or-cycle))
+	 ("C-c C-p" . my-org-previous-visible-heading-or-cycle)
+	 ("M-m" . casual-org-tmenu)
+         :map org-table-fedit-map
+         ("M-m" . casual-org-table-fedit-tmenu)
+	 :map org-agenda-mode-map
+         ("C-o" . casual-agenda-tmenu))
 
   :config
   (add-to-list 'org-modules 'org-habit t)
