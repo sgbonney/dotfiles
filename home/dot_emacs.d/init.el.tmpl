@@ -292,7 +292,6 @@
   (org-todo-keywords
    '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(D)" "CNCL(c)")))
 
-  (org-agenda-files nil)
   (org-agenda-hide-tags-regexp "todo")
   (org-agenda-prefix-format '((agenda . " %i %?-12t% s")
                               (timeline . "  % s")
@@ -352,6 +351,7 @@
 
   (defun refresh-org-agenda-files ()
     (interactive)
+    (setq org-agenda-files nil)
     (setq org-agenda-files
 	  (cl-remove-if
 	   (lambda (file)
