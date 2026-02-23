@@ -232,6 +232,11 @@
   (which-key-mode 1)
   (which-key-enable-god-mode-support))
 
+(use-package calendar
+  :ensure nil
+  :bind (:map calendar-mode-map
+         ("C-o" . casual-calendar)))
+
 (use-package org
   :demand t
 
