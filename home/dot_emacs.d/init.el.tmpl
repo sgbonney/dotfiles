@@ -129,6 +129,19 @@
 
 (use-package casual)
 
+(use-package help-mode
+  :ensure nil
+  :bind (:map help-mode-map
+	      ("C-o" . casual-help-tmenu)
+	      ("M-[" . help-go-back)
+	      ("M-]" . help-go-forward)
+	      ("p"   . casual-lib-browse-backward-paragraph)
+	      ("n"   . casual-lib-browse-forward-paragraph)
+	      ("P"   . help-goto-previous-page)
+	      ("N"   . help-goto-next-page)
+	      ("j"   . forward-button)
+	      ("k"   . backward-button)))
+
 (use-package autorevert
   :ensure nil
   :config
