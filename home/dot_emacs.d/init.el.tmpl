@@ -145,13 +145,13 @@
 (use-package bookmark
   :ensure nil
   :bind (:map bookmark-bmenu-mode-map
-         ("C-o" . casual-bookmarks-tmenu)
-         ("J" . bookmark-jump)))
+	      ("C-o" . casual-bookmarks-tmenu)
+	      ("J" . bookmark-jump)))
 
 (use-package isearch
   :ensure nil
   :bind (:map isearch-mode-map
-         ("<f9>" . casual-isearch-tmenu)))
+	      ("<f9>" . casual-isearch-tmenu)))
 
 (use-package image-mode
   :ensure nil
@@ -159,7 +159,7 @@
   (add-to-list 'safe-local-eval-forms '(image-transform-fit-to-window))
 
   :bind (:map image-mode-map
-         ("C-o" . casual-image-tmenu)))
+	      ("C-o" . casual-image-tmenu)))
 
 (use-package prog-mode
   :ensure nil
@@ -251,7 +251,7 @@
 (use-package calendar
   :ensure nil
   :bind (:map calendar-mode-map
-         ("C-o" . casual-calendar)))
+	      ("C-o" . casual-calendar)))
 
 (use-package emacs-lisp-mode
   :ensure nil
@@ -625,23 +625,23 @@ ARG is the prefix argument."
   :ensure nil
   :hook (bibtex-mode . hl-line-mode)
   :bind (:map bibtex-mode-map
-         ("M-m" . casual-bibtex-tmenu)
-         ("<TAB>" . bibtex-next-field)
-         ("<backtab>" . previous-line)
-         ("C-n" . bibtex-next-field)
-         ("M-n" . bibtex-next-entry)
-         ("M-p" . bibtex-previous-entry)
-         ("<prior>" . bibtex-previous-entry)
-         ("<next>" . bibtex-next-entry)
-         ("C-c C-o" . bibtex-url)
-         ("C-c C-c" . casual-bibtex-fill-and-clean)
-         ("<clear>" . bibtex-empty-field)
-         ("M-<clear>" . bibtex-kill-field)
-         ("M-DEL" . bibtex-kill-field)))
+	      ("M-m" . casual-bibtex-tmenu)
+	      ("<TAB>" . bibtex-next-field)
+	      ("<backtab>" . previous-line)
+	      ("C-n" . bibtex-next-field)
+	      ("M-n" . bibtex-next-entry)
+	      ("M-p" . bibtex-previous-entry)
+	      ("<prior>" . bibtex-previous-entry)
+	      ("<next>" . bibtex-next-entry)
+	      ("C-c C-o" . bibtex-url)
+	      ("C-c C-c" . casual-bibtex-fill-and-clean)
+	      ("<clear>" . bibtex-empty-field)
+	      ("M-<clear>" . bibtex-kill-field)
+	      ("M-DEL" . bibtex-kill-field)))
 
 (use-package csv-mode
   :bind (:map csv-mode-map
-         ("M-m" . casual-csv-tmenu))
+	      ("M-m" . casual-csv-tmenu))
   :hook ((csv-mode . (lambda ()
                        (visual-line-mode -1)
                        (toggle-truncate-lines 1)))
