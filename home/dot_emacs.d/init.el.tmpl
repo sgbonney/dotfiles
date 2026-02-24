@@ -142,6 +142,24 @@
 	      ("j" . forward-button)
 	      ("k" . backward-button)))
 
+(use-package info
+  :ensure nil
+  :hook
+  (Info-mode . hl-line-mode)
+  (Info-mode . scroll-lock-mode)
+  :bind (:map Info-mode-map
+	      ("C-o" . casual-info-tmenu)
+	      ("M-[" . Info-history-back)
+	      ("M-]" . Info-history-forward)
+	      ("p" . casual-info-browse-backward-paragraph)
+	      ("n" . casual-info-browse-forward-paragraph)
+	      ("h" . Info-prev)
+	      ("j" . Info-next-reference)
+	      ("k" . Info-prev-reference)
+	      ("l" . Info-next)
+	      ("/" . Info-search)
+	      ("B" . bookmark-set)))
+
 (use-package autorevert
   :ensure nil
   :config
