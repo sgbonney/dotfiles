@@ -153,6 +153,28 @@
 	      ("C-o" . casual-bookmarks-tmenu)
 	      ("J" . bookmark-jump)))
 
+(use-package eww
+  :ensure nil
+  :bind (:map eww-mode-map
+	      ("C-o"     . casual-eww-tmenu)
+	      ("C-c C-o" . eww-browse-with-external-browser)
+	      ("j"       . shr-next-link)
+	      ("k"       . shr-previous-link)
+	      ("["       . eww-previous-url)
+	      ("]"       . eww-next-url)
+	      ("M-]"     . eww-forward-url)
+	      ("M-["     . eww-back-url)
+	      ("n"       . casual-lib-browse-forward-paragraph)
+	      ("p"       . casual-lib-browse-backward-paragraph)
+	      ("P"       . casual-eww-backward-paragraph-link)
+	      ("N"       . casual-eww-forward-paragraph-link)
+	      ("M-l"     . eww)
+	      :map eww-bookmark-mode-map
+	      ("C-o"             . casual-eww-bookmarks-tmenu)
+	      ("p"               . previous-line)
+	      ("n"               . next-line)
+	      ("<double-mouse-1>" . eww-bookmark-browse)))
+
 (use-package isearch
   :ensure nil
   :bind (:map isearch-mode-map
