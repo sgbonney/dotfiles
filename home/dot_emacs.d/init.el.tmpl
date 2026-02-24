@@ -253,6 +253,11 @@
   :bind (:map calendar-mode-map
          ("C-o" . casual-calendar)))
 
+(use-package emacs-lisp-mode
+  :ensure nil
+  :bind (:map emacs-lisp-mode-map
+	      ("M-m" . casual-elisp-tmenu)))
+
 (use-package org
   :demand t
 
