@@ -134,6 +134,11 @@
   :config
   (global-auto-revert-mode 1))
 
+(use-package eshell
+  :ensure nil
+  :bind (:map eshell-mode-map
+              ("C-o" . casual-eshell-tmenu)))
+
 (use-package dired
   :ensure nil
   :hook (dired-mode . dired-hide-details-mode)
