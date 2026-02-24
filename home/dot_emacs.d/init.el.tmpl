@@ -160,6 +160,19 @@
 	      ("/" . Info-search)
 	      ("B" . bookmark-set)))
 
+(use-package man
+  :ensure nil
+  :bind (:map Man-mode-map
+	      ("C-o" . casual-man-tmenu)
+	      ("n" . casual-lib-browse-forward-paragraph)
+	      ("p" . casual-lib-browse-backward-paragraph)
+	      ("[" . Man-previous-section)
+	      ("]" . Man-next-section)
+	      ("j" . next-line)
+	      ("k" . previous-line)
+	      ("K" . Man-kill)
+	      ("o" . casual-man-occur-options)))
+
 (use-package autorevert
   :ensure nil
   :config
