@@ -147,6 +147,23 @@
   :config
   (global-auto-revert-mode 1))
 
+(use-package ibuffer
+  :ensure nil
+  :hook
+  (ibuffer-mode . hl-line-mode)
+  (ibuffer-mode . ibuffer-auto-mode)
+  :bind (:map ibuffer-mode-map
+	      ("C-o" . casual-ibuffer-tmenu)
+	      ("F" . casual-ibuffer-filter-tmenu)
+	      ("s" . casual-ibuffer-sortby-tmenu)
+	      ("{" . ibuffer-backwards-next-marked)
+	      ("}" . ibuffer-forward-next-marked)
+	      ("[" . ibuffer-backward-filter-group)
+	      ("]" . ibuffer-forward-filter-group)
+	      ("$" . ibuffer-toggle-filter-group)
+	      ("<double-mouse-1>" . ibuffer-visit-buffer)
+	      ("M-<double-mouse-1>" . ibuffer-visit-buffer-other-window)))
+
 (use-package eshell
   :ensure nil
   :bind (:map eshell-mode-map
