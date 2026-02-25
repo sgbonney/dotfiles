@@ -66,4 +66,3 @@ packages:
     - 'emacs'
     - 'enchant2-devel'
     - 'input-remapper'
-    - 'waydroid'
