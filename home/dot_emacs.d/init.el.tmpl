@@ -995,10 +995,18 @@ ARG is the prefix argument."
   :bind-keymap
   (("C-c r" . emms-playlist-mode-map))
 
+  :mode ("\\.mp3\\'" . play-current-file)
+
   :config
   (emms-standard)
   (emms-playing-time-disable-display)
-  (emms-add-m3u-playlist "{{- template "find" "*/Transistor/collection.m3u" -}}"))
+  (emms-add-m3u-playlist "{{- template "find" "*/Transistor/collection.m3u" -}}")
+
+  (defun play-current-file ()
+    "Play the currently opened file using EMMS."
+    (interactive)
+    (emms-play-file (or (buffer-file-name)
+                        (user-error "No file is currently opened")))))
 
 {{ end -}}
 (use-package titlecase
