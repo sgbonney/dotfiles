@@ -746,13 +746,8 @@ ARG is the prefix argument."
   :mode ("\\.\\(ly\\|ily\\)$" . LilyPond-mode))
 
 (use-package avy
-  :ensure t
-  :commands (avy-goto-char
-             avy-goto-char-2
-             avy-next)
-
-  :init
-  (global-set-key (kbd "C-'") 'avy-goto-char-2))
+  :bind
+  ("C-r" . avy-goto-char))
 
 (use-package magit)
 
