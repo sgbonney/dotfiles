@@ -52,7 +52,7 @@
          ;; ("C-c r" . casual-editkit-rectangle-tmenu)
          ;; ("C-c g" . casual-editkit-registers-tmenu)
          ;; ("C-c p" . casual-editkit-project-tmenu)
-	 )
+	 ([remap keyboard-quit] . prot/keyboard-quit-dwim))
 
   :init
   (setq confirm-kill-processes nil)
@@ -61,6 +61,18 @@
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (load custom-file 'noerror)
   (setq custom-safe-themes t)
+
+  (defun prot/keyboard-quit-dwim ()
+    (interactive)
+    (cond
+     ((region-active-p)
+      (keyboard-quit))
+     ((derived-mode-p 'completion-list-mode)
+      (delete-completion-window))
+     ((> (minibuffer-depth) 0)
+      (abort-recursive-edit))
+     (t
+      (keyboard-quit))))
 
   {{ if contains "android" .osid -}}
   (setq touch-screen-display-keyboard t)
