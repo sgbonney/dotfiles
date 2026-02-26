@@ -293,7 +293,7 @@
 
   {{ end -}}
   (post-command . my-god-mode-update-cursor)
-  (post-command . my-god-mode-update-mode-line)
+  (post-command . my-god-mode-toggle-mode-line)
 
   :init
   (setq god-mode-enable-function-key-translation nil)
@@ -312,22 +312,10 @@
         (blink-cursor-mode -1)
       (blink-cursor-mode 1)))
 
-  (defun my-god-mode-update-mode-line ()
-    (cond
-     (god-local-mode
-      (set-face-attribute 'mode-line nil
-                          :foreground "#604000"
-                          :background "#fff29a")
-      (set-face-attribute 'mode-line-inactive nil
-                          :foreground "#3f3000"
-                          :background "#fff3da"))
-     (t
-      (set-face-attribute 'mode-line nil
-                          :foreground "#0a0a0a"
-                          :background "#d7d7d7")
-      (set-face-attribute 'mode-line-inactive nil
-                          :foreground "#404148"
-                          :background "#efefef")))))
+  (defun my-god-mode-toggle-mode-line ()
+    (if god-local-mode
+	(setq mode-line-format (default-value 'mode-line-format))
+      (setq mode-line-format nil))))
 
 (use-package which-key
   :ensure nil
