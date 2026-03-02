@@ -676,11 +676,11 @@ ARG is the prefix argument."
   (add-to-list 'safe-local-eval-forms '(org-fc-review-buffer-early))
 
   (defun org-fc-review-buffer-early ()
-  "Review all cards in current buffer, including non-due cards."
-  (interactive)
-  (let ((org-fc-review-card-filters
-         (remove #'org-fc-index-filter-due org-fc-review-card-filters)))
-    (org-fc-review org-fc-context-buffer))))
+    "Review all cards in current buffer, including non-due cards."
+    (interactive)
+    (let ((org-fc-review-card-filters
+	   (remove #'org-fc-index-filter-due org-fc-review-card-filters)))
+      (org-fc-review org-fc-context-buffer))))
 
 (use-package ox-latex
   :ensure nil
