@@ -667,6 +667,21 @@ ARG is the prefix argument."
 (use-package org-web-tools
   :after org)
 
+(use-package org-fc
+  :vc (:url "https://github.com/l3kn/org-fc"
+	    :rev :newest)
+  :custom (org-fc-directories '("{{- .chezmoi.homeDir -}}/Documents"))
+
+  :config
+  (add-to-list 'safe-local-eval-forms '(org-fc-review-buffer-early))
+
+  (defun org-fc-review-buffer-early ()
+  "Review all cards in current buffer, including non-due cards."
+  (interactive)
+  (let ((org-fc-review-card-filters
+         (remove #'org-fc-index-filter-due org-fc-review-card-filters)))
+    (org-fc-review org-fc-context-buffer))))
+
 (use-package ox-latex
   :ensure nil
   :config
