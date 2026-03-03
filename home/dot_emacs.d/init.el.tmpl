@@ -345,11 +345,10 @@
 (use-package ol-bibtex
   :ensure nil
   :custom
+  (org-bibtex-tags-are-keywords t)
   (org-bibtex-no-export-tags '("agenda"))
 
   :config
-  (add-to-list 'safe-local-variable-values
-               '(org-bibtex-tags-are-keywords . t))
   (add-to-list 'safe-local-variable-values
                '(org-bibtex-inherit-tags . t)))
 
