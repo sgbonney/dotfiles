@@ -30,6 +30,7 @@ packages:
     - 'com.github.jeromerobert.pdfarranger'
     - 'com.google.AndroidStudio'
     - 'io.ente.photos'
+    - 'io.naox.InnerBreeze'
     - 'network.loki.Session'
     - 'org.flatpak.Builder'
     - 'org.gnome.Boxes'
