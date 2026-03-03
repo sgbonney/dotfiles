@@ -342,6 +342,17 @@
   :bind (:map emacs-lisp-mode-map
 	      ("M-m" . casual-elisp-tmenu)))
 
+(use-package ol-bibtex
+  :ensure nil
+  :custom
+  (org-bibtex-no-export-tags '("agenda"))
+
+  :config
+  (add-to-list 'safe-local-variable-values
+               '(org-bibtex-tags-are-keywords . t))
+  (add-to-list 'safe-local-variable-values
+               '(org-bibtex-inherit-tags . t)))
+
 (use-package org
   :demand t
 
@@ -696,17 +707,6 @@ ARG is the prefix argument."
   :after org-contrib
   :config
   (ox-extras-activate '(ignore-headlines)))
-
-(use-package ol-bibtex
-  :ensure nil
-  :custom
-  (org-bibtex-no-export-tags '("agenda"))
-
-  :config
-  (add-to-list 'safe-local-variable-values
-               '(org-bibtex-tags-are-keywords . t))
-  (add-to-list 'safe-local-variable-values
-               '(org-bibtex-inherit-tags . t)))
 
 (use-package markdown-mode
   :bind (:map markdown-mode-map
