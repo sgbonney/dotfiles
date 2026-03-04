@@ -680,17 +680,32 @@ ARG is the prefix argument."
 (use-package org-fc
   :vc (:url "https://github.com/l3kn/org-fc"
 	    :rev :newest)
-  :custom (org-fc-directories '("{{- .chezmoi.homeDir -}}/Documents"))
+  :custom
+  (org-fc-review-history-file "{{- template "find" "**/20260304T084905--*" -}}")
+  (org-fc-directories '("{{- .chezmoi.homeDir -}}/Documents"))
 
   :config
-  (add-to-list 'safe-local-eval-forms '(org-fc-review-buffer-early))
+  (defun org-fc-algo-log-review-relative-path (orig-fun algo position current rating delta)
+    "Convert file paths to relative before logging review data."
+    (let* ((card (oref position card))
+	   (file (oref card file))
+	   (original-path (oref file path))
+	   (relative-path (if (file-name-absolute-p original-path)
+			      (file-relative-name original-path)
+			    original-path)))
+      (setf (oref file path) relative-path)
+      (unwind-protect
+	  (funcall orig-fun algo position current rating delta)
+	(setf (oref file path) original-path))))
+  (advice-add 'org-fc-algo-log-review :around #'org-fc-algo-log-review-relative-path)
 
   (defun org-fc-review-buffer-early ()
     "Review all cards in current buffer, including non-due cards."
     (interactive)
     (let ((org-fc-review-card-filters
 	   (remove #'org-fc-index-filter-due org-fc-review-card-filters)))
-      (org-fc-review org-fc-context-buffer))))
+      (org-fc-review org-fc-context-buffer)))
+  (add-to-list 'safe-local-eval-forms '(org-fc-review-buffer-early)))
 
 (use-package ox-latex
   :ensure nil
