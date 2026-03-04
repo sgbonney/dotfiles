@@ -13,6 +13,10 @@ if command -v brew >/dev/null 2>&1; then
     brew update && brew upgrade
 fi
 
+if command -v emacsclient >/dev/null 2>&1; then
+    emacsclient -e "(progn (package-upgrade-all nil) (package-vc-upgrade-all))"
+fi
+
 if command -v flatpak >/dev/null 2>&1; then
     flatpak update -y
 fi
