@@ -1058,6 +1058,9 @@ ARG is the prefix argument."
          ("C-M-$" . jinx-languages)))
 
 (use-package nov
+  :custom
+  (nov-save-place-file "{{- template "find" "**/20260226T122049--*" -}}")
+
   {{ if contains "android" .osid -}}
   :bind (("<volume-up>" . nov-scroll-down)
          ("<volume-down>" . nov-scroll-up))
