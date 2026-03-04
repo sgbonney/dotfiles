@@ -1060,6 +1060,22 @@ ARG is the prefix argument."
   :config
   (display-line-numbers-mode 0))
 
+{{ if contains "fedora" .osid -}}
+(use-package touchtype
+  :vc (:url "https://github.com/chiply/touchtype")
+  :preface
+  (defun my-touchtype-auto-export ()
+    "Auto-export after session end."
+    (when touchtype--stats
+      (touchtype-stats-export 'json "{{- template "find" "**/20260304T080437--*" -}}")))
+
+  :custom
+  (touchtype-stats-file "{{- template "find" "**/20260304T082349--*" -}}")
+
+  :config
+  (advice-add 'touchtype-ui--end-session :after #'my-touchtype-auto-export))
+
+{{ end -}}
 (use-package f)
 
 ;;;; Functions
