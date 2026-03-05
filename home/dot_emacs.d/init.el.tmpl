@@ -342,16 +342,6 @@
   :bind (:map emacs-lisp-mode-map
 	      ("M-m" . casual-elisp-tmenu)))
 
-(use-package ol-bibtex
-  :ensure nil
-  :custom
-  (org-bibtex-tags-are-keywords t)
-  (org-bibtex-no-export-tags '("agenda"))
-
-  :config
-  (add-to-list 'safe-local-variable-values
-               '(org-bibtex-inherit-tags . t)))
-
 (use-package org
   :demand t
 
@@ -414,13 +404,6 @@
   (org-todo-keywords
    '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)" "CNCL(c)")))
 
-  (org-agenda-hide-tags-regexp "agenda")
-  (org-agenda-prefix-format '((agenda . " %i %?-12t% s")
-                              (timeline . "  % s")
-                              (todo . " %i %-12:c")
-                              (tags . " %i %-12:c")
-                              (search . " %i %-12:c")))
-
   (org-capture-templates
    '(("b" "Bibliographic")
      ("bw" "Website" entry
@@ -464,11 +447,7 @@
 	 ("C-c C-p" . my-org-previous-visible-heading-or-cycle)
 	 ("M-m" . casual-org-tmenu)
          :map org-table-fedit-map
-         ("M-m" . casual-org-table-fedit-tmenu)
-	 :map org-agenda-mode-map
-         ("C-o" . casual-agenda-tmenu)
-         ("M-j" . org-agenda-clock-goto)
-         ("J" . bookmark-jump))
+         ("M-m" . casual-org-table-fedit-tmenu))
 
   :config
   (add-to-list 'org-modules 'org-habit t)
@@ -477,20 +456,6 @@
                '(org-duration-format . h:mm))
   (add-to-list 'safe-local-variable-values
                '(org-log-done . time))
-
-  (defun refresh-org-agenda-files ()
-    (interactive)
-    (setq org-agenda-files nil)
-    (setq org-agenda-files
-	  (cl-remove-if
-	   (lambda (file)
-	     (string-match "_archive" file))
-	   (directory-files-recursively
-	    "{{- .chezmoi.homeDir -}}/Documents"
-	    ".*_agenda.*\\.org$")))
-    (org-agenda-prepare-buffers org-agenda-files)
-    (message "Org agenda files refreshed."))
-  (refresh-org-agenda-files)
 
   (defun my/denote-archive-location (location)
     (if (string-match "^denote:\\([0-9]\\{8\\}T[0-9]\\{6\\}\\)::" location)
@@ -626,6 +591,63 @@ ARG is the prefix argument."
      (python . t)
      (shell . t))))
 
+(use-package org-agenda
+  :demand t
+  :after ol-bibtex
+  :ensure nil
+  :custom
+  (org-agenda-hide-tags-regexp "agenda")
+  (org-agenda-prefix-format '((agenda . " %i %?-12t% s")
+                              (timeline . "  % s")
+                              (todo . " %i %-12:c")
+                              (tags . " %i %-12:c")
+                              (search . " %i %-12:c")))
+
+  :bind (:map org-agenda-mode-map
+         ("C-o" . casual-agenda-tmenu)
+         ("M-j" . org-agenda-clock-goto)
+         ("J" . bookmark-jump))
+
+  :config
+  (defun refresh-org-agenda-files ()
+    (interactive)
+    (setq org-agenda-files nil)
+    (setq org-agenda-files
+          (cl-remove-if
+           (lambda (file)
+             (string-match "_archive" file))
+           (directory-files-recursively
+            "{{- .chezmoi.homeDir -}}/Documents"
+            ".*_agenda.*\\.org$")))
+    (org-agenda-prepare-buffers org-agenda-files)
+    (message "Org agenda files refreshed."))
+  (refresh-org-agenda-files)
+
+  (defvar org-agenda-cursor-overlay nil
+    "Overlay for highlighting current agenda line.")
+
+  (defun org-agenda-highlight-current-line ()
+    "Highlight the current line in agenda buffer."
+    (when org-agenda-cursor-overlay
+      (delete-overlay org-agenda-cursor-overlay))
+    (setq org-agenda-cursor-overlay
+          (make-overlay (line-beginning-position) (line-end-position)))
+    (overlay-put org-agenda-cursor-overlay 'face 'highlight)
+    (overlay-put org-agenda-cursor-overlay 'evaporate t))
+
+  (defun org-agenda-unhighlight-current-line ()
+    "Remove highlight from current line."
+    (when org-agenda-cursor-overlay
+      (delete-overlay org-agenda-cursor-overlay)
+      (setq org-agenda-cursor-overlay nil)))
+
+  :hook
+  (org-agenda-mode . (lambda ()
+                       (add-hook 'post-command-hook
+                                 #'org-agenda-highlight-current-line nil t)
+                       (add-hook 'pre-command-hook
+                                 #'org-agenda-unhighlight-current-line nil t))))
+
 (use-package org-gtd
   :ensure t
   :after org
@@ -706,6 +728,16 @@ ARG is the prefix argument."
 	   (remove #'org-fc-index-filter-due org-fc-review-card-filters)))
       (org-fc-review org-fc-context-buffer)))
   (add-to-list 'safe-local-eval-forms '(org-fc-review-buffer-early)))
+
+(use-package ol-bibtex
+  :ensure nil
+  :custom
+  (org-bibtex-tags-are-keywords t)
+  (org-bibtex-no-export-tags '("agenda"))
+
+  :config
+  (add-to-list 'safe-local-variable-values
+               '(org-bibtex-inherit-tags . t)))
 
 (use-package ox-latex
   :ensure nil
