@@ -726,8 +726,7 @@ ARG is the prefix argument."
     (interactive)
     (let ((org-fc-review-card-filters
 	   (remove #'org-fc-index-filter-due org-fc-review-card-filters)))
-      (org-fc-review org-fc-context-buffer)))
-  (add-to-list 'safe-local-eval-forms '(org-fc-review-buffer-early)))
+      (org-fc-review org-fc-context-buffer))))
 
 (use-package ol-bibtex
   :ensure nil
