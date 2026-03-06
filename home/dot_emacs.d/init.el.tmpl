@@ -509,30 +509,7 @@ ARG is the prefix argument."
     (message "Org agenda files refreshed."))
   (refresh-org-agenda-files)
 
-  (defvar org-agenda-cursor-overlay nil
-    "Overlay for highlighting current agenda line.")
-
-  (defun org-agenda-highlight-current-line ()
-    "Highlight the current line in agenda buffer."
-    (when org-agenda-cursor-overlay
-      (delete-overlay org-agenda-cursor-overlay))
-    (setq org-agenda-cursor-overlay
-          (make-overlay (line-beginning-position) (line-end-position)))
-    (overlay-put org-agenda-cursor-overlay 'face 'highlight)
-    (overlay-put org-agenda-cursor-overlay 'evaporate t))
-
-  (defun org-agenda-unhighlight-current-line ()
-    "Remove highlight from current line."
-    (when org-agenda-cursor-overlay
-      (delete-overlay org-agenda-cursor-overlay)
-      (setq org-agenda-cursor-overlay nil)))
-
-  :hook
-  (org-agenda-mode . (lambda ()
-                       (add-hook 'post-command-hook
-                                 #'org-agenda-highlight-current-line nil t)
-                       (add-hook 'pre-command-hook
-                                 #'org-agenda-unhighlight-current-line nil t))))
+  :hook (org-agenda-mode . hl-line-mode))
 
 (use-package org-gtd
   :ensure t
