@@ -518,6 +518,7 @@ ARG is the prefix argument."
            (directory-files-recursively
             "{{- .chezmoi.homeDir -}}/Documents"
             ".*_agenda.*\\.org$")))
+    ;; Add org-gtd files
     (add-to-list 'org-agenda-files org-gtd-directory)
     (org-agenda-prepare-buffers org-agenda-files)
     (message "Org agenda files refreshed."))
