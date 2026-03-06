@@ -307,11 +307,6 @@
       :after-finalize (lambda ()
                        (with-current-buffer (org-capture-get :buffer)
                          (org-bibtex "{{- template "find" "**/20251104T145004--*" -}}"))))
-     ("d" "Brain dump" entry
-      (file "{{- template "find" "**/20241008T005006--*" -}}")
-      "* %?\n%U"
-      :prepend t
-      :empty-lines 1)
      ("f" "Fuel log" entry
       (file+headline "{{- template "find" "**/20190317T144500--*" -}}" "2025-26")
       "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251030T105223\" 'org-mode))"
@@ -319,6 +314,13 @@
       :before-finalize (lambda ()
                         (with-current-buffer (org-capture-get :buffer)
                           (org-update-all-dblocks))))
+     ("i" "Inbox" entry
+      (file my-inbox-file)
+      "* %?"
+      :prepend t
+      :empty-lines 1
+      :kill-buffer t
+      :before-finalize org-capture--add-captured-timestamp)
      ("w" "Work schedule" entry
       (file+headline "{{- template "find" "**/20241008T004852--*" -}}" "Employment")
       "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251103T081423\" 'org-mode))"
@@ -339,6 +341,17 @@
 	 ("C-," . nil)
 	 ("C-c C-n" . my-org-next-visible-heading-or-cycle)
 	 ("C-c C-p" . my-org-previous-visible-heading-or-cycle))
+
+  :init
+  (defvar my-inbox-file "{{- template "find" "**/20241008T005006--*" -}}")
+
+  (defun org-capture--add-captured-timestamp ()
+    "Add CAPTURED property with inactive timestamp.
+     Used as :before-finalize hook in 'org-capture-templates'.
+     Modified from 'org-gtd'."
+    (org-back-to-heading t)
+    (org-entry-put nil "CAPTURED"
+                   (format-time-string (org-time-stamp-format t t))))
 
   :config
   (add-to-list 'org-modules 'org-habit t)
