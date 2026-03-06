@@ -505,6 +505,7 @@ ARG is the prefix argument."
            (directory-files-recursively
             "{{- .chezmoi.homeDir -}}/Documents"
             ".*_agenda.*\\.org$")))
+    (add-to-list 'org-agenda-files org-gtd-directory)
     (org-agenda-prepare-buffers org-agenda-files)
     (message "Org agenda files refreshed."))
   (refresh-org-agenda-files)
@@ -512,8 +513,6 @@ ARG is the prefix argument."
   :hook (org-agenda-mode . hl-line-mode))
 
 (use-package org-gtd
-  :ensure t
-  :after org
   :demand t
 
   :init
@@ -530,7 +529,8 @@ ARG is the prefix argument."
                              (canceled . "CNCL")))
 
   :config
-  (add-to-list 'org-agenda-files org-gtd-directory)
+  ;; Included in refresh-org-agenda-files
+  ;; (add-to-list 'org-agenda-files org-gtd-directory)
 
   ;; REQUIRED: Enable org-edna for project dependencies
   (org-edna-mode 1)
