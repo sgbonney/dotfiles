@@ -851,7 +851,26 @@ ARG is the prefix argument."
   (dired-mode . denote-dired-mode))
 
 (use-package denote-org
-  :after denote)
+  :after denote
+  :config
+  (defun remove-zws-from-dblock-output (orig-fun &rest args)
+    "Advice to remove zero-width spaces from dynamic block output."
+    (let ((start (point)))
+      (apply orig-fun args)
+      (save-restriction
+        (narrow-to-region start (point))
+        (goto-char (point-min))
+        (while (re-search-forward "\u200B" nil t)
+          (replace-match "")))))
+
+  (defun org-dblock-write:denote-files-verbatim (params)
+    "Write denote-files block without zero-width spaces."
+    (remove-zws-from-dblock-output
+     #'org-dblock-write:denote-files
+     params))
+
+  (org-dynamic-block-define "denote-files-verbatim"
+                            #'org-dblock-write:denote-files-verbatim))
 
 (use-package denote-journal
   :after denote
