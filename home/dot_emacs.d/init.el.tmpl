@@ -89,8 +89,8 @@
   (setenv "TEXMFLOCAL" "/data/data/com.termux/files/usr/share/texlive/texmf-local")
   (setenv "OSFONTDIR" "/data/data/com.termux/files/usr/share/fonts/TTF")
   (setenv "TRFONTS" "/data/data/com.termux/files/usr/share/groff/{current/font,site-font}/devps")
-  {{ end -}}
 
+  {{ end -}}
   :config
   (require-theme 'modus-themes)
   (setq modus-themes-italic-constructs t
@@ -153,7 +153,9 @@
 
 (use-package dired
   :ensure nil
-  :hook (dired-mode . dired-hide-details-mode))
+  :hook
+  (dired-mode . dired-hide-details-mode)
+  (dired-mode . hl-line-mode))
 
 (use-package image-mode
   :ensure nil
