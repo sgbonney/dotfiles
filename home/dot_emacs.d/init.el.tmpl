@@ -164,9 +164,8 @@
 
 (use-package prog-mode
   :ensure nil
-  :config
-  (add-hook 'prog-mode-hook 'outline-minor-mode)
-  (add-hook 'prog-mode-hook 'hs-minor-mode))
+  :hook (prog-mode . outline-minor-mode)
+        (prog-mode . hs-minor-mode))
 
 (use-package outline
   :ensure nil
