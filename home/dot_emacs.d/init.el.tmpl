@@ -564,7 +564,9 @@ ARG is the prefix argument."
     (message "Org agenda files refreshed."))
   (refresh-org-agenda-files)
 
-  :hook (org-agenda-mode . hl-line-mode))
+  :hook
+  (org-agenda-mode . hl-line-mode)
+  (org-agenda-mode . (lambda () (visual-line-mode -1))))
 
 (use-package org-gtd
   :demand t
