@@ -316,6 +316,10 @@
                         (with-current-buffer (org-capture-get :buffer)
                           (org-update-all-dblocks))))
      ("h" "Habit tracking")
+     ("hb" "Breathwork" plain
+      (function (lambda () (my-capture-id-datetree "c6264488-2c3d-415f-8b2b-82e9b755e6c3")))
+      "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20260313T104102\" 'org-mode))"
+      :empty-lines-after 1)
      ("hc" "Cold shower" plain
       (function (lambda () (my-capture-id-datetree "64bf660f-e18b-45b2-88b1-ca35bd8423b8")))
       ":LOGBOOK:\n%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251103T132443\" 'org-mode))\n:END:"
