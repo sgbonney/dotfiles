@@ -566,7 +566,9 @@ ARG is the prefix argument."
 
   :hook
   (org-agenda-mode . hl-line-mode)
-  (org-agenda-mode . (lambda () (visual-line-mode -1))))
+  (org-agenda-mode . (lambda ()
+		       (visual-line-mode -1)
+		       (toggle-truncate-lines 1))))
 
 (use-package org-gtd
   :demand t
