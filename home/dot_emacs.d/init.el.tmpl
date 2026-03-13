@@ -317,7 +317,7 @@
                           (org-update-all-dblocks))))
      ("h" "Habit tracking")
      ("hc" "Cold shower" plain
-      (file+olp+datetree "{{- template "find" "**/20240810T181700--*" -}}" "Cold shower")
+      (function (lambda () (my-capture-id-datetree "64bf660f-e18b-45b2-88b1-ca35bd8423b8")))
       ":LOGBOOK:\n%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251103T132443\" 'org-mode))\n:END:"
       :empty-lines-after 1)
      ("i" "Inbox" entry
@@ -367,6 +367,22 @@
   (add-to-list 'safe-local-variable-values
                '(org-log-done . time))
 
+  (defun my-capture-id-datetree (id)
+    "Find entry with ID and create datetree under it."
+    (let ((location (org-id-find id)))
+      (if location
+	  (progn
+	    (set-buffer (org-capture-target-buffer (car location)))
+	    (widen)
+	    (goto-char (cdr location))
+	    (require 'org-datetree)
+	    (org-datetree-find-date-create (calendar-gregorian-from-absolute
+					    (org-today))
+					   'subtree-at-point)
+	    (org-end-of-subtree)
+	    (forward-line 1))
+	(error "Cannot find target ID \"%s\"" id))))
+
   (defun my/denote-archive-location (location)
     (if (string-match "^denote:\\([0-9]\\{8\\}T[0-9]\\{6\\}\\)::" location)
 	(let* ((denote-id (match-string 1 location))
@@ -386,7 +402,6 @@
 	   current-file)
 	 (format heading-fmt (file-name-nondirectory current-file))))))
   (advice-add 'org-archive--compute-location :override #'my/denote-archive-location)
-
 
   (defun org-columns-dblock-write-relative-links (ipos table params)
     (let ((link (plist-get params :link))
