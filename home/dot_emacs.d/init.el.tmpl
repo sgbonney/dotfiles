@@ -563,6 +563,8 @@ ARG is the prefix argument."
                               (search . " %i %-12:c")))
   (org-agenda-show-outline-path 'title)
 
+  (org-agenda-span 'day)
+
   (org-agenda-custom-commands
    '(("h" "Habits"
       ((agenda ""
