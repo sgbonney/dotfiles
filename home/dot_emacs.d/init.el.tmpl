@@ -389,6 +389,27 @@
 	    (forward-line 1))
 	(error "Cannot find target ID \"%s\"" id))))
 
+  (defun denote-get-heading-name-from-link (link)
+    "Return the heading name from a Denote heading LINK."
+    (interactive "sDenote link: ")
+    (let ((result
+	   (when (string-match "\\`denote:\\([^:]+\\)::#\\([^]]+\\)" link)
+	     (let* ((identifier (match-string 1 link))
+		    (custom-id (match-string 2 link))
+		    (parsed-id (denote-extract-id-from-string identifier))
+		    (file-path (when parsed-id (denote-get-path-by-id parsed-id))))
+	       (when (and file-path (file-exists-p file-path))
+		 (with-temp-buffer
+		   (insert-file-contents file-path)
+		   (org-mode)
+		   (goto-char (point-min))
+		   (when (re-search-forward (format ":CUSTOM_ID: %s" custom-id) nil t)
+		     (org-back-to-heading t)
+		     (nth 4 (org-heading-components)))))))))
+      (if (called-interactively-p 'interactive)
+	  (message "Heading: %s" (or result "Not found"))
+	result)))
+
   (defun my/denote-archive-location (location)
     (if (string-match "^denote:\\([0-9]\\{8\\}T[0-9]\\{6\\}\\)::" location)
 	(let* ((denote-id (match-string 1 location))
