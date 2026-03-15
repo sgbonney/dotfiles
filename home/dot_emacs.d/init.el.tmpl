@@ -411,14 +411,21 @@
 	result)))
 
   (defun my/denote-archive-location (location)
-    (if (string-match "^denote:\\([0-9]\\{8\\}T[0-9]\\{6\\}\\)::" location)
+    (if (string-match "^denote:\\([0-9]\\{8\\}T[0-9]\\{6\\}\\)::\\(#\\([^]]+\\)\\)?" location)
 	(let* ((denote-id (match-string 1 location))
+	       (has-custom-id (match-string 2 location))
+	       (custom-id (when has-custom-id (match-string 3 location)))
 	       (heading-fmt (substring location (match-end 0)))
-	       (archive-file (denote-get-path-by-id denote-id)))
+	       (archive-file (denote-get-path-by-id denote-id))
+	       (heading-name (when (and custom-id archive-file (file-exists-p archive-file))
+			      (denote-get-heading-name-from-link
+			       (format "denote:%s::#%s" denote-id custom-id)))))
 	  (cons
 	   (or archive-file
 	       (error "No Denote file found with ID: %s" denote-id))
-	   (format heading-fmt "")))
+	   (if heading-name
+	       (format "%s* %s" heading-fmt heading-name)
+	     (format heading-fmt ""))))
       (let ((current-file (buffer-file-name (buffer-base-buffer)))
 	    (file-fmt (substring location 0 (string-match "::" location)))
 	    (heading-fmt (substring location (match-end 0))))
