@@ -33,6 +33,7 @@ packages:
     - 'network.loki.Session'
     - 'org.equicord.equibop'
     - 'org.flatpak.Builder'
+    - 'org.gimp.GIMP'
     - 'org.gnome.Boxes'
     - 'org.libreoffice.LibreOffice'
     - 'org.mozilla.Thunderbird'
