@@ -200,8 +200,8 @@
   (god-mode-disabled . text-conversion-restore-default)
 
   {{ end -}}
-  (post-command . my-god-mode-update-cursor)
-  (post-command . my-god-mode-toggle-mode-line)
+  (post-command . {{ .handle -}}-god-mode-update-cursor)
+  (post-command . {{ .handle -}}-god-mode-toggle-mode-line)
 
   :init
   (setq god-mode-enable-function-key-translation nil)
@@ -214,14 +214,14 @@
   :config
   (god-mode-all)
 
-  (defun my-god-mode-update-cursor ()
+  (defun {{ .handle -}}-god-mode-update-cursor ()
     (setq cursor-type
 	  (if (or god-local-mode buffer-read-only) 'box 'bar))
     (if god-local-mode
 	(blink-cursor-mode -1)
       (blink-cursor-mode 1)))
 
-  (defun my-god-mode-toggle-mode-line ()
+  (defun {{ .handle -}}-god-mode-toggle-mode-line ()
     (if god-local-mode
 	(setq mode-line-format (default-value 'mode-line-format))
       (setq mode-line-format nil))))
@@ -237,21 +237,21 @@
   :demand t
 
   :preface
-  (defun my-org-narrow-cycle-next ()
+  (defun {{ .handle -}}-org-narrow-cycle-next ()
     "Cycle to next subtree when in narrowed buffer."
     (interactive)
     (when (buffer-narrowed-p) (widen))
     (org-next-visible-heading 1)
     (org-narrow-to-subtree))
 
-  (defun my-org-narrow-cycle-previous ()
+  (defun {{ .handle -}}-org-narrow-cycle-previous ()
     "Cycle to previous subtree when in narrowed buffer."
     (interactive)
     (when (buffer-narrowed-p) (widen))
     (org-previous-visible-heading 1)
     (org-narrow-to-subtree))
 
-  (defun my-org-next-visible-heading-or-cycle ()
+  (defun {{ .handle -}}-org-next-visible-heading-or-cycle ()
     "Move to next heading in narrowed view, or cycle to next subtree if none."
     (interactive)
     (if (buffer-narrowed-p)
@@ -267,10 +267,10 @@
                    (>= next-heading-pos (point-min))
                    (<= next-heading-pos (point-max)))
               (goto-char next-heading-pos)
-            (my-org-narrow-cycle-next)))
+            ({{- .handle -}}-org-narrow-cycle-next)))
       (org-next-visible-heading 1)))
 
-  (defun my-org-previous-visible-heading-or-cycle ()
+  (defun {{ .handle -}}-org-previous-visible-heading-or-cycle ()
     "Move to previous heading in narrowed view, or cycle to previous subtree if none."
     (interactive)
     (if (buffer-narrowed-p)
@@ -286,7 +286,7 @@
                    (>= prev-heading-pos (point-min))
                    (<= prev-heading-pos (point-max)))
               (goto-char prev-heading-pos)
-            (my-org-narrow-cycle-previous)))
+            ({{- .handle -}}-org-narrow-cycle-previous)))
       (org-previous-visible-heading 1)))
 
   :custom
@@ -319,15 +319,15 @@
                           (org-update-all-dblocks))))
      ("h" "Habit tracking")
      ("hb" "Breathwork" plain
-      (function (lambda () (my-capture-id-datetree "20260314T205427.976990")))
+      (function (lambda () ({{- .handle -}}-capture-id-datetree "20260314T205427.976990")))
       "%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20260313T104102\" 'org-mode))"
       :empty-lines-after 1)
      ("hc" "Cold shower" plain
-      (function (lambda () (my-capture-id-datetree "20260314T205537.548743")))
+      (function (lambda () ({{- .handle -}}-capture-id-datetree "20260314T205537.548743")))
       ":LOGBOOK:\n%(yas-expand-snippet-to-string (yas-lookup-snippet-by-uuid \"20251103T132443\" 'org-mode))\n:END:"
       :empty-lines-after 1)
      ("i" "Inbox" entry
-      (file my-inbox-file)
+      (file {{ .handle -}}-inbox-file)
       "* %?"
       :prepend t
       :empty-lines 1
@@ -351,11 +351,11 @@
 	 :map org-mode-map
 	 ("C-'" . nil)
 	 ("C-," . nil)
-	 ("C-c C-n" . my-org-next-visible-heading-or-cycle)
-	 ("C-c C-p" . my-org-previous-visible-heading-or-cycle))
+	 ("C-c C-n" . {{ .handle -}}-org-next-visible-heading-or-cycle)
+	 ("C-c C-p" . {{ .handle -}}-org-previous-visible-heading-or-cycle))
 
   :init
-  (defvar my-inbox-file "{{- template "find" "**/20241008T005006--*" -}}")
+  (defvar {{ .handle -}}-inbox-file "{{- template "find" "**/20241008T005006--*" -}}")
 
   (defun org-capture--add-captured-timestamp ()
     "Add CAPTURED property with inactive timestamp.
@@ -373,7 +373,7 @@
   (add-to-list 'safe-local-variable-values
                '(org-log-done . time))
 
-  (defun my-capture-id-datetree (id)
+  (defun {{ .handle -}}-capture-id-datetree (id)
     "Find entry with ID and create datetree under it."
     (let ((location (org-id-find id)))
       (if location
@@ -983,7 +983,7 @@ ARG is the prefix argument."
   :after denote
 
   :config
-  (defun my-denote-identifier-for-changelog (buffer-file)
+  (defun {{ .handle -}}-denote-identifier-for-changelog (buffer-file)
     "Extract Denote identifier from BUFFER-FILE for ChangeLog entries.
 If not a Denote file, fall back to default filename behavior."
     (if-let* ((file buffer-file)
@@ -1000,7 +1000,7 @@ If not a Denote file, fall back to default filename behavior."
 
   :custom
   (add-log-full-name {{ .name | quote -}})
-  (add-log-file-name-function 'my-denote-identifier-for-changelog))
+  (add-log-file-name-function '{{- .handle -}}-denote-identifier-for-changelog))
 
 (use-package biblio)
 
@@ -1087,8 +1087,8 @@ If not a Denote file, fall back to default filename behavior."
   :hook ((nov-mode . (lambda ()
                        (display-line-numbers-mode -1)))
          (nov-mode-hook . (lambda ()
-                            (make-local-variable 'my-line-numbers-enabled)
-                            (setq my-line-numbers-enabled nil))))
+                            (make-local-variable '{{- .handle -}}-line-numbers-enabled)
+                            (setq {{ .handle -}}-line-numbers-enabled nil))))
 
   :config
   (display-line-numbers-mode 0))
@@ -1097,7 +1097,7 @@ If not a Denote file, fall back to default filename behavior."
 (use-package touchtype
   :vc (:url "https://github.com/chiply/touchtype")
   :preface
-  (defun my-touchtype-auto-export ()
+  (defun {{ .handle -}}-touchtype-auto-export ()
     "Auto-export after session end."
     (when touchtype--stats
       (touchtype-stats-export 'json "{{- template "find" "**/20260304T080437--*" -}}")))
@@ -1106,14 +1106,14 @@ If not a Denote file, fall back to default filename behavior."
   (touchtype-stats-file "{{- template "find" "**/20260304T082349--*" -}}")
 
   :config
-  (advice-add 'touchtype-ui--end-session :after #'my-touchtype-auto-export))
+  (advice-add 'touchtype-ui--end-session :after #'{{- .handle -}}-touchtype-auto-export))
 
 {{ end -}}
 (use-package f)
 
 ;;;; Functions
 
-(defun my/extract-pins-from-org ()
+(defun {{ .handle -}}-extract-pins-from-org ()
   "Extract pins from the specified Org file and display them in a temporary buffer."
   (interactive)
   (let ((org-file-path "{{- template "find" "**/20240808T080919--*" -}}"))  ;; Specify your Org file path here
