@@ -1,4 +1,4 @@
-{{- /* -*- mode: emacs-lisp; -*- */ -}}
+{{- /* -*- mode: emacs-lisp -*- */ -}}
 
 ((change-log-mode . ((add-log-dont-create-changelog-file . nil)
 		     (add-log-time-format . (lambda (&optional time zone)
