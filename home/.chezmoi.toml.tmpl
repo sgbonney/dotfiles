@@ -12,6 +12,8 @@ encryption = "age"
 
 [data]
     osid = {{ $osid | quote }}
+    name = "Samuel Bonney"
+    handle = "sbonney"
 
 [hooks.read-source-state.pre]
     command = "{{- .chezmoi.homeDir -}}/.local/share/chezmoi/home/.install-password-manager.sh"
