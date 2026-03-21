@@ -981,6 +981,7 @@ ARG is the prefix argument."
 (use-package add-log
   :ensure nil
   :after denote
+
   :config
   (defun my-denote-identifier-for-changelog (buffer-file)
     "Extract Denote identifier from BUFFER-FILE for ChangeLog entries.
@@ -992,10 +993,13 @@ If not a Denote file, fall back to default filename behavior."
         (add-log-file-name buffer-file (find-change-log)))))
 
   (add-to-list 'safe-local-variable-values
+               '(add-log-mailing-address "{{- .handle -}}@{{- index .chezmoi.osRelease "id" | default .chezmoi.os -}}"))
+  (add-to-list 'safe-local-variable-values
 	       '(add-log-time-format lambda (&optional time zone)
 				     (format-time-string "%Y-%m-%d %H:%M:%S" time zone)))
 
   :custom
+  (add-log-full-name {{ .name | quote -}})
   (add-log-file-name-function 'my-denote-identifier-for-changelog))
 
 (use-package biblio)

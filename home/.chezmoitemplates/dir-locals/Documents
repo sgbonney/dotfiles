@@ -2,4 +2,5 @@
 
 ((change-log-mode . ((add-log-dont-create-changelog-file . nil)
 		     (add-log-time-format . (lambda (&optional time zone)
-					      (format-time-string "%Y-%m-%d %H:%M:%S" time zone))))))
+					      (format-time-string "%Y-%m-%d %H:%M:%S" time zone)))
+		     (add-log-mailing-address "{{- .handle -}}@{{- index .chezmoi.osRelease "id" | default .chezmoi.os -}}"))))
