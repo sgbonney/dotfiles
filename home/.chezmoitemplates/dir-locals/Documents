@@ -1,0 +1,5 @@
+{{- /* -*- mode: emacs-lisp; -*- */ -}}
+
+((change-log-mode . ((add-log-dont-create-changelog-file . nil)
+		     (add-log-time-format . (lambda (&optional time zone)
+					      (format-time-string "%Y-%m-%d %H:%M:%S" time zone))))))

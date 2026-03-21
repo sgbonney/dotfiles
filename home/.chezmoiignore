@@ -30,6 +30,7 @@ key.txt.age
 
 {{- if not (contains "fedora" .osid) }}
 .config/input-remapper-2
+Documents
 **/emacs.*
 **/org.gnome.TextEditor
 **/restart-emacs.sh
