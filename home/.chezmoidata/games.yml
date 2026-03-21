@@ -1,7 +1,0 @@
-games:
-  gp_bikes:
-    path:
-      '*/compatdata/**/GP Bikes'
-  mx_bikes:
-    path:
-      '*/compatdata/**/MX Bikes'
