@@ -32,7 +32,6 @@ packages:
     - 'io.ente.photos'
     - 'io.naox.InnerBreeze'
     - 'network.loki.Session'
-    - 'org.equicord.equibop'
     - 'org.flatpak.Builder'
     - 'org.gnome.Boxes'
     - 'org.libreoffice.LibreOffice'
@@ -48,9 +47,6 @@ packages:
     - 'io.github.ungoogled_software.ungoogled_chromium'
     - 'io.gitlab.librewolf-community'
     - 'org.keepassxc.KeePassXC'
-    steamos:
-    - 'org.equicord.equibop'
-    - 'org.gimp.GIMP'
   pkg:
     android:
     - 'aspell-en'
