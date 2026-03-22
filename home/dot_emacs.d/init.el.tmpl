@@ -410,7 +410,7 @@
 	  (message "Heading: %s" (or result "Not found"))
 	result)))
 
-  (defun my/denote-archive-location (location)
+  (defun {{ .handle -}}-denote-archive-location (location)
     (if (string-match "^denote:\\([0-9]\\{8\\}T[0-9]\\{6\\}\\)::\\(#\\([^]]+\\)\\)?" location)
 	(let* ((denote-id (match-string 1 location))
 	       (has-custom-id (match-string 2 location))
@@ -435,7 +435,7 @@
 	      (format file-fmt (file-name-nondirectory current-file)))
 	   current-file)
 	 (format heading-fmt (file-name-nondirectory current-file))))))
-  (advice-add 'org-archive--compute-location :override #'my/denote-archive-location)
+  (advice-add 'org-archive--compute-location :override #'{{- .handle -}}-denote-archive-location)
 
   (defun org-columns-dblock-write-relative-links (ipos table params)
     (let ((link (plist-get params :link))
