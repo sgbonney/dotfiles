@@ -63,7 +63,6 @@ packages:
     - 'ttf-dejavu'
   rpm_ostree:
     fedora:
-    - 'backintime-qt'
     - 'emacs'
     - 'enchant2-devel'
     - 'input-remapper'
