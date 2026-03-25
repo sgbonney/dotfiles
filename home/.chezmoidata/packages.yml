@@ -10,7 +10,6 @@ packages:
     fedora:
     - 'exiftool'
     - 'ffmpeg'
-    - 'lilypond'
     - 'mpv'
     - 'pandoc'
     - 'plantuml'
@@ -55,7 +54,6 @@ packages:
     - 'ffmpeg'
     - 'graphviz'
     - 'keepassxc'
-    - 'lilypond'
     - 'mupdf-tools'
     - 'plantuml'
     - 'shared-mime-info'
