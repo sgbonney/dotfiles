@@ -1106,6 +1106,11 @@ If not a Denote file, fall back to default filename behavior."
 
 ;;;; Functions
 
+(defun {{ .handle -}}-gpx-org-import ()
+  "Run the GPX to Org Python script."
+  (interactive)
+  (executable-interpret "python {{ template "find" "**/20260326T090049--*" -}}"))
+
 (defun {{ .handle -}}-extract-pins-from-org ()
   "Extract pins from the specified Org file and display them in a temporary buffer."
   (interactive)
