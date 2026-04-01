@@ -105,6 +105,9 @@
   (global-visual-line-mode 1)
 
   (auto-save-visited-mode 1)
+
+  (add-to-list 'safe-local-variable-values
+	       '(auto-save-visited-mode))
   {{- if contains "android" .osid }}
 
   (defun android-emacs-background-service-file ()
