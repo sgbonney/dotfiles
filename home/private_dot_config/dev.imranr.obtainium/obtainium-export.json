@@ -134,6 +134,25 @@
             "allowIdChange": false
         },
         {
+            "id": "io.github.jd1378.otphelper",
+            "url": "https://github.com/jd1378/otphelper",
+            "author": "jd1378",
+            "name": "Copy SMS Code",
+            "installedVersion": "v1.20.4",
+            "latestVersion": "v1.20.4",
+            "apkUrls": "[[\"otp-helper--release-1.20.4--universal-52000-signed.apk\",\"https://api.github.com/repos/jd1378/otphelper/releases/assets/354955029\"]]",
+            "otherAssetUrls": "[[\"v1.20.4.tar.gz\",\"https://api.github.com/repos/jd1378/otphelper/tarball/v1.20.4\"],[\"v1.20.4.zip\",\"https://api.github.com/repos/jd1378/otphelper/zipball/v1.20.4\"]]",
+            "preferredApkIndex": 0,
+            "additionalSettings": "{\"includePrereleases\":false,\"fallbackToOlderReleases\":true,\"filterReleaseTitlesByRegEx\":\"\",\"filterReleaseNotesByRegEx\":\"\",\"verifyLatestTag\":false,\"sortMethodChoice\":\"date\",\"useLatestAssetDateAsReleaseDate\":false,\"releaseTitleAsVersion\":false,\"trackOnly\":false,\"versionExtractionRegEx\":\"\",\"matchGroupToUse\":\"\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"\",\"refreshBeforeDownload\":false,\"includeZips\":false,\"zippedApkFilterRegEx\":\"\"}",
+            "lastUpdateCheck": 1775562704625816,
+            "pinned": false,
+            "categories": [],
+            "releaseDate": 1770925046000000,
+            "changeLog": "- Increased code detection notification timeout to 3 minutes\r\n- Fixed a bug where ignored phrases did not work in SMS mode\r\n- Removed unused permission about accessing network state (It was added automatically by a library and not used anywhere. We decided to remove it for your peace of mind.)\r\n- Added a small reminder to check permissions on mode change\r\n\r\n- Update Turkish sensitivePhrases by @beucismis in https://github.com/jd1378/otphelper/pull/213\r\n- Translations update from Hosted Weblate by @weblate in https://github.com/jd1378/otphelper/pull/198\r\n\r\n## New Contributors\r\n* @beucismis made their first contribution in https://github.com/jd1378/otphelper/pull/213\r\n\r\n**Full Changelog**: https://github.com/jd1378/otphelper/compare/v1.20.2...v1.20.4\r\n\r\n\r\n----------\r\n\r\nSorry for the re-release, there was a small UX bug that I discovered in 1.20.3, this is basically same as 1.20.3 ",
+            "overrideSource": null,
+            "allowIdChange": false
+        },
+        {
             "id": "com.termux.x11",
             "url": "https://github.com/termux/termux-x11",
             "author": "termux",
