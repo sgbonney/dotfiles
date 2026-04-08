@@ -1028,7 +1028,54 @@ If not a Denote file, fall back to default filename behavior."
         '((main . "${title:48}     ${author editor:30%sn}     ${date year issued:4}")
           (suffix . "          ${=key= id:15}    ${=type=:12}    ${tags keywords:*}")
           (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
-          (note . "Notes on ${author editor:%etal}, ${title}"))))
+          (note . "Notes on ${author editor:%etal}, ${title}")))
+
+  (defun citar-validate-key-length (&optional max-length)
+    "Check citation key length across files in `citar-bibliography'.
+  If MAX-LENGTH is nil, default to 30 characters."
+    (interactive "P")
+    (let ((max-length (or max-length 30))
+	  (bibliography citar-bibliography)
+	  error-list)
+      (dolist (file-item bibliography)
+	(let ((file-path (if (symbolp file-item)
+			     (symbol-value file-item)
+			   file-item)))
+	  (when (and file-path (file-readable-p file-path))
+	    (with-temp-buffer
+	      (insert-file-contents file-path)
+	      (bibtex-mode)
+	      (bibtex-map-entries
+	       (lambda (key beg end)
+		 (when (> (length key) max-length)
+		   (push (format "%s:%d: Citation key '%s' exceeds %d characters (%d)\n"
+			       file-path
+			       (with-current-buffer (current-buffer)
+				 (bibtex-current-line))
+			       key max-length (length key))
+			 error-list))))))))
+      (if error-list
+	  (let ((err-buf "*Citar Key Length Errors*"))
+	    (with-current-buffer (get-buffer-create err-buf)
+	      (unless (eq major-mode 'compilation-mode) (compilation-mode))
+	      (let ((inhibit-read-only t))
+		(delete-region (point-min) (point-max))
+		(insert "Citar bibliography keys exceeding length limit:\n\n")
+		(dolist (err (sort error-list #'string-lessp))
+		  (insert err))
+		(set-buffer-modified-p nil))
+	      (goto-char (point-min))
+	      (forward-line 2))
+	    (display-buffer err-buf)
+	    nil)
+	(message "All citation keys are within %d character limit" max-length)
+	t)))
+
+  (defun {{ .handle -}}-citar-validate-after-update (&rest _)
+    "Run validation after citar updates bibliography."
+    (let ((inhibit-message t))
+      (citar-validate-key-length)))
+  (advice-add 'citar-cache--update-bibliography :after #'{{- .handle -}}-citar-validate-after-update))
 
 (use-package citar-denote
   :after org
