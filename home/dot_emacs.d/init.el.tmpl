@@ -739,7 +739,12 @@ ARG is the prefix argument."
 
 (use-package bibtex
   :ensure nil
-  :hook (bibtex-mode . hl-line-mode))
+  :hook (bibtex-mode . hl-line-mode)
+  :config
+  (defvar bibtex-library "{{- template "find" "**/20251008T085257--*" -}}")
+  (defvar bibtex-library-archive "{{- template "find" "**/20251107T112447--*" -}}")
+  (defvar bibtex-bookmarks "{{- template "find" "**/20251104T145004--*" -}}")
+  (defvar bibtex-bookmarks-archive "{{- template "find" "**/20251107T113324--*" -}}"))
 
 (use-package csv-mode
   :hook ((csv-mode . (lambda ()
@@ -1013,10 +1018,7 @@ If not a Denote file, fall back to default filename behavior."
 (use-package citar
   :defer t
   :custom
-  (citar-bibliography '("{{- template "find" "**/20251008T085257--*" -}}"
-			"{{- template "find" "**/20251107T112447--*" -}}"
-			"{{- template "find" "**/20251104T145004--*" -}}"
-			"{{- template "find" "**/20251107T113324--*" -}}"))
+  (citar-bibliography (list bibtex-library bibtex-library-archive bibtex-bookmarks bibtex-bookmarks-archive))
 
   :config
   (setq citar-file-additional-files-separator "__")
