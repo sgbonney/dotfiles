@@ -3,7 +3,6 @@
 ;;; init.el --- Init -*- lexical-binding: t -*-
 
 ;;;; Packages
-
 (use-package package
   :ensure nil
   :preface
@@ -1119,7 +1118,7 @@ If not a Denote file, fall back to default filename behavior."
 (use-package f)
 
 ;;;; Functions
-
+;;;;; General
 (defun {{ .handle -}}-gpx-org-import ()
   "Run the GPX to Org Python script."
   (interactive)
@@ -1149,8 +1148,20 @@ If not a Denote file, fall back to default filename behavior."
               (browse-url url)))  ;; Open the URL in the browser
         (message "No postcode found in the properties.")))))
 
-;;;;; KeePass
+;;;;; chezmoi
+(defun chezmoi-template-to-file (output-file)
+  "Execute chezmoi template from current buffer to OUTPUT-FILE."
+  (interactive "FOutput file: ")
+  (call-process-region (point-min) (point-max) "chezmoi" nil nil nil
+                       "execute-template" (format "--output=%s" output-file)))
 
+(defun chezmoi-template-to-denote-file (denote-id)
+  "Execute chezmoi template from current buffer to file with DENOTE-ID."
+  (interactive "sDenote ID: ")
+  (when-let ((output-file (denote-get-path-by-id denote-id)))
+    (chezmoi-template-to-file output-file)))
+
+;;;;; KeePass
 (defun keepassxc ()
   (interactive)
   {{ if contains "android" .osid -}}
