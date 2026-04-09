@@ -1210,6 +1210,12 @@ If not a Denote file, fall back to default filename behavior."
   (when-let ((output-file (denote-get-path-by-id denote-id)))
     (chezmoi-template-to-file output-file)))
 
+(defun chezmoi-template-to-denote-file-in-silo (denote-id silo-path)
+  "Execute chezmoi template from current buffer to file with DENOTE-ID in SILO-PATH."
+  (interactive "sDenote ID: \nDSilo path: ")
+  (let ((denote-directory (file-name-as-directory (expand-file-name silo-path))))
+    (chezmoi-template-to-denote-file denote-id)))
+
 ;;;;; KeePass
 (defun keepassxc ()
   (interactive)
