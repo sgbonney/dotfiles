@@ -1216,6 +1216,11 @@ If not a Denote file, fall back to default filename behavior."
   (let ((denote-directory (file-name-as-directory (expand-file-name silo-path))))
     (chezmoi-template-to-denote-file denote-id)))
 
+(defun chezmoi-codegen (denote-id)
+  "Execute chezmoi template to .codegen silo file with DENOTE-ID."
+  (interactive "sDenote ID: ")
+  (chezmoi-template-to-denote-file-in-silo denote-id "{{- .chezmoi.homeDir -}}/.codegen"))
+
 ;;;;; KeePass
 (defun keepassxc ()
   (interactive)
