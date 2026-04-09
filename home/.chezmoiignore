@@ -29,6 +29,7 @@ key.txt.age
 {{- end }}
 
 {{- if not (contains "fedora" .osid) }}
+.codegen
 .config/input-remapper-2
 Documents
 **/emacs.*
