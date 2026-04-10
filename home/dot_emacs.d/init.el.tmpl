@@ -783,7 +783,7 @@ ARG is the prefix argument."
   :config
   (yas-global-mode t)
   (setq yas-snippet-dirs
-        '("{{- template "find" "*/custom-snippets" -}}"))
+        '("{{- .chezmoi.homeDir -}}/.codegen/snippets"))
 
   (defun yas-expand-snippet-to-string (template-or-lookup)
     (when template-or-lookup
