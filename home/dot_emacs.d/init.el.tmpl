@@ -1191,28 +1191,43 @@ If not a Denote file, fall back to default filename behavior."
         (message "No postcode found in the properties.")))))
 
 ;;;;; chezmoi
-(defun chezmoi-template-to-file (output-file)
-  "Execute chezmoi template from current buffer to OUTPUT-FILE."
+(defun chezmoi-apply-template-to-file (output-file)
+  "Apply chezmoi template from current buffer to OUTPUT-FILE."
   (interactive "FOutput file: ")
   (call-process-region (point-min) (point-max) "chezmoi" nil nil nil
                        "execute-template" (format "--output=%s" output-file)))
 
-(defun chezmoi-template-to-denote-file (denote-id)
-  "Execute chezmoi template from current buffer to file with DENOTE-ID."
+(defun chezmoi-apply-template-to-denote-file (denote-id)
+  "Apply chezmoi template from current buffer to file with DENOTE-ID."
   (interactive "sDenote ID: ")
   (when-let ((output-file (denote-get-path-by-id denote-id)))
-    (chezmoi-template-to-file output-file)))
+    (chezmoi-apply-template-to-file output-file)))
 
-(defun chezmoi-template-to-denote-file-in-silo (denote-id silo-path)
-  "Execute chezmoi template from current buffer to file with DENOTE-ID in SILO-PATH."
-  (interactive "sDenote ID: \nDSilo path: ")
-  (let ((denote-directory (file-name-as-directory (expand-file-name silo-path))))
-    (chezmoi-template-to-denote-file denote-id)))
+(defun codegen-denote-date-identifier-p (value)
+  "Return non-nil if VALUE is a valid denote date identifier for codegen."
+  (and (stringp value)
+       (boundp 'denote-date-identifier-regexp)
+       (string-match-p denote-date-identifier-regexp value)))
+(put 'codegen 'safe-local-variable #'codegen-denote-date-identifier-p)
 
-(defun chezmoi-codegen (denote-id)
-  "Execute chezmoi template to .codegen silo file with DENOTE-ID."
-  (interactive "sDenote ID: ")
-  (chezmoi-template-to-denote-file-in-silo denote-id "{{- .chezmoi.homeDir -}}/.codegen"))
+(defun chezmoi-codegen ()
+  "Apply chezmoi template from current buffer to file with DENOTE-ID in .codegen SILO-PATH using the codegen file-local variable."
+  (interactive)
+  (let ((codegen-id (cdr (assq 'codegen file-local-variables-alist))))
+    (if codegen-id
+        (let ((denote-directory (file-name-as-directory
+                                (expand-file-name "{{- .chezmoi.homeDir -}}/.codegen"))))
+          (message "Processing codegen ID: %s" codegen-id)
+          (chezmoi-apply-template-to-denote-file codegen-id))
+      (message "No codegen file-local variable found"))))
+
+(defun chezmoi-codegen-all ()
+  "Apply chezmoi-codegen to all files with chezmoi, codegen, and template denote keywords."
+  (interactive)
+  (let ((files (denote-directory-files "_chezmoi.*_codegen.*_template")))
+    (dolist (file files)
+      (with-current-buffer (find-file-noselect file)
+        (chezmoi-codegen)))))
 
 ;;;;; KeePass
 (defun keepassxc ()
