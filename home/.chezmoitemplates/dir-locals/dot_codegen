@@ -1,3 +1,0 @@
-{{- /* -*- mode: emacs-lisp -*- */ -}}
-
-((nil . ((denote-directory . "{{- .chezmoi.homeDir -}}/.codegen"))))
