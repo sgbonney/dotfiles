@@ -932,7 +932,10 @@ ARG is the prefix argument."
   (denote-known-keywords '("agenda" "archive" "hidden"))
 
   :hook
-  (dired-mode . denote-dired-mode))
+  (dired-mode . denote-dired-mode)
+
+  :config
+  (put 'denote-id 'safe-local-variable #'denote-date-identifier-p))
 
 (use-package denote-org
   :after denote
@@ -1203,23 +1206,16 @@ If not a Denote file, fall back to default filename behavior."
   (when-let ((output-file (denote-get-path-by-id denote-id)))
     (chezmoi-apply-template-to-file output-file)))
 
-(defun codegen-denote-date-identifier-p (value)
-  "Return non-nil if VALUE is a valid denote date identifier for codegen."
-  (and (stringp value)
-       (boundp 'denote-date-identifier-regexp)
-       (string-match-p denote-date-identifier-regexp value)))
-(put 'codegen 'safe-local-variable #'codegen-denote-date-identifier-p)
-
 (defun chezmoi-codegen ()
   "Apply chezmoi template from current buffer to file with DENOTE-ID in .codegen SILO-PATH using the codegen file-local variable."
   (interactive)
-  (let ((codegen-id (cdr (assq 'codegen file-local-variables-alist))))
-    (if codegen-id
+  (let ((codegen-denote-id (cdr (assq 'denote-id file-local-variables-alist))))
+    (if codegen-denote-id
         (let ((denote-directory (file-name-as-directory
                                 (expand-file-name "{{- .chezmoi.homeDir -}}/.codegen"))))
-          (message "Processing codegen ID: %s" codegen-id)
-          (chezmoi-apply-template-to-denote-file codegen-id))
-      (message "No codegen file-local variable found"))))
+          (message "Processing codegen Denote ID: %s" codegen-denote-id)
+          (chezmoi-apply-template-to-denote-file codegen-denote-id))
+      (message "No denote-id file-local variable found"))))
 
 (defun chezmoi-codegen-all ()
   "Apply chezmoi-codegen to all files with chezmoi, codegen, and template denote keywords."
