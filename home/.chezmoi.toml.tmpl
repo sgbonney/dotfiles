@@ -20,3 +20,6 @@ encryption = "age"
 
 [keepassxc]
     database = "{{- .chezmoi.homeDir -}}/.keepass/passwords.kdbx"
+
+[template]
+    options = ["missingkey=zero"]
