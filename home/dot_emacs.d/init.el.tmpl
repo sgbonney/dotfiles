@@ -932,10 +932,7 @@ ARG is the prefix argument."
   (denote-known-keywords '("agenda" "archive" "hidden"))
 
   :hook
-  (dired-mode . denote-dired-mode)
-
-  :config
-  (put 'denote-id 'safe-local-variable #'denote-date-identifier-p))
+  (dired-mode . denote-dired-mode))
 
 (use-package denote-org
   :after denote
@@ -1206,16 +1203,26 @@ If not a Denote file, fall back to default filename behavior."
   (when-let ((output-file (denote-get-path-by-id denote-id)))
     (chezmoi-apply-template-to-file output-file)))
 
+(defun chezmoi-extract-template-denote-id (&optional buffer)
+  "Extract and validate the DENOTE-ID assigned to chezmoi template $target variable from current buffer."
+  (with-current-buffer (or buffer (current-buffer))
+    (save-excursion
+      (goto-char (point-min))
+      (when-let* ((match (re-search-forward "\\$target\\s-*\\(?::=\\|=\\)\\s-*\"\\(\\[\\[.+?\\]\\]\\)\"" nil t))
+                  (extracted (denote-extract-id-from-string (match-string 1)))
+                  ((denote-date-identifier-p extracted)))
+        extracted))))
+
 (defun chezmoi-codegen ()
-  "Apply chezmoi template from current buffer to file with DENOTE-ID in .codegen SILO-PATH using the codegen file-local variable."
+  "Apply chezmoi template from current buffer to file with DENOTE-ID in .codegen SILO-PATH using the $target variable."
   (interactive)
-  (let ((codegen-denote-id (cdr (assq 'denote-id file-local-variables-alist))))
+  (let ((codegen-denote-id (chezmoi-extract-template-denote-id)))
     (if codegen-denote-id
         (let ((denote-directory (file-name-as-directory
                                 (expand-file-name "{{- .chezmoi.homeDir -}}/.codegen"))))
           (message "Processing codegen Denote ID: %s" codegen-denote-id)
           (chezmoi-apply-template-to-denote-file codegen-denote-id))
-      (message "No denote-id file-local variable found"))))
+      (message "No target with valid Denote ID found in buffer"))))
 
 (defun chezmoi-codegen-all ()
   "Apply chezmoi-codegen to all files with chezmoi, codegen, and template denote keywords."
