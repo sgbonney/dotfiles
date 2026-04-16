@@ -5,11 +5,6 @@
 {{- $identifier := (includeTemplate "denote/timestamp" .identifier) -}}
 {{- $footer := .footer -}}
 
-{{- if eq .executable "python" -}}
-{{- $header = "\"\"\"" -}}
-{{- $footer = "\"\"\"" -}}
-{{- end -}}
-
 {{- if .title -}}
 {{- $list = append $list (print "title:      " .title) -}}
 {{- end -}}
@@ -29,6 +24,26 @@
 {{- end -}}
 {{- if .source -}}
 {{- $list = append $list (print "source:     " (includeTemplate "denote/link" .source)) -}}
+{{- end -}}
+
+{{- if eq .executable "python" -}}
+{{- $header = "\"\"\"" -}}
+{{- $footer = "\"\"\"" -}}
+{{- end -}}
+
+{{- if eq .executable "snippet" -}}
+{{- $header = printf "-*- mode: %s -*-" .executable -}}
+{{- if .title -}}
+{{- $list = append $list (print "name:       " .title) -}}
+{{- end -}}
+{{- if $identifier -}}
+{{- $list = append $list (print "uuid:       " $identifier) -}}
+{{- end -}}
+{{- if .expandEnv -}}
+{{- $list = append $list (print "expand-env: " .expandEnv) -}}
+{{- end -}}
+{{- $comment = "# " -}}
+{{- $footer = "--\n" | comment $comment -}}
 {{- end -}}
 
 {{- if $header -}}
