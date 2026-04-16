@@ -1,0 +1,40 @@
+{{- /* chezmoi:template:missing-key=zero */ -}}
+{{- $header := .header -}}
+{{- $list := list -}}
+{{- $comment := .comment -}}
+{{- $identifier := (includeTemplate "denote/timestamp" .identifier) -}}
+{{- $footer := .footer -}}
+
+{{- if eq .executable "python" -}}
+{{- $header = "\"\"\"" -}}
+{{- $footer = "\"\"\"" -}}
+{{- end -}}
+
+{{- if .title -}}
+{{- $list = append $list (print "title:      " .title) -}}
+{{- end -}}
+{{- if $identifier -}}
+{{- $date := splitList "" $identifier -}}
+{{- $formattedDate := printf "%s%s%s%s-%s%s-%s%s" (index $date 0) (index $date 1) (index $date 2) (index $date 3) (index $date 4) (index $date 5) (index $date 6) (index $date 7) -}}
+{{- $list = append $list (print "date:       " $formattedDate) -}}
+{{- end -}}
+{{- if .tags -}}
+{{- $list = append $list (print "tags:       " .tags) -}}
+{{- end -}}
+{{- if $identifier -}}
+{{- $list = append $list (print "identifier: " $identifier) -}}
+{{- end -}}
+{{- if .signature -}}
+{{- $list = append $list (print "signature:  " .signature) -}}
+{{- end -}}
+{{- if .source -}}
+{{- $list = append $list (print "source:     " (includeTemplate "denote/link" .source)) -}}
+{{- end -}}
+
+{{- if $header -}}
+{{- $header -}}
+{{- end }}
+{{ $list | join "\n" | comment (or $comment "") }}
+{{ if $footer -}}
+{{- $footer -}}
+{{- end -}}
